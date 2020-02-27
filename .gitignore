@@ -2,3 +2,4 @@ data-generation/virtual-machines/
 data-generation/packer-cache/
 project.code-workspace
 data-generation/capture/
+data-parser/data/
