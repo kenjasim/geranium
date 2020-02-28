@@ -19,7 +19,7 @@ class DataGen():
 
             # Start Generating Normal Network Data using 
             # https://github.com/ecapuano/web-traffic-generator
-            os.system("timeout 10m python3 traffic-gen/gen.py")
+            os.system("timeout 30m python3 traffic-gen/gen.py")
             
         else:
             # Run the virtual machines
@@ -56,7 +56,7 @@ class DataGen():
 
     # Run wireshark and store the file in the data folder
     def start_network_capture(self):
-        command = "wireshark -k -i wlp3s0 -a duration:600 -w capture/" + self.attack + ".pcapng"
+        command = "wireshark -k -i wlp3s0 -a duration:1800 -w capture/" + self.attack + ".pcapng"
         os.system(command)
     
     #Function which runs the attack machine packer build

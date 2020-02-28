@@ -44,7 +44,7 @@ import datagen
 # datagen.DataGen("udpscan")
 
 # # Null Scan -------------------------------
-datagen.DataGen("nullscan")
+# datagen.DataGen("nullscan")
 
 # # FIN Scan --------------------------------
 # datagen.DataGen("finscan")

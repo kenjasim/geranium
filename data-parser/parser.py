@@ -4,6 +4,7 @@ class Parser():
 
     def __init__(self, target):
         self.target = target
+        print(self.target)
 
     def write_csv (self, input_file, output_file, filter):
         # Read the capture file
@@ -93,6 +94,3 @@ class Parser():
         #     if IP in packet:
         #         protocol = packet.ip.protocol
         pass
-
-p = Parser("finflood")
-p.write_csv('../data-generation/capture/finflood.pcapng', 'data/finflood.csv', 'ip.addr == 192.168.0.15')
