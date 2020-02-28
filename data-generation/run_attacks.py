@@ -6,7 +6,7 @@ import datagen
 # ==========================================
 
 # Run Normal Generator --------------------
-# datagen.DataGen("normal")
+datagen.DataGen("normal")
 
 # ==========================================
 # =             DoS Attacks                =

@@ -1,6 +1,6 @@
-clickDepth = 5 # how deep to browse from the rootURL
-minWait = 5 # minimum amount of time allowed between HTTP requests
-maxWait = 10 # maximum amount of time to wait between HTTP requests
+clickDepth = 10 # how deep to browse from the rootURL
+minWait = 0 # minimum amount of time allowed between HTTP requests
+maxWait = 3 # maximum amount of time to wait between HTTP requests
 debug = False # set to True to enable useful console output
 
 # use this single item list to test how a site responds to this crawler
@@ -10,6 +10,7 @@ debug = False # set to True to enable useful console output
 rootURLs = [
 	"https://digg.com/",
 	"https://www.yahoo.com",
+	"https://www.google.com",
 	"https://www.reddit.com",
 	"http://www.cnn.com",
 	"http://www.ebay.com",
