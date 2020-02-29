@@ -88,9 +88,3 @@ class Parser():
         
         text_file.close()
 
-    def data_extraction(self):
-        # Extract the relevant things from the packets
-        # for packet in self.cap:
-        #     if IP in packet:
-        #         protocol = packet.ip.protocol
-        pass

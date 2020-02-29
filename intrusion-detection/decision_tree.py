@@ -21,7 +21,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2) # 80% t
 
 # Create Decision Tree classifer object
 clf = DecisionTreeClassifier()
-
+ 
 # Train Decision Tree Classifer
 clf = clf.fit(X_train,y_train)
 

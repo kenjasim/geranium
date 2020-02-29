@@ -1,4 +1,26 @@
 import pandas as pd
+import parser
+
+# Collect the data from the packets and save them as csvs
+# normal
+p = parser.Parser("normal")
+p.write_csv('../data-generation/capture/normal.pcapng', 'data/normal.csv', None)
+
+# fin flood
+p = parser.Parser("finflood")
+p.write_csv('../data-generation/capture/finflood.pcapng', 'data/finflood.csv', 'ip.addr == 192.168.0.15')
+
+# synflood
+p = parser.Parser("synflood")
+p.write_csv('../data-generation/capture/synflood.pcapng', 'data/synflood.csv', 'ip.addr == 192.168.0.15')
+
+# pshackflood
+p = parser.Parser("pshackflood")
+p.write_csv('../data-generation/capture/pshackflood.pcapng', 'data/pshackflood.csv', 'ip.addr == 192.168.0.15')
+
+# udpflood
+p = parser.Parser("udpflood")
+p.write_csv('../data-generation/capture/udpflood.pcapng', 'data/udpflood.csv', 'ip.addr == 192.168.0.15')
 
 # import all the data as pandas dataframes
 normal = pd.read_csv("data/normal.csv")
@@ -8,7 +30,7 @@ udpflood = pd.read_csv("data/udpflood.csv")
 finflood = pd.read_csv("data/finflood.csv")
 pshackflood = pd.read_csv("data/pshackflood.csv")
 
-text_file = open("data/dataset.csv", "w")
+text_file = open("../intrusion-detection/dataset.csv", "w")
 text_file.write("tcp_packets, tcp_source_port, tcp_destination_port, tcp_fin_flag, tcp_syn_flag, tcp_push_flag, tcp_ack_flag, tcp_urgent_flag, udp_packets, udp_source_port, udp_destination_port, icmp_packets, target")
 text_file.write("\n")
 
