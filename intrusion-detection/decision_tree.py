@@ -29,7 +29,9 @@ clf = clf.fit(X_train,y_train)
 y_pred = clf.predict(X_test)
 
 # Model Accuracy, how often is the classifier correct?
-print("Accuracy:",metrics.accuracy_score(y_test, y_pred))
+print("Accuracy: ",metrics.accuracy_score(y_test, y_pred))
+print("Precision: ",metrics.precision_score(y_test, y_pred, average='micro'))
+print("Recal: ",metrics.recall_score(y_test, y_pred, average='micro'))
 
 # Visualise Decison tree
 dot_data = StringIO()
