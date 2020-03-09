@@ -3,5 +3,5 @@
 # Run the attack
 timeout 10m bash -c -- 'while true
 do
-    nmap -sN 192.168.0.15
+    nmap -sN 192.168.0.15/24
 done'

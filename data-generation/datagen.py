@@ -56,7 +56,7 @@ class DataGen():
 
     # Run wireshark and store the file in the data folder
     def start_network_capture(self):
-        command = "wireshark -k -i wlp3s0 -a duration:14400 -w capture/" + self.attack + ".pcapng"
+        command = "wireshark -k -i wlp3s0 -a duration:600 -w capture/" + self.attack + ".pcapng"
         os.system(command)
     
     #Function which runs the attack machine packer build

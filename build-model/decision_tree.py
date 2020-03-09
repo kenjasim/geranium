@@ -9,6 +9,7 @@ from sklearn.tree import export_graphviz
 from sklearn.externals.six import StringIO  
 from IPython.display import Image  
 import pydotplus
+from joblib import dump, load
 
 # import the dataset
 dataset = pd.read_csv("dataset.csv")
@@ -30,8 +31,12 @@ y_pred = clf.predict(X_test)
 
 # Model Accuracy, how often is the classifier correct?
 print("Accuracy: ",metrics.accuracy_score(y_test, y_pred))
-print("Precision: ",metrics.precision_score(y_test, y_pred, average='micro'))
-print("Recal: ",metrics.recall_score(y_test, y_pred, average='micro'))
+print("Precision: ",metrics.precision_score(y_test, y_pred, average=None))
+print("Recal: ",metrics.recall_score(y_test, y_pred, average=None))
+
+# Save Decision Tree Model to File to be redeployed
+from joblib import dump, load
+dump(clf, '../intrusion-detection/IDS.joblib') 
 
 # Visualise Decison tree
 dot_data = StringIO()
