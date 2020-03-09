@@ -1,4 +1,5 @@
 import pyshark
+import pandas as pd
 
 class Parser():
 
@@ -88,3 +89,55 @@ class Parser():
         
         text_file.close()
 
+    def create_csv_rows(self, file, name, dataset):
+        datafrm = pd.read_csv(file)
+        datafrm['time'] = pd.to_datetime(datafrm['time'], format='%Y-%m-%d %H:%M:%S')
+
+        datafrm = datafrm.set_index('time')
+
+        for _, df in datafrm.groupby(pd.Grouper(freq='1s')):
+            protocol = df[" protocol"].value_counts()
+            tcp_packets = 0
+            udp_packets = 0
+            icmp_packets = 0
+            if len(protocol) > 0:
+                dic = protocol.to_dict()
+                if 6 in dic.keys():
+                    tcp_packets = dic[6]
+                if 17 in dic.keys():
+                    udp_packets = dic[17]
+                if 1 in dic.keys():
+                    icmp_packets = dic[1]
+
+            tcpsrcports = 0
+            udpsrcports = 0
+            # Return the source port of the packet
+            srcport = df[[" protocol", " source_port"]]
+            for _, src in srcport.groupby(" protocol"):
+                if (not(src[src[' protocol'] == 6].empty)):
+                    tcpsrcports = len(src[" source_port"].value_counts())
+                if (not(src[src[' protocol'] == 17].empty)):
+                    udpsrcports = len(src[" source_port"].value_counts()) 
+                
+            tcpdstports = 0
+            udpdstports = 0
+            # Destination port
+            dstport = df[[" protocol", " destination_port"]]
+            for _, dst in dstport.groupby(" protocol"):
+                if (not(dst[dst[' protocol'] == 6].empty)):
+                    tcpdstports = len(dst[" destination_port"].value_counts())
+                if (not(dst[dst[' protocol'] == 17].empty)):
+                    udpdstports = len(dst[" destination_port"].value_counts())
+
+
+            # Get the flags
+            finflag = df[" fin_flag"].sum()
+            synflag = df[" syn_flag"].sum()
+            pushflag = df[" push_flag"].sum()
+            ackflag = df[" ack_flag"].sum()
+            urgflag = df[" urgent_flag"].sum()
+            
+            # create row
+            new_row = str(tcp_packets) + ',' + str(tcpsrcports) + ',' + str(tcpdstports) + ',' + str(finflag) + ',' + str(synflag) + ',' + str(pushflag) + ',' + str(ackflag) + ',' + str(urgflag) + ',' + str(udp_packets) + ',' + str(udpsrcports) + ',' + str(udpdstports) + ',' + str(icmp_packets) +',' +name
+            dataset.write(new_row)
+            dataset.write("\n")
