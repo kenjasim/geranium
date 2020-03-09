@@ -4,7 +4,7 @@
 
 timeout 10m bash -c -- 'while true
 do
-    nmap -sA 192.168.0.15
+    nmap -sA 192.168.0.15/24
 done'
 
 
