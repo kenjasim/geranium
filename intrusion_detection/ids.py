@@ -1,4 +1,3 @@
-import pyshark
 from scapy.all import sniff
 import threading
 import queue

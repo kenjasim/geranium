@@ -1,9 +1,7 @@
 import pandas as pd
 import parser
 
-text_file = open("../intrusion-detection/dataset.csv", "w")
-text_file.write("tcp_packets, tcp_source_port, tcp_destination_port, tcp_fin_flag, tcp_syn_flag, tcp_push_flag, tcp_ack_flag, tcp_urgent_flag, udp_packets, udp_source_port, udp_destination_port, icmp_packets, target")
-text_file.write("\n")
+
 # Collect the data from the packets and save them as csvs
 # normal
 p = parser.Parser("normal")

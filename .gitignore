@@ -1,5 +1,5 @@
-data-generation/virtual-machines/
-data-generation/packer-cache/
+data_generation/virtual-machines/
+data_generation/packer-cache/
 project.code-workspace
-data-generation/capture/
-data-parser/data/
+data_generation/capture/
+data_processing/data/

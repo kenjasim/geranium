@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier # Import Decision Tree Classifier
 from sklearn.model_selection import train_test_split # Import train_test_split function
 from sklearn import metrics #Import scikit-learn metrics module for accuracy calculation
+from sklearn.model_selection import cross_val_score
 
 from sklearn.tree import export_graphviz
 from sklearn.externals.six import StringIO  
@@ -12,7 +13,7 @@ import pydotplus
 from joblib import dump, load
 
 # import the dataset
-dataset = pd.read_csv("dataset.csv")
+dataset = pd.read_csv("tes.csv")
 feature_cols = ["tcp_packets", "tcp_source_port", "tcp_destination_port", "tcp_fin_flag", "tcp_syn_flag", "tcp_push_flag", "tcp_ack_flag", "tcp_urgent_flag", "udp_packets", "udp_source_port", "udp_destination_port", "icmp_packets"]
 X = dataset[feature_cols]
 y = dataset.target
@@ -28,6 +29,11 @@ clf = clf.fit(X_train,y_train)
 
 #Predict the response for test dataset
 y_pred = clf.predict(X_test)
+print (y_train)
+
+# Do cross-validation
+scores = cross_val_score(clf, X, y, cv=5)
+print(scores)
 
 # Model Accuracy, how often is the classifier correct?
 print("Accuracy: ",metrics.accuracy_score(y_test, y_pred))
