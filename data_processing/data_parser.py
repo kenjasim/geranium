@@ -20,7 +20,7 @@ class DataParser():
         self.packets = []
 
     def sniff_packets(self):
-        sniff(prn=parser.process_packet, timeout=self.time)
+        sniff(prn=self.process_packet, timeout=self.time)
 
     def process_packet(self, packet):
         if 'TCP' in packet:
