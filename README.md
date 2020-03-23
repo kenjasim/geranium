@@ -21,9 +21,8 @@ timeout 10m msfconsole -q -x "use auxiliary/dos/tcp/synflood;set RHOST <IP>; exp
 
 Once this is stored in the attacks folder you can run the data generation by
 
-```python
-import datagen
-datagen.DataGen("synflood")
+```
+./geranium.py attack
 ```
 This will run for 10 minutes and store the packet data into a pcapng file.
 
