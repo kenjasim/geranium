@@ -1,8 +1,8 @@
 data-gen:
     executable_path: /usr/local/bin/packer
     time: 600
-    attack_machine_path: data-generation/virtual-machines/attack.ova
-    target_machine_path: data-generation/virtual-machines/target.ova
+    attack_machine_path: data_generation/virtual-machines/attack.ova
+    target_machine_path: data_generation/virtual-machines/target.ova
     attack_username: root
     attack_password: yeet
     attack_ip: "192.168.0.15"

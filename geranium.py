@@ -11,6 +11,7 @@ import data_modeling
 import intrusion_detection
 
 import sys, argparse
+import atexit
 
 # Do This https://docs.python.org/dev/library/argparse.html#sub-commands
 
@@ -74,22 +75,11 @@ Avalibile commands:
         parser = argparse.ArgumentParser(
             description='Generate network data using a VM image',
             usage='''geranium.py generate <attack name> <attack script>''')
-        # try:
+        try:
             # Start the data generation part of the project
-        if sys.argv[2] == "normal":
-            data_generation.DataGen(sys.argv[2], 
-                                None, 
-                                self.executable_path, 
-                                self.time, 
-                                self.attack_machine_path,
-                                self.target_machine_path,
-                                self.attack_username,
-                                self.attack_password,
-                                self.attack_ip,
-                                self.dataset_path)
-        else:
-            data_generation.DataGen(sys.argv[2], 
-                                    sys.argv[3], 
+            if sys.argv[2] == "normal":
+                data_generation.DataGen(sys.argv[2], 
+                                    None, 
                                     self.executable_path, 
                                     self.time, 
                                     self.attack_machine_path,
@@ -98,8 +88,21 @@ Avalibile commands:
                                     self.attack_password,
                                     self.attack_ip,
                                     self.dataset_path)
-        # except:
-        #     parser.print_help()
+            else:
+                d = data_generation.DataGen(sys.argv[2], 
+                                            sys.argv[3], 
+                                            self.executable_path, 
+                                            self.time, 
+                                            self.attack_machine_path,
+                                            self.target_machine_path,
+                                            self.attack_username,
+                                            self.attack_password,
+                                            self.attack_ip,
+                                            self.dataset_path)
+                # Ensure on exit that the virtual machines get wiped
+                atexit.register(d.exit_handler)
+        except:
+            parser.print_help()
 
 
     def process(self):

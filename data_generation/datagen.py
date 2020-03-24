@@ -4,7 +4,6 @@ import sys, getopt
 import argparse
 import urllib.request
 import time
-import atexit
 from packerpy import PackerExecutable
 
 import sys
@@ -44,6 +43,7 @@ class DataGen():
         #Check the arguments and run the relevent vms
 
         if self.attack == "normal":
+            print("--------------------------------------------------------------")
             print("Normal Network Data Generation" )
             print("--------------------------------------------------------------")
             #start collecting network data
@@ -55,13 +55,10 @@ class DataGen():
             os.system("timeout " + str(self.time) + " python3 data_generation/traffic-gen/gen.py")
             
         else:
-            # Ensure on exit that the virtual machines get wiped
-            atexit.register(self.exit_handler)
-
             # Run the virtual machines
+            print("--------------------------------------------------------------")
             print("Run Virtual Machines")
             print("--------------------------------------------------------------")
-            print("\n")
             self.run_vms()
 
             # Start collecting network data if the machine is up
@@ -73,7 +70,6 @@ class DataGen():
             #start collecting network data
             print("Start Collecting Network Data")
             print("--------------------------------------------------------------")
-            print("\n")
             capture = threading.Thread(target = self.snif_packets)
             capture.start()
 
@@ -88,7 +84,7 @@ class DataGen():
         m1.start()
 
     def ping_vm(self):
-        response = os.system("ping -c " + self.attack_ip +" 2>&1 >/dev/null")
+        response = os.system("ping -c 1 " + self.attack_ip + " 2>&1 >/dev/null")
 
         # Check if the machine is up
         if response == 0:
@@ -105,8 +101,7 @@ class DataGen():
 
     #Function which runs the attack machine packer build
     def create_attack_machine(self):
-        print("Building the attack machine: " + self.attack_machine_path)
-        print("--------------------------------------------------------------")
+        print("Building the attack machine: " + self.attack_machine_path + "\n""--------------------------------------------------------------")
         p = PackerExecutable(self.executable_path)
         # Build the attack template
         attack_template = """{{
@@ -114,7 +109,7 @@ class DataGen():
                 {{
                 "type"                  : "virtualbox-ovf",
                 "vboxmanage"            : [
-                                            ["modifyvm", "{{.Name}}", "--bridgeadapter1", "en0"],
+                                            ["modifyvm", "attack", "--bridgeadapter1", "en0"]
                                           ],
                 "source_path"           : "{machine}",
                 "vm_name"               : "attack",
@@ -142,40 +137,45 @@ class DataGen():
                                           ip = self.attack_ip,
                                           username = self.attack_username,
                                           password = self.attack_password)
-        (_, _, err) = p.build(template, force=True)
+        (_, out, err) = p.build(template, force=True)
+        print (out)
         if err:
             print (err)
 
     #Function which runs the network target machine build
     def create_network_target(self):
-        print("Building the target machine: " + self.target_machine_path)
-        print("--------------------------------------------------------------")
+        print("Building the target machine: " + self.target_machine_path + "\n""--------------------------------------------------------------")
         p = PackerExecutable(self.executable_path)
         target_time = 300 + self.time
-        template = """{
+        template = """{{
             "builders": [
-                {
+                {{
                 "type"                  : "virtualbox-ovf",
                 "vboxmanage"            : [
-                                            ["modifyvm", "{{.Name}}", "--bridgeadapter1", "en0"],
+                                            ["modifyvm", "target", "--bridgeadapter1", "en0"]
                                           ],
                 "source_path"           : "{machine}",
                 "vm_name"               : "target",
-                "boot_wait"             : "{time}s",
-                }
+                "communicator"          : "none",
+                "boot_wait"             : "{time}s"
+                }}
             ]
-        }
+        }}
         """
         # Build the template
         template = template.format(machine = self.target_machine_path, time = target_time)
-        (_, _, err) = p.build(template, force=True)
+        (_, out, err) = p.build(template, force=True)
+        print (out)
         if err:
             print (err)
 
     def exit_handler(self):
         print("Delete attack and target machines")
         print("--------------------------------------------------------------")
+        # Delete the virtual machines
         os.system('VBoxManage unregistervm --delete "attack"')
         os.system('VBoxManage unregistervm --delete "target"')
+        # Remove any folders created by packer
         os.system('rm -r packer_cache/')
+        os.system('rm -r output-virtualbox-ovf/')
 
