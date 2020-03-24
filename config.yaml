@@ -1,11 +1,15 @@
 data-gen:
     executable_path: /usr/local/bin/packer
-    time: 10
+    time: 600
     attack_machine_path: data-generation/virtual-machines/attack.ova
     target_machine_path: data-generation/virtual-machines/target.ova
     attack_username: root
     attack_password: yeet
     attack_ip: "192.168.0.15"
-    data_path: "data-generation/capture/"
 data-processing:
-    dataset_path: ../build_model/dataset.csv
+    dataset_path: data.csv
+    filter: 
+data-modeling:
+    model_path: IDS.joblib
+    image_path: tree.png
+

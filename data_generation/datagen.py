@@ -24,8 +24,12 @@ class DataGen():
                 attack_username, 
                 attack_password, 
                 attack_ip,
-                data_path,
                 dataset_path):
+
+        print("#######################")
+        print("#   DATA GENERATION   #")
+        print("#######################")
+        print ('\n')
         
         self.attack = attack
         self.attack_path = attack_path
@@ -36,24 +40,28 @@ class DataGen():
         self.attack_username = attack_username 
         self.attack_password = attack_password
         self.attack_ip = attack_ip
-        self.data_path = data_path
         self.dataset_path = dataset_path
         #Check the arguments and run the relevent vms
 
         if self.attack == "normal":
+            print("Normal Network Data Generation" )
+            print("--------------------------------------------------------------")
             #start collecting network data
             capture = threading.Thread(target = self.snif_packets)
             capture.start()
 
             # Start Generating Normal Network Data using 
             # https://github.com/ecapuano/web-traffic-generator
-            os.system("timeout " + self.time + "m python3 traffic-gen/gen.py")
+            os.system("timeout " + str(self.time) + " python3 data_generation/traffic-gen/gen.py")
             
         else:
             # Ensure on exit that the virtual machines get wiped
             atexit.register(self.exit_handler)
 
             # Run the virtual machines
+            print("Run Virtual Machines")
+            print("--------------------------------------------------------------")
+            print("\n")
             self.run_vms()
 
             # Start collecting network data if the machine is up
@@ -63,6 +71,9 @@ class DataGen():
             
             time.sleep(10)
             #start collecting network data
+            print("Start Collecting Network Data")
+            print("--------------------------------------------------------------")
+            print("\n")
             capture = threading.Thread(target = self.snif_packets)
             capture.start()
 
@@ -87,13 +98,15 @@ class DataGen():
 
     #Run scapy and collect the network packets
     def snif_packets(self):
-        parser = data_processing.DataParser(self.attack, self.dataset_path, (str(self.time) + "m"))
+        parser = data_processing.DataParser(self.attack, self.dataset_path, self.time)
         parser.sniff_packets()
         parser.collate_packets()
 
+
     #Function which runs the attack machine packer build
     def create_attack_machine(self):
-        print("Building the attack machine =========================================")
+        print("Building the attack machine: " + self.attack_machine_path)
+        print("--------------------------------------------------------------")
         p = PackerExecutable(self.executable_path)
         # Build the attack template
         attack_template = """{{
@@ -135,9 +148,10 @@ class DataGen():
 
     #Function which runs the network target machine build
     def create_network_target(self):
-        print("Building the target machine =========================================")
+        print("Building the target machine: " + self.target_machine_path)
+        print("--------------------------------------------------------------")
         p = PackerExecutable(self.executable_path)
-        target_time = 5 + self.time
+        target_time = 300 + self.time
         template = """{
             "builders": [
                 {
@@ -147,7 +161,7 @@ class DataGen():
                                           ],
                 "source_path"           : "{machine}",
                 "vm_name"               : "target",
-                "boot_wait"             : "{time}m",
+                "boot_wait"             : "{time}s",
                 }
             ]
         }
@@ -159,6 +173,8 @@ class DataGen():
             print (err)
 
     def exit_handler(self):
+        print("Delete attack and target machines")
+        print("--------------------------------------------------------------")
         os.system('VBoxManage unregistervm --delete "attack"')
         os.system('VBoxManage unregistervm --delete "target"')
         os.system('rm -r packer_cache/')

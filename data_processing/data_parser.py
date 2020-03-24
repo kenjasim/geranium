@@ -23,6 +23,7 @@ class DataParser():
         sniff(prn=self.process_packet, timeout=self.time)
 
     def process_packet(self, packet):
+        time = packet.time
         if 'TCP' in packet:
             # Return the source port of the packet
             srcport = packet["TCP"].sport
@@ -60,7 +61,7 @@ class DataParser():
             else:
                 urgflag = 0    
 
-            data = [6, srcport, dstport, finflag, synflag, pushflag, ackflag, urgflag, self.target]
+            data = [time, 6, srcport, dstport, finflag, synflag, pushflag, ackflag, urgflag, self.target]
             self.packets.append(data)
 
         if 'UDP' in packet:
@@ -70,27 +71,30 @@ class DataParser():
             # Destination port
             dstport = packet["UDP"].dport
 
-            data = [17, srcport, dstport, 0, 0, 0, 0, 0, self.target]
+            data = [time, 17, srcport, dstport, 0, 0, 0, 0, 0, self.target]
             self.packets.append(data)
 
         if 'ICMP' in packet:
             # write the data of the ICMP packets
-            data = [1, 0, 0, 0, 0, 0, 0, 0, self.target]
+            data = [time, 1, 0, 0, 0, 0, 0, 0, 0, self.target]
             self.packets.append(data)
 
     def collate_packets(self):
 
         # Import the data and index with the time
         datafrm = pd.DataFrame(self.packets)
-        datafrm['time'] = pd.to_datetime(datafrm['time'], format='%Y-%m-%d %H:%M:%S')
-        datafrm = datafrm.set_index('time')
+        datafrm.columns = ["time", "protocol", "source_port", "destination_port", "finflag", "synflag", "pushflag", "ackflag", "urgflag", "target"]
+        print (datafrm.head)
+        datafrm["time"] = pd.to_datetime(datafrm["time"],unit='s')
+
+        datafrm = datafrm.set_index("time")
 
         # Start writing the csv file
         text_file = open(self.dataset_path, "a")
 
         for _, df in datafrm.groupby(pd.Grouper(freq='1s')):
 
-            protocol = df[0].value_counts()
+            protocol = df["protocol"].value_counts()
             tcp_packets = 0
             udp_packets = 0
             icmp_packets = 0
@@ -106,30 +110,30 @@ class DataParser():
             tcpsrcports = 0
             udpsrcports = 0
             # Return the source port of the packet
-            srcport = df[[0, 1]]
-            for _, src in srcport.groupby(0):
-                if (not(src[src[0] == 6].empty)):
-                    tcpsrcports = len(src[1].value_counts())
-                if (not(src[src[0] == 17].empty)):
-                    udpsrcports = len(src[1].value_counts()) 
+            srcport = df[["protocol", "source_port"]]
+            for _, src in srcport.groupby("protocol"):
+                if (not(src[src["protocol"] == 6].empty)):
+                    tcpsrcports = len(src["source_port"].value_counts())
+                if (not(src[src["protocol"] == 17].empty)):
+                    udpsrcports = len(src["source_port"].value_counts()) 
                 
             tcpdstports = 0
             udpdstports = 0
             # Destination port
-            dstport = df[[0, 2]]
-            for _, dst in dstport.groupby(0):
-                if (not(dst[dst[0] == 6].empty)):
-                    tcpdstports = len(dst[2].value_counts())
-                if (not(dst[dst[0] == 17].empty)):
-                    udpdstports = len(dst[2].value_counts())
+            dstport = df[["protocol", "destination_port"]]
+            for _, dst in dstport.groupby("protocol"):
+                if (not(dst[dst["protocol"] == 6].empty)):
+                    tcpdstports = len(dst["destination_port"].value_counts())
+                if (not(dst[dst["protocol"] == 17].empty)):
+                    udpdstports = len(dst["destination_port"].value_counts())
 
 
             # Get the flags
-            finflag = df[3].sum()
-            synflag = df[4].sum()
-            pushflag = df[5].sum()
-            ackflag = df[6].sum()
-            urgflag = df[7].sum()
+            finflag = df["finflag"].sum()
+            synflag = df["synflag"].sum()
+            pushflag = df["pushflag"].sum()
+            ackflag = df["ackflag"].sum()
+            urgflag = df["urgflag"].sum()
 
             # Write to the dataset
             new_row = str(tcp_packets) + ',' + str(tcpsrcports) + ',' + str(tcpdstports) + ',' + str(finflag) + ',' + str(synflag) + ',' + str(pushflag) + ',' + str(ackflag) + ',' + str(urgflag) + ',' + str(udp_packets) + ',' + str(udpsrcports) + ',' + str(udpdstports) + ',' + str(icmp_packets) +',' + self.target
@@ -137,3 +141,4 @@ class DataParser():
             text_file.write("\n")
         
         text_file.close()
+

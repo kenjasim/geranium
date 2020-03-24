@@ -15,7 +15,7 @@ class Parser():
         print (self.cap)
 
         # Open a text file
-        text_file = open(output_file, "w")
+        text_file = open(output_file, "a")
         text_file.write("time, protocol, source_port, destination_port, fin_flag, syn_flag, push_flag, ack_flag, urgent_flag, target")
         text_file.write("\n")
 
