@@ -8,6 +8,7 @@ import yaml
 import data_generation
 import data_processing
 import data_modeling
+import intrusion_detection
 
 import sys, argparse
 
@@ -20,7 +21,6 @@ class Geranium(object):
         print("#   Geranium   #")
         print("################")
         print("--------------------------------------------------------------")
-        print ('\n')
         print("Importing Config File")
         print("--------------------------------------------------------------")
         self.get_config()
@@ -32,6 +32,7 @@ Avalibile commands:
     generate     Generates network data
     process      Processes network data
     model        Models network data
+    ids          Runs an IDS with a model
             ''')
         parser.add_argument('command', help='Run the required commands for the program')
         # parse_args defaults to [1:] for args, but you need to
@@ -62,6 +63,7 @@ Avalibile commands:
                 self.filter = config['data-processing']['filter']
                 self.model_path = config['data-modeling']['model_path']
                 self.image_path = config['data-modeling']['image_path']
+                self.ids_model = config['ids']['model']
             except yaml.YAMLError as exc:
                 print("Error:" + exc)
                 sys.exit(2)
@@ -113,11 +115,21 @@ Avalibile commands:
         parser = argparse.ArgumentParser(
             description='Build a decision tree model from a dataset',
             usage='''geranium.py model <dataset>''')
-        # try:
+        try:
             # Start the data processing part of the project
-        data_modeling.DataModeling(sys.argv[2], self.model_path, self.image_path)
-        # except:
-            # parser.print_help()
+            data_modeling.DataModeling(sys.argv[2], self.model_path, self.image_path)
+        except:
+            parser.print_help()
+    
+    def ids(self):
+        parser = argparse.ArgumentParser(
+            description='Run an IDS with a trained model',
+            usage='''geranium.py ids''')
+        # Start the data processing part of the project and generate the file
+        try:
+            i = intrusion_detection.IDS(self.ids_model)
+        except:
+            parser.print_help()
 
 if __name__ == '__main__':
     Geranium()

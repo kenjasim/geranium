@@ -12,4 +12,6 @@ data-processing:
 data-modeling:
     model_path: IDS.joblib
     image_path: tree.png
+ids:
+    model: IDS.joblib
 

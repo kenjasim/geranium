@@ -8,7 +8,7 @@ from joblib import dump, load
 from sklearn.tree import DecisionTreeClassifier
 
 class IDS():
-    def __init__(self):
+    def __init__(self, model):
         # Initilise flag values
         self.FIN = 0x01
         self.SYN = 0x02
@@ -17,7 +17,7 @@ class IDS():
         self.ACK = 0x10
         self.URG = 0x20
         # initialise the model
-        idm = DetectionModel()
+        idm = DetectionModel(model)
         # while the program is running
         while(True):
             # Output the packets from the sniff
@@ -146,14 +146,12 @@ class IDS():
 
 class DetectionModel():
 
-    def __init__(self):
+    def __init__(self, model):
         # Import the model
-        self.idm = load('IDS.joblib')
+        self.idm = load(model)
 
     # Try to predict the threat
     def predict(self, data):
         value = self.idm.predict(data)
         return value
-            
-i = IDS()
 
