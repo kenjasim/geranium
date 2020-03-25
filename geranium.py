@@ -95,17 +95,17 @@ Avalibile commands:
             else:
                 # Set the exit handler
                 atexit.register(self.exit_handler)
-                d = data_generation.DataGen(sys.argv[2], 
-                                            sys.argv[3], 
-                                            self.executable_path, 
-                                            self.time, 
-                                            self.attack_machine_path,
-                                            self.target_machine_path,
-                                            self.attack_username,
-                                            self.attack_password,
-                                            self.attack_ip,
-                                            self.dataset_path,
-                                            self.filter_ip)
+                data_generation.DataGen(sys.argv[2], 
+                                        sys.argv[3], 
+                                        self.executable_path, 
+                                        self.time, 
+                                        self.attack_machine_path,
+                                        self.target_machine_path,
+                                        self.attack_username,
+                                        self.attack_password,
+                                        self.attack_ip,
+                                        self.dataset_path,
+                                        self.filter_ip)
                 # Ensure on exit that the virtual machines get wiped
         except:
              parser.print_help()
@@ -143,9 +143,6 @@ Avalibile commands:
             parser.print_help()
 
     def clearvms(self):
-        parser = argparse.ArgumentParser(
-            description='Clears virtual machines',
-            usage='''geranium.py clearvms''')
         # Start the data processing part of the project and generate the file
         self.exit_handler()
     
