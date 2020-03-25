@@ -11,6 +11,7 @@ import data_modeling
 import intrusion_detection
 
 import sys, argparse
+import os
 import atexit
 
 # Do This https://docs.python.org/dev/library/argparse.html#sub-commands
@@ -75,34 +76,35 @@ Avalibile commands:
         parser = argparse.ArgumentParser(
             description='Generate network data using a VM image',
             usage='''geranium.py generate <attack name> <attack script>''')
-        try:
-            # Start the data generation part of the project
-            if sys.argv[2] == "normal":
-                data_generation.DataGen(sys.argv[2], 
-                                    None, 
-                                    self.executable_path, 
-                                    self.time, 
-                                    self.attack_machine_path,
-                                    self.target_machine_path,
-                                    self.attack_username,
-                                    self.attack_password,
-                                    self.attack_ip,
-                                    self.dataset_path)
-            else:
-                d = data_generation.DataGen(sys.argv[2], 
-                                            sys.argv[3], 
-                                            self.executable_path, 
-                                            self.time, 
-                                            self.attack_machine_path,
-                                            self.target_machine_path,
-                                            self.attack_username,
-                                            self.attack_password,
-                                            self.attack_ip,
-                                            self.dataset_path)
-                # Ensure on exit that the virtual machines get wiped
-                atexit.register(d.exit_handler)
-        except:
-            parser.print_help()
+        # try:
+        # Start the data generation part of the project
+        if sys.argv[2] == "normal":
+            data_generation.DataGen(sys.argv[2], 
+                                None, 
+                                self.executable_path, 
+                                self.time, 
+                                self.attack_machine_path,
+                                self.target_machine_path,
+                                self.attack_username,
+                                self.attack_password,
+                                self.attack_ip,
+                                self.dataset_path)
+        else:
+            # Set the exit handler
+            atexit.register(self.exit_handler)
+            d = data_generation.DataGen(sys.argv[2], 
+                                        sys.argv[3], 
+                                        self.executable_path, 
+                                        self.time, 
+                                        self.attack_machine_path,
+                                        self.target_machine_path,
+                                        self.attack_username,
+                                        self.attack_password,
+                                        self.attack_ip,
+                                        self.dataset_path)
+            # Ensure on exit that the virtual machines get wiped
+        # except:
+        #     parser.print_help()
 
 
     def process(self):
@@ -132,9 +134,19 @@ Avalibile commands:
             usage='''geranium.py ids''')
         # Start the data processing part of the project and generate the file
         try:
-            i = intrusion_detection.IDS(self.ids_model)
+            intrusion_detection.IDS(self.ids_model)
         except:
             parser.print_help()
+    
+    def exit_handler(self):
+        print("Delete attack and target machines")
+        print("--------------------------------------------------------------")
+        # Delete the virtual machines
+        os.system('VBoxManage unregistervm --delete "attack"')
+        os.system('VBoxManage unregistervm --delete "target"')
+        # Remove any folders created by packer
+        os.system('rm -r packer_cache/')
+        os.system('rm -r output-virtualbox-ovf/')
 
 if __name__ == '__main__':
     Geranium()

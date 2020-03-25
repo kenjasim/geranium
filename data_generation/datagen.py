@@ -169,13 +169,3 @@ class DataGen():
         if err:
             print (err)
 
-    def exit_handler(self):
-        print("Delete attack and target machines")
-        print("--------------------------------------------------------------")
-        # Delete the virtual machines
-        os.system('VBoxManage unregistervm --delete "attack"')
-        os.system('VBoxManage unregistervm --delete "target"')
-        # Remove any folders created by packer
-        os.system('rm -r packer_cache/')
-        os.system('rm -r output-virtualbox-ovf/')
-
