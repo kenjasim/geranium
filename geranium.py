@@ -57,18 +57,19 @@ Avalibile commands:
             try:
                 # Get the items from the config file
                 config = yaml.safe_load(stream) 
-                self.executable_path = config['data-gen']['executable_path']
-                self.time = config['data-gen']['time']
-                self.attack_machine_path = config['data-gen']['attack_machine_path']
-                self.target_machine_path = config['data-gen']['target_machine_path']
-                self.attack_username = config['data-gen']['attack_username']
-                self.attack_password = config['data-gen']['attack_password']
-                self.attack_ip = config['data-gen']['attack_ip']
-                self.filter_ip = config['data-processing']['filter_ip']
+                self.executable_path = config['data-generation']['executable_path']
+                self.time = config['data-generation']['time']
+                self.attack_machine_path = config['data-generation']['attack_machine_path']
+                self.target_machine_path = config['data-generation']['target_machine_path']
+                self.attack_username = config['data-generation']['attack_username']
+                self.attack_password = config['data-generation']['attack_password']
+                self.attack_ip = config['data-generation']['attack_ip']
+                self.filter_ip = config['data-generation']['filter_ip']
                 self.dataset_path = config['data-processing']['dataset_path']
                 self.filter = config['data-processing']['filter']
                 self.model_path = config['data-modeling']['model_path']
                 self.image_path = config['data-modeling']['image_path']
+                self.classes = config['data-modeling']['classes']
                 self.ids_model = config['ids']['model']
             except yaml.YAMLError as exc:
                 print("Error:" + exc)
@@ -128,7 +129,7 @@ Avalibile commands:
             usage='''geranium.py model <dataset>''')
         try:
             # Start the data processing part of the project
-            data_modeling.DataModeling(sys.argv[2], self.model_path, self.image_path)
+            data_modeling.DataModeling(sys.argv[2], self.model_path, self.image_path, self.classes)
         except:
             parser.print_help()
     

@@ -1,10 +1,10 @@
-import sklearn as tree
 import pandas as pd
 
 from sklearn.tree import DecisionTreeClassifier # Import Decision Tree Classifier
 from sklearn.model_selection import train_test_split # Import train_test_split function
 from sklearn import metrics #Import scikit-learn metrics module for accuracy calculation
 from sklearn.model_selection import cross_val_score
+from sklearn import preprocessing
 
 from sklearn.tree import export_graphviz
 from sklearn.externals.six import StringIO  
@@ -14,7 +14,7 @@ from joblib import dump, load
 
 class DataModeling():
 
-    def __init__(self, dataset, model_path, image_path):
+    def __init__(self, dataset, model_path, image_path, classes):
         # import the dataset
         print("#####################")
         print("#   DATA MODELING   #")
@@ -28,6 +28,11 @@ class DataModeling():
         self.feature_cols = ["tcp_packets", "tcp_source_port", "tcp_destination_port", "tcp_fin_flag", "tcp_syn_flag", "tcp_push_flag", "tcp_ack_flag", "tcp_urgent_flag", "udp_packets", "udp_source_port", "udp_destination_port", "icmp_packets"]
         self.X = dataset[self.feature_cols]
         self.y = dataset.target
+        # Process the target classes to be numerical 
+        self.classes = classes
+        le = preprocessing.LabelEncoder()
+        le.fit(self.classes)
+        self.y = le.transform(self.y)
 
         # train the tree
         print("Training Model")
@@ -80,7 +85,7 @@ class DataModeling():
         dot_data = StringIO()
         export_graphviz(self.clf, out_file=dot_data,  
                         filled=True, rounded=True,
-                        special_characters=True,feature_names = self.feature_cols,class_names=['normal','synflood','udpflood','finflood','pshackflood'])
+                        special_characters=True,feature_names = self.feature_cols,class_names=self.classes)
         graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
         graph.write_png(self.image_path)
         Image(graph.create_png())
