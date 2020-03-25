@@ -17,13 +17,14 @@ class DataGen():
                 attack, 
                 attack_path,
                 executable_path, 
-                time, 
+                tme, 
                 attack_machine_path, 
                 target_machine_path, 
                 attack_username, 
                 attack_password, 
                 attack_ip,
-                dataset_path):
+                dataset_path,
+                filter_ip):
 
         print("#######################")
         print("#   DATA GENERATION   #")
@@ -33,13 +34,14 @@ class DataGen():
         self.attack = attack
         self.attack_path = attack_path
         self.executable_path = executable_path
-        self.time = time
+        self.time = tme
         self.attack_machine_path = attack_machine_path
         self.target_machine_path = target_machine_path
         self.attack_username = attack_username 
         self.attack_password = attack_password
         self.attack_ip = attack_ip
         self.dataset_path = dataset_path
+        self.filter_ip = filter_ip
         #Check the arguments and run the relevent vms
 
         if self.attack == "normal":
@@ -94,7 +96,7 @@ class DataGen():
 
     #Run scapy and collect the network packets
     def snif_packets(self):
-        parser = data_processing.DataParser(self.attack, self.dataset_path, self.time)
+        parser = data_processing.DataParser(self.attack, self.dataset_path, self.time, self.filter_ip)
         parser.sniff_packets()
         parser.collate_packets()
 
@@ -109,7 +111,7 @@ class DataGen():
                 {{
                 "type"                  : "virtualbox-ovf",
                 "vboxmanage"            : [
-                                            ["modifyvm", "attack", "--bridgeadapter1", "en0"]
+                                            ["modifyvm", "{{{{.Name}}}}", "--bridgeadapter1", "en0"]
                                           ],
                 "source_path"           : "{machine}",
                 "vm_name"               : "attack",
@@ -146,17 +148,19 @@ class DataGen():
     def create_network_target(self):
         print("Building the target machine: " + self.target_machine_path + "\n""--------------------------------------------------------------")
         p = PackerExecutable(self.executable_path)
-        target_time = 300 + self.time
+        target_time = 60 + self.time
         template = """{{
             "builders": [
                 {{
                 "type"                  : "virtualbox-ovf",
                 "vboxmanage"            : [
-                                            ["modifyvm", "target", "--bridgeadapter1", "en0"]
+                                            ["modifyvm", "{{{{.Name}}}}", "--bridgeadapter1", "en0"]
                                           ],
                 "source_path"           : "{machine}",
                 "vm_name"               : "target",
                 "communicator"          : "none",
+                "guest_additions_mode"  : "disable",
+                "virtualbox_version_file": "",
                 "boot_wait"             : "{time}s"
                 }}
             ]

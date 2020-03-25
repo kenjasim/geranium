@@ -3,7 +3,7 @@ from scapy.all import sniff
 
 class DataParser():
 
-    def __init__(self, target, dataset_path, time):
+    def __init__(self, target, dataset_path, time, filter_ip):
         # Initilise flag values
         self.FIN = 0x01
         self.SYN = 0x02
@@ -15,12 +15,19 @@ class DataParser():
         self.target = target
         self.dataset_path = dataset_path
         self.time = time
+        self.filter_ip = filter_ip
 
         # Define the list to store the packets 
         self.packets = []
 
     def sniff_packets(self):
-        sniff(prn=self.process_packet, timeout=self.time)
+        # Apply IP address filtering to only get the target machine
+        # filtered things
+        if self.filter_ip == None:
+            sniff(prn=self.process_packet, timeout=self.time)
+        else:
+            sniff(filter = "src " + self.filter_ip + " or host " + self.filter_ip, prn=self.process_packet, timeout=self.time)
+        
 
     def process_packet(self, packet):
         time = packet.time

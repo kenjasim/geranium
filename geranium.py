@@ -34,6 +34,7 @@ class Geranium(object):
             
 Avalibile commands:
     generate     Generates network data
+    clearvms     Clears previous vms         
     process      Processes network data
     model        Models network data
     ids          Runs an IDS with a model
@@ -63,6 +64,7 @@ Avalibile commands:
                 self.attack_username = config['data-gen']['attack_username']
                 self.attack_password = config['data-gen']['attack_password']
                 self.attack_ip = config['data-gen']['attack_ip']
+                self.filter_ip = config['data-processing']['filter_ip']
                 self.dataset_path = config['data-processing']['dataset_path']
                 self.filter = config['data-processing']['filter']
                 self.model_path = config['data-modeling']['model_path']
@@ -76,35 +78,37 @@ Avalibile commands:
         parser = argparse.ArgumentParser(
             description='Generate network data using a VM image',
             usage='''geranium.py generate <attack name> <attack script>''')
-        # try:
-        # Start the data generation part of the project
-        if sys.argv[2] == "normal":
-            data_generation.DataGen(sys.argv[2], 
-                                None, 
-                                self.executable_path, 
-                                self.time, 
-                                self.attack_machine_path,
-                                self.target_machine_path,
-                                self.attack_username,
-                                self.attack_password,
-                                self.attack_ip,
-                                self.dataset_path)
-        else:
-            # Set the exit handler
-            atexit.register(self.exit_handler)
-            d = data_generation.DataGen(sys.argv[2], 
-                                        sys.argv[3], 
-                                        self.executable_path, 
-                                        self.time, 
-                                        self.attack_machine_path,
-                                        self.target_machine_path,
-                                        self.attack_username,
-                                        self.attack_password,
-                                        self.attack_ip,
-                                        self.dataset_path)
-            # Ensure on exit that the virtual machines get wiped
-        # except:
-        #     parser.print_help()
+        try:
+            # Start the data generation part of the project
+            if sys.argv[2] == "normal":
+                data_generation.DataGen(sys.argv[2], 
+                                    None, 
+                                    self.executable_path, 
+                                    self.time, 
+                                    self.attack_machine_path,
+                                    self.target_machine_path,
+                                    self.attack_username,
+                                    self.attack_password,
+                                    self.attack_ip,
+                                    self.dataset_path,
+                                    None)
+            else:
+                # Set the exit handler
+                atexit.register(self.exit_handler)
+                d = data_generation.DataGen(sys.argv[2], 
+                                            sys.argv[3], 
+                                            self.executable_path, 
+                                            self.time, 
+                                            self.attack_machine_path,
+                                            self.target_machine_path,
+                                            self.attack_username,
+                                            self.attack_password,
+                                            self.attack_ip,
+                                            self.dataset_path,
+                                            self.filter_ip)
+                # Ensure on exit that the virtual machines get wiped
+        except:
+             parser.print_help()
 
 
     def process(self):
@@ -137,6 +141,13 @@ Avalibile commands:
             intrusion_detection.IDS(self.ids_model)
         except:
             parser.print_help()
+
+    def clearvms(self):
+        parser = argparse.ArgumentParser(
+            description='Clears virtual machines',
+            usage='''geranium.py clearvms''')
+        # Start the data processing part of the project and generate the file
+        self.exit_handler()
     
     def exit_handler(self):
         print("Delete attack and target machines")
