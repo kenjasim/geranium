@@ -7,7 +7,6 @@ class DataProcessor():
         print("#######################")
         print("#   DATA PROCESSING   #")
         print("#######################")
-        print ('\n')
 
         self.file_path = file_path
         self.target = target

@@ -14,8 +14,6 @@ import sys, argparse
 import os
 import atexit
 
-# Do This https://docs.python.org/dev/library/argparse.html#sub-commands
-
 class Geranium(object):
 
     def __init__(self):
@@ -25,9 +23,15 @@ class Geranium(object):
  | |_| | |___|  _ < / ___ \| |\  || || |_| | |  | |
   \____|_____|_| \_/_/   \_|_| \_|___|\___/|_|  |_|''')
         print("--------------------------------------------------------------")
-        print("Importing Config File")
-        print("--------------------------------------------------------------")
-        self.get_config()
+        
+        # Import the config file
+        try:
+            self.get_config()
+        except:
+            print("Error, can't import the config file")
+            sys.exit(2)
+
+        # Start the argument parsers
         parser = argparse.ArgumentParser(
             description='Program to generate, procees and model network data',
             usage='''geranium.py <command> [args]
@@ -40,19 +44,21 @@ Avalibile commands:
     ids          Runs an IDS with a model
             ''')
         parser.add_argument('command', help='Run the required commands for the program')
-        # parse_args defaults to [1:] for args, but you need to
+
+        # parse_args defaults to [1:] for args, but need to
         # exclude the rest of the args too, or validation will fail
         args = parser.parse_args(sys.argv[1:2])
         if not hasattr(self, args.command):
             print ('Unrecognized command')
             parser.print_help()
             exit(1)
+
         # use dispatch pattern to invoke method with same name
         getattr(self, args.command)()
 
     def get_config(self):
-        # Open the config file and return it if 
-        # its found
+
+        # Open the config file and return all the variables in the file
         with open("config.yaml", 'r') as stream:
             try:
                 # Get the items from the config file
@@ -75,6 +81,8 @@ Avalibile commands:
                 sys.exit(2)
 
     def generate(self):
+
+        # Start the argument parsers
         parser = argparse.ArgumentParser(
             description='Generate network data using a VM image',
             usage='''geranium.py generate <attack name> <attack script>''')
@@ -94,7 +102,10 @@ Avalibile commands:
                                     None)
             else:
                 # Set the exit handler
+                # Ensure on exit that the virtual machines get wiped
                 atexit.register(self.exit_handler)
+
+                # Start the data generation part of the project
                 data_generation.DataGen(sys.argv[2], 
                                         sys.argv[3], 
                                         self.executable_path, 
@@ -106,7 +117,6 @@ Avalibile commands:
                                         self.attack_ip,
                                         self.dataset_path,
                                         self.filter_ip)
-                # Ensure on exit that the virtual machines get wiped
         except:
              parser.print_help()
 

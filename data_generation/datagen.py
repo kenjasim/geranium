@@ -26,7 +26,7 @@ class DataGen():
         print("#######################")
         print("#   DATA GENERATION   #")
         print("#######################")
-        print ('\n')
+        print("--------------------------------------------------------------")
         
         self.attack = attack
         self.attack_path = attack_path
