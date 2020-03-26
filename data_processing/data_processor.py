@@ -8,13 +8,6 @@ class DataProcessor():
         print("#   DATA PROCESSING   #")
         print("#######################")
         print ('\n')
-        # Initilise flag values
-        self.FIN = 0x01
-        self.SYN = 0x02
-        self.RST = 0x04
-        self.PSH = 0x08
-        self.ACK = 0x10
-        self.URG = 0x20
 
         self.file_path = file_path
         self.target = target
