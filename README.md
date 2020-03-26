@@ -4,7 +4,7 @@ Python scripts to allow the generation of network data from virtual machines, th
 ## Prerequisites
 You must have packer installed to run anything in ```generate``` command. This can be downloaded [from here](https://packer.io/downloads.html).
 
-Once packer is installed you must have 2 virtualbox ova files. These are preconfigured virtual machines which can be exported from VirtualBox following [these instructions](https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html). You must either create an attack machine (Kali was used in testing) and a target machine (a Windows 7 machine was used in testing.) or the testing machines used can be downloaded
+Once packer is installed you must have 2 virtualbox ova files. These are preconfigured virtual machines which can be exported from VirtualBox following [these instructions](https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html). You must either create an attack machine (Kali was used in testing) and a target machine (a Windows 7 machine was used in testing). Alternativly the testing machines used can be downloaded 
 
 pyshark is needed along with pandas for data processing .PCAPNG wireshark data files if you prefer to use that, however only scapy and pandas are used for processing in the ```generate``` phase 
 
