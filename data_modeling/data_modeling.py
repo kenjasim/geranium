@@ -6,15 +6,11 @@ from sklearn import metrics #Import scikit-learn metrics module for accuracy cal
 from sklearn.model_selection import cross_val_score
 from sklearn import preprocessing
 
-from sklearn.tree import export_graphviz
-from sklearn.externals.six import StringIO  
-from IPython.display import Image  
-import pydotplus
 from joblib import dump, load
 
 class DataModeling():
 
-    def __init__(self, dataset, model_path, image_path, classes):
+    def __init__(self, dataset, model_path, classes):
         # import the dataset
         print("#####################")
         print("#   DATA MODELING   #")
@@ -46,7 +42,6 @@ class DataModeling():
 
         # export the tree
         self.model_path = model_path
-        self.image_path = image_path
         self.export_tree()
 
     def train(self):
@@ -79,16 +74,16 @@ class DataModeling():
         # Save Decision Tree Model to File to be redeployed
         dump(self.clf, self.model_path) 
 
-        # Visualise Decison tree
-        print("Exporting Image to: " + self.model_path)
-        print("--------------------------------------------------------------")
-        dot_data = StringIO()
-        export_graphviz(self.clf, out_file=dot_data,  
-                        filled=True, rounded=True,
-                        special_characters=True,feature_names = self.feature_cols,class_names=self.classes)
-        graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
-        graph.write_png(self.image_path)
-        Image(graph.create_png())
+        # # Visualise Decison tree
+        # print("Exporting Image to: " + self.model_path)
+        # print("--------------------------------------------------------------")
+        # dot_data = StringIO()
+        # export_graphviz(self.clf, out_file=dot_data,  
+        #                 filled=True, rounded=True,
+        #                 special_characters=True,feature_names = self.feature_cols,class_names=self.classes)
+        # graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
+        # graph.write_png(self.image_path)
+        # Image(graph.create_png())
 
 
 

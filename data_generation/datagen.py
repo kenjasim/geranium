@@ -1,8 +1,5 @@
 import os
 import threading
-import sys, getopt
-import argparse
-import urllib.request
 import time
 from packerpy import PackerExecutable
 

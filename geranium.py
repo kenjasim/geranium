@@ -68,7 +68,6 @@ Avalibile commands:
                 self.dataset_path = config['data-processing']['dataset_path']
                 self.filter = config['data-processing']['filter']
                 self.model_path = config['data-modeling']['model_path']
-                self.image_path = config['data-modeling']['image_path']
                 self.classes = config['data-modeling']['classes']
                 self.ids_model = config['ids']['model']
             except yaml.YAMLError as exc:
@@ -129,7 +128,7 @@ Avalibile commands:
             usage='''geranium.py model <dataset>''')
         try:
             # Start the data processing part of the project
-            data_modeling.DataModeling(sys.argv[2], self.model_path, self.image_path, self.classes)
+            data_modeling.DataModeling(sys.argv[2], self.model_path, self.classes)
         except:
             parser.print_help()
     

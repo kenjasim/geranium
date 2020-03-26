@@ -8,6 +8,12 @@ Once packer is installed you must have 2 virtualbox ova files. These are preconf
 
 pyshark is needed along with pandas for data processing .PCAPNG wireshark data files if you prefer to use that, however only scapy and pandas are used for processing in the ```generate``` phase 
 
+Finally to install depandancies run:
+
+```
+    python3 setup.py install
+```
+
 ## Usage
 
 ### Generate
@@ -79,7 +85,6 @@ An example decision tree is provided. This was generated using sklearn.
 To generate a decision tree from the data, first alter the config file:
 
 - ```model_path```: Path to store model
-- ``` image_path```: Path to store image
 - ```classes```: Classes found in dataset (List)
 
 From here a decision tree model can be generated using:

@@ -26,8 +26,6 @@ data-processing:
 data-modeling:
     # Path to store model
     model_path: IDS.joblib
-    # Path to store image
-    image_path: tree.png
     # Classes found in dataset
     classes:
         - normal

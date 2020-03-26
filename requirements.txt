@@ -1,0 +1,7 @@
+pyyaml
+pandas
+scapy
+pyshark
+sklearn
+joblib
+packer.py
