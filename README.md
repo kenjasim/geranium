@@ -11,7 +11,7 @@ pyshark is needed along with pandas for data processing .PCAPNG wireshark data f
 Finally to install depandancies run:
 
 ```
-    python3 setup.py install
+python3 setup.py install
 ```
 
 ## Usage
