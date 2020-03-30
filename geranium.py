@@ -15,8 +15,18 @@ import os
 import atexit
 
 class Geranium(object):
+    """ 
+    The main class of the project, the class is invoked when the program is
+    run and the configuration file imported and parsed. When the user specifies
+    a sub command the relevent packages are imported and run.
+    """
 
     def __init__(self):
+        """ 
+        The function run when the user calls the package, first all the configuration 
+        variables are imported and the parser is initialised, the sub command passed to 
+        the parser is then used to run a function of the same name
+        """
         print ('''   ____ _____ ____     _    _   _ ___ _   _ __  __ 
   / ___| ____|  _ \   / \  | \ | |_ _| | | |  \/  |
  | |  _|  _| | |_) | / _ \ |  \| || || | | | |\/| |
@@ -57,7 +67,9 @@ Avalibile commands:
         getattr(self, args.command)()
 
     def get_config(self):
-
+        """ 
+        Open the configuration file and extract all the variables from the file
+        """
         # Open the config file and return all the variables in the file
         with open("config.yaml", 'r') as stream:
             try:
@@ -81,6 +93,9 @@ Avalibile commands:
                 sys.exit(2)
 
     def generate(self):
+        """ 
+        Run the data generation package with the users arguments
+        """
 
         # Start the argument parsers
         parser = argparse.ArgumentParser(
@@ -122,6 +137,9 @@ Avalibile commands:
 
 
     def process(self):
+        """ 
+        Run the data proceesing package with the users arguments
+        """
         parser = argparse.ArgumentParser(
             description='Process network data into format to be modeled',
             usage='''geranium.py process <target> <network_data>''')
@@ -133,6 +151,9 @@ Avalibile commands:
             parser.print_help()
     
     def model(self):
+        """ 
+        Run the data modeling package with the users arguments
+        """
         parser = argparse.ArgumentParser(
             description='Build a decision tree model from a dataset',
             usage='''geranium.py model <dataset>''')
@@ -143,6 +164,9 @@ Avalibile commands:
             parser.print_help()
     
     def ids(self):
+        """ 
+        Run the intrusion detection system
+        """
         parser = argparse.ArgumentParser(
             description='Run an IDS with a trained model',
             usage='''geranium.py ids''')
@@ -153,10 +177,15 @@ Avalibile commands:
             parser.print_help()
 
     def clearvms(self):
-        # Start the data processing part of the project and generate the file
+        """ 
+        Clear any left over files from the data generation
+        """
         self.exit_handler()
     
     def exit_handler(self):
+        """ 
+        Clear any left over files from the data generation
+        """
         print("Delete attack and target machines")
         print("--------------------------------------------------------------")
         # Delete the virtual machines

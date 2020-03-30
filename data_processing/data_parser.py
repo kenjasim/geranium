@@ -2,8 +2,24 @@ import pandas as pd
 from scapy.all import sniff
 
 class DataParser():
+    """ 
+    Implimentation of the dataparser section of gerainum, the program will
+    sniff network data and extract the features from the network data. Once
+    collected it will collate the packets and store into a dataset
+    """
 
     def __init__(self, target, dataset_path, time, filter_ip):
+        """ 
+        The function is run when the data parser class is instantiated, the 
+        function will take the configuration file variables and initiate variables
+        needed later.
+
+        Keyword Arguments
+        target - The name of the attack to be parsed
+        dataset_path - Path to write the packets to
+        time - The time to run the packet sniffing for
+        filter_ip - The IP to filter the network data by
+        """
         # Initilise flag values
         self.FIN = 0x01
         self.SYN = 0x02
@@ -12,6 +28,7 @@ class DataParser():
         self.ACK = 0x10
         self.URG = 0x20
 
+        # Initilise the variables passed from config file
         self.target = target
         self.dataset_path = dataset_path
         self.time = time
@@ -21,16 +38,31 @@ class DataParser():
         self.packets = []
 
     def sniff_packets(self):
-        # Apply IP address filtering to only get the target machine
-        # filtered things
+        """ 
+        Sniffs packets from all interfaces, if a filter ip is specified only packets from
+        or to that IP will be sniffed.
+        """
         if self.filter_ip == None:
             sniff(prn=self.process_packet, timeout=self.time)
         else:
+            # Apply IP address filtering to only get the target machine filtered packets
             sniff(filter = "src " + self.filter_ip + " or host " + self.filter_ip, prn=self.process_packet, timeout=self.time)
+
+        # Once filtered then collate packets
+        self.collate_packets()
         
 
     def process_packet(self, packet):
+        """ 
+        Process a single packet which was sniffed, this is supplied to the sniff
+        function.
+
+        Keyword Arguments
+        packet - The packet to be processed
+        """
+        # The time the oacket was sniffed
         time = packet.time
+
         if 'TCP' in packet:
             # Return the source port of the packet
             srcport = packet["TCP"].sport
@@ -68,6 +100,7 @@ class DataParser():
             else:
                 urgflag = 0    
 
+            # Write the packets to the array
             data = [time, 6, srcport, dstport, finflag, synflag, pushflag, ackflag, urgflag, self.target]
             self.packets.append(data)
 
@@ -78,6 +111,7 @@ class DataParser():
             # Destination port
             dstport = packet["UDP"].dport
 
+            # Write the packets to the array
             data = [time, 17, srcport, dstport, 0, 0, 0, 0, 0, self.target]
             self.packets.append(data)
 
@@ -87,6 +121,10 @@ class DataParser():
             self.packets.append(data)
 
     def collate_packets(self):
+        """ 
+        Collates the sniffed packets and extracts relevant features per second. These
+        are then written to a CSV dataset.
+        """
 
         # Import the data and index with the time
         datafrm = pd.DataFrame(self.packets)
@@ -99,8 +137,10 @@ class DataParser():
         # Start writing the csv file
         text_file = open(self.dataset_path, "a")
 
+        # Loop through each dataset per second
         for _, df in datafrm.groupby(pd.Grouper(freq='1s')):
 
+            # Count the number of packets for each protocol
             protocol = df["protocol"].value_counts()
             tcp_packets = 0
             udp_packets = 0
@@ -116,7 +156,7 @@ class DataParser():
 
             tcpsrcports = 0
             udpsrcports = 0
-            # Return the source port of the packet
+            # Return the source port of all packets
             srcport = df[["protocol", "source_port"]]
             for _, src in srcport.groupby("protocol"):
                 if (not(src[src["protocol"] == 6].empty)):
@@ -126,7 +166,7 @@ class DataParser():
                 
             tcpdstports = 0
             udpdstports = 0
-            # Destination port
+            # Return the destination of all packets
             dstport = df[["protocol", "destination_port"]]
             for _, dst in dstport.groupby("protocol"):
                 if (not(dst[dst["protocol"] == 6].empty)):

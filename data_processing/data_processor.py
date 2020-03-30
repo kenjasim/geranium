@@ -2,12 +2,30 @@ import pandas as pd
 import pyshark
 
 class DataProcessor():
+    """ 
+    Implimentation of the dataprocessing section of gerainum, the program will
+    extract the features from the network data. Once collected it will collate the 
+    packets and store into a dataset
+    """
 
     def __init__(self, target, file_path, dataset_path, fltr):
+        """ 
+        The function is run when the data processing class is instantiated, the 
+        function will take the configuration file variables and initiate variables
+        needed later.
+
+        Keyword Arguments
+        target - The name of the attack to be parsed
+        file_path - The network file to be read
+        dataset_path - Path to write the packets to
+        fltr - The filter to apply to the network packets
+        """
+
         print("#######################")
         print("#   DATA PROCESSING   #")
         print("#######################")
 
+        # Initilise the variables passed from config file
         self.file_path = file_path
         self.target = target
         self.dataset_path = dataset_path
@@ -17,6 +35,10 @@ class DataProcessor():
         self.packets = []
 
     def read_packets(self):
+        """ 
+        The network packets are read and the features extracted.
+        """
+
         print("Reading File: " + self.file_path)
         print("--------------------------------------------------------------")
 
@@ -95,6 +117,10 @@ class DataProcessor():
         print("------------------------------------------------")
 
     def collate_packets(self):
+        """ 
+        Collates the sniffed packets and extracts relevant features per second. These
+        are then written to a CSV dataset.
+        """
 
         # Import the data and index with the time
         datafrm = pd.DataFrame(self.packets)
@@ -107,8 +133,10 @@ class DataProcessor():
         # Start writing the csv file
         text_file = open(self.dataset_path, "a")
 
+        # Loop through each dataset per second
         for _, df in datafrm.groupby(pd.Grouper(freq='1s')):
-
+            
+            # Count the number of packets for each protocol
             protocol = df["protocol"].value_counts()
             tcp_packets = 0
             udp_packets = 0
@@ -124,7 +152,7 @@ class DataProcessor():
 
             tcpsrcports = 0
             udpsrcports = 0
-            # Return the source port of the packet
+            # Return the source port of all packets
             srcport = df[["protocol", "source_port"]]
             for _, src in srcport.groupby("protocol"):
                 if (not(src[src["protocol"] == 6].empty)):
@@ -134,7 +162,8 @@ class DataProcessor():
                 
             tcpdstports = 0
             udpdstports = 0
-            # Destination port
+            
+            # Return the destination of all packets
             dstport = df[["protocol", "destination_port"]]
             for _, dst in dstport.groupby("protocol"):
                 if (not(dst[dst["protocol"] == 6].empty)):
