@@ -19,7 +19,7 @@ data-generation:
 # Configurations for processing
 data-processing:
     # Location to store data
-    dataset_path: data.csv
+    dataset_path: dataset.csv
     # Filter to process to
     filter: 
 # Configurations for modeling
