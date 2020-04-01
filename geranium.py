@@ -194,6 +194,8 @@ Avalibile commands:
         # Remove any folders created by packer
         os.system('rm -r packer_cache/')
         os.system('rm -r output-virtualbox-ovf/')
+        os.system('rm -r ~/VirtualBox\\ VMs/attack')
+        os.system('rm -r ~/VirtualBox\\ VMs/target')
 
 if __name__ == '__main__':
     Geranium()

@@ -37,7 +37,7 @@ class TestCases(unittest.TestCase):
         """
 
         data_generation.DataGen("synflood",
-                                "data_generation/attacks/synflood.sh",
+                                "data_generation/attacks/synflood_one.sh",
                                 "/usr/local/bin/packer",
                                 60,
                                 "data_generation/virtual-machines/attack.ova",
@@ -107,8 +107,9 @@ class TestCases(unittest.TestCase):
     def tearDown(self):
         # release resources
         print("finished running " + self._testMethodName)
-        if os.path.exists("data.csv"):
-            os.remove("data.csv")
+        os.system("./geranium.py clearvms")
+        # if os.path.exists("data.csv"):
+        #     os.remove("data.csv")
         if os.path.exists("model.joblib"):
             os.remove("model.joblib")
 

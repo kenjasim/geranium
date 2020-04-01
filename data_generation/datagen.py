@@ -75,7 +75,7 @@ class DataGen():
             print("Normal Network Data Generation" )
             print("--------------------------------------------------------------")
             #start collecting network data
-            capture = threading.Thread(target = self.snif_packets)
+            capture = threading.Thread(target = self.sniff_packets)
             capture.start()
 
             # Start Generating Normal Network Data using 
@@ -100,8 +100,7 @@ class DataGen():
             #start collecting network data
             print("Start Collecting Network Data")
             print("--------------------------------------------------------------")
-            capture = threading.Thread(target = self.snif_packets)
-            capture.start()
+            self.sniff_packets()
 
     # Runs an 7 machine and an attack machine to run exploits within it.
     def run_vms(self):
@@ -109,12 +108,12 @@ class DataGen():
         Starts the generation of the attack and target machines
         """
         #Create the attack machine in a seperate thread
-        att = threading.Thread(target = self.create_attack_machine)
-        att.start()
+        self.att = threading.Thread(target = self.create_attack_machine)
+        self.att.start()
 
         #Create the other target machine in a seperate thread
-        m1 = threading.Thread(target = self.create_network_target)
-        m1.start()
+        self.m1 = threading.Thread(target = self.create_network_target)
+        self.m1.start()
 
     def ping_vm(self):
         """ 
@@ -132,7 +131,7 @@ class DataGen():
             return False
 
     #Run scapy and collect the network packets
-    def snif_packets(self):
+    def sniff_packets(self):
         """ 
         Decalres a DataParser object and starts to sniff packets, once sniffed
         the packets will be collated
@@ -207,7 +206,7 @@ class DataGen():
         p = PackerExecutable(self.executable_path)
 
         # Add a minute to the self time to allow the attack time
-        target_time = 60 + self.time
+        target_time = 100 + self.time
         template = """{{
             "builders": [
                 {{
@@ -234,4 +233,3 @@ class DataGen():
         print (out)
         if err:
             print (err)
-
