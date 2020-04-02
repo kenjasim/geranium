@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 from sklearn.tree import DecisionTreeClassifier 
 from sklearn.model_selection import train_test_split
@@ -7,6 +8,12 @@ from sklearn.model_selection import cross_val_score
 from sklearn import preprocessing
 from sklearn.feature_selection import SelectFromModel
 
+# from sklearn.tree import export_graphviz
+# from sklearn.externals.six import StringIO  
+# from IPython.display import Image  
+# import pydotplus
+# from sklearn.linear_model import Ridge
+# from sklearn.model_selection import validation_curve
 from joblib import dump, load
 
 class DataModeling():
@@ -74,14 +81,9 @@ class DataModeling():
         X_train, self.X_test, y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.2) # 80% training and 20% test
 
         # Create Decision Tree classifer object
-        self.clf = DecisionTreeClassifier() 
+        self.clf = DecisionTreeClassifier(max_depth = 5) 
         # Train Decision Tree Classifer
         self.clf = self.clf.fit(X_train,y_train)
-
-        print (self.clf.feature_importances_)
-        model = SelectFromModel(self.clf, prefit=True)
-        X_new = model.transform(self.X)
-        print(X_new)
     
     def test(self):
         """ 
@@ -97,8 +99,8 @@ class DataModeling():
 
         # Model Accuracy, how often is the classifier correct?
         print("Accuracy: ",metrics.accuracy_score(self.y_test, y_pred))
-        print("Precision: ",metrics.precision_score(self.y_test, y_pred, average=None))
-        print("Recal: ",metrics.recall_score(self.y_test, y_pred, average=None))
+        print("Precision: ",metrics.precision_score(self.y_test, y_pred, average='macro'))
+        print("Recal: ",metrics.recall_score(self.y_test, y_pred, average='macro'))
         print("--------------------------------------------------------------")
     
     def export_tree(self):
@@ -110,7 +112,7 @@ class DataModeling():
         # Save Decision Tree Model to File to be redeployed
         dump(self.clf, self.model_path) 
 
-        # # Visualise Decison tree
+        # Visualise Decison tree
         # print("Exporting Image to: " + self.model_path)
         # print("--------------------------------------------------------------")
         # dot_data = StringIO()
@@ -118,5 +120,5 @@ class DataModeling():
         #                 filled=True, rounded=True,
         #                 special_characters=True,feature_names = self.feature_cols,class_names=self.classes)
         # graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
-        # graph.write_png(self.image_path)
+        # graph.write_png("tree.png")
         # Image(graph.create_png())
