@@ -5,6 +5,7 @@ from sklearn.model_selection import train_test_split
 from sklearn import metrics 
 from sklearn.model_selection import cross_val_score
 from sklearn import preprocessing
+from sklearn.feature_selection import SelectFromModel
 
 from joblib import dump, load
 
@@ -20,7 +21,6 @@ class DataModeling():
         """ 
         The function run when a decision tree is instantiated, the train 
         and test funnctions are called and the model is then extracted.
-
         Keyword Arguments
         dataset - the dataset to train the tree
         model_path - place to store the model
@@ -74,10 +74,14 @@ class DataModeling():
         X_train, self.X_test, y_train, self.y_test = train_test_split(self.X, self.y, test_size=0.2) # 80% training and 20% test
 
         # Create Decision Tree classifer object
-        self.clf = DecisionTreeClassifier()
-        
+        self.clf = DecisionTreeClassifier() 
         # Train Decision Tree Classifer
         self.clf = self.clf.fit(X_train,y_train)
+
+        print (self.clf.feature_importances_)
+        model = SelectFromModel(self.clf, prefit=True)
+        X_new = model.transform(self.X)
+        print(X_new)
     
     def test(self):
         """ 
@@ -116,10 +120,3 @@ class DataModeling():
         # graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
         # graph.write_png(self.image_path)
         # Image(graph.create_png())
-
-
-
-
-
-
-

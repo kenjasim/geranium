@@ -157,11 +157,11 @@ Avalibile commands:
         parser = argparse.ArgumentParser(
             description='Build a decision tree model from a dataset',
             usage='''geranium.py model <dataset>''')
-        try:
+        # try:
             # Start the data processing part of the project
-            data_modeling.DataModeling(sys.argv[2], self.model_path, self.classes)
-        except:
-            parser.print_help()
+        data_modeling.DataModeling(sys.argv[2], self.model_path, self.classes)
+        # except:
+        #     parser.print_help()
     
     def ids(self):
         """ 

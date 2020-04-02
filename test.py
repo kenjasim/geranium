@@ -56,10 +56,11 @@ class TestCases(unittest.TestCase):
         Test that network data can be collected
         """
 
-        data_processing.DataParser("normal", 
-                                   "data.csv", 
-                                   10, 
-                                   None)
+        d = data_processing.DataParser("normal", 
+                                       "data.csv", 
+                                        600, 
+                                        None)
+        d.sniff_packets()
         time.sleep(1)
         self.assertTrue(os.path.exists("data.csv") and os.path.getsize("data.csv") > 0)
 
@@ -107,9 +108,9 @@ class TestCases(unittest.TestCase):
     def tearDown(self):
         # release resources
         print("finished running " + self._testMethodName)
-        os.system("./geranium.py clearvms")
-        # if os.path.exists("data.csv"):
-        #     os.remove("data.csv")
+        # os.system("./geranium.py clearvms")
+        if os.path.exists("data.csv"):
+            os.remove("data.csv")
         if os.path.exists("model.joblib"):
             os.remove("model.joblib")
 

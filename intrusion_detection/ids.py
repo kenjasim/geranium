@@ -3,6 +3,7 @@ import threading
 import queue
 import numpy as np
 import pandas as pd
+from sklearn import preprocessing
 
 from joblib import dump, load
 from sklearn.tree import DecisionTreeClassifier
@@ -94,9 +95,6 @@ class IDS():
             data = [1, 0, 0, 0, 0, 0, 0, 0]
             self.packets.append(data)
 
-
-
-
     def collate_packets(self, packets):
         df = pd.DataFrame(packets)
 
@@ -142,6 +140,7 @@ class IDS():
         urgflag = df[7].sum()
 
         data = [tcp_packets, tcpsrcports, tcpdstports, finflag, synflag, pushflag, ackflag, urgflag, udp_packets, udpsrcports, udpdstports, icmp_packets]
+        print (data)
         return data
 
 class DetectionModel():
@@ -149,9 +148,12 @@ class DetectionModel():
     def __init__(self, model):
         # Import the model
         self.idm = load(model)
+        self.le = preprocessing.LabelEncoder()
+        self.le.fit(["normal", "synflood", "udpflood", "finflood", "pshackflood"])
 
     # Try to predict the threat
     def predict(self, data):
         value = self.idm.predict(data)
-        return value
+        value = self.le.inverse_transform(value)
+        return value[0]
 

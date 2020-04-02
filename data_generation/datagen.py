@@ -95,7 +95,7 @@ class DataGen():
                 up = self.ping_vm()
             
             # Wait 30 seconds before collecting network data
-            time.sleep(30)
+            time.sleep(15)
 
             #start collecting network data
             print("Start Collecting Network Data")
@@ -108,12 +108,12 @@ class DataGen():
         Starts the generation of the attack and target machines
         """
         #Create the attack machine in a seperate thread
-        self.att = threading.Thread(target = self.create_attack_machine)
-        self.att.start()
+        att = threading.Thread(target = self.create_attack_machine)
+        att.start()
 
         #Create the other target machine in a seperate thread
-        self.m1 = threading.Thread(target = self.create_network_target)
-        self.m1.start()
+        m1 = threading.Thread(target = self.create_network_target)
+        m1.start()
 
     def ping_vm(self):
         """ 
@@ -206,7 +206,7 @@ class DataGen():
         p = PackerExecutable(self.executable_path)
 
         # Add a minute to the self time to allow the attack time
-        target_time = 100 + self.time
+        target_time = 130 + self.time
         template = """{{
             "builders": [
                 {{
