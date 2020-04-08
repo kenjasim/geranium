@@ -3,7 +3,7 @@ data-generation:
     #Packer executable path
     executable_path: /usr/local/bin/packer 
     #Time in seconds to run the generation
-    time: 10 
+    time: 600 
     #Location of attack machine
     attack_machine_path: data_generation/virtual-machines/attack.ova 
     #Location of target machine
@@ -11,15 +11,15 @@ data-generation:
     #Attack machine ssh username
     attack_username: root
     #Attack machine ssh password
-    attack_password: yeet
+    attack_password: pass
     #Attack machine IP
     attack_ip: "192.168.0.14"
     # IP of target machine to filter from
-    filter_ip: "192.168.1.70" 
+    filter_ip: "192.168.0.15" 
 # Configurations for processing
 data-processing:
     # Location to store data
-    dataset_path: dataset.csv
+    dataset_path: simple.csv
     # Filter to process to
     filter: 
 # Configurations for modeling
@@ -31,9 +31,8 @@ data-modeling:
         - normal
         - synflood
         - udpflood
-        - finflood
         - pshackflood
-
+        - finflood
 # Configurations for ids
 ids:
     # Place to locate the model

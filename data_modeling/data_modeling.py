@@ -8,12 +8,12 @@ from sklearn.model_selection import cross_val_score
 from sklearn import preprocessing
 from sklearn.feature_selection import SelectFromModel
 
-# from sklearn.tree import export_graphviz
-# from sklearn.externals.six import StringIO  
-# from IPython.display import Image  
-# import pydotplus
-# from sklearn.linear_model import Ridge
-# from sklearn.model_selection import validation_curve
+from sklearn.tree import export_graphviz
+from sklearn.externals.six import StringIO  
+from IPython.display import Image  
+import pydotplus
+from sklearn.linear_model import Ridge
+from sklearn.model_selection import validation_curve
 from joblib import dump, load
 
 class DataModeling():
@@ -113,12 +113,12 @@ class DataModeling():
         dump(self.clf, self.model_path) 
 
         # Visualise Decison tree
-        # print("Exporting Image to: " + self.model_path)
-        # print("--------------------------------------------------------------")
-        # dot_data = StringIO()
-        # export_graphviz(self.clf, out_file=dot_data,  
-        #                 filled=True, rounded=True,
-        #                 special_characters=True,feature_names = self.feature_cols,class_names=self.classes)
-        # graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
-        # graph.write_png("tree.png")
-        # Image(graph.create_png())
+        print("Exporting Image to: tree.png")
+        print("--------------------------------------------------------------")
+        dot_data = StringIO()
+        export_graphviz(self.clf, out_file=dot_data,  
+                        filled=True, rounded=True,
+                        special_characters=True,feature_names = self.feature_cols,class_names=self.classes)
+        graph = pydotplus.graph_from_dot_data(dot_data.getvalue())  
+        graph.write_png("tree.png")
+        Image(graph.create_png())

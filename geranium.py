@@ -14,6 +14,7 @@ import sys, argparse
 import os
 import atexit
 
+#With help from: https://chase-seibert.github.io/blog/2014/03/21/python-multilevel-argparse.html
 class Geranium(object):
     """ 
     The main class of the project, the class is invoked when the program is
