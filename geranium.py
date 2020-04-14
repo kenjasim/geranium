@@ -84,6 +84,7 @@ Avalibile commands:
                 self.attack_password = config['data-generation']['attack_password']
                 self.attack_ip = config['data-generation']['attack_ip']
                 self.filter_ip = config['data-generation']['filter_ip']
+                self.interface = config['data-generation']['interface']
                 self.dataset_path = config['data-processing']['dataset_path']
                 self.filter = config['data-processing']['filter']
                 self.model_path = config['data-modeling']['model_path']
@@ -115,7 +116,8 @@ Avalibile commands:
                                     self.attack_password,
                                     self.attack_ip,
                                     self.dataset_path,
-                                    None)
+                                    None,
+                                    None,)
             else:
                 # Set the exit handler
                 # Ensure on exit that the virtual machines get wiped
@@ -132,7 +134,8 @@ Avalibile commands:
                                         self.attack_password,
                                         self.attack_ip,
                                         self.dataset_path,
-                                        self.filter_ip)
+                                        self.filter_ip,
+                                        self.interface)
         except:
              parser.print_help()
 

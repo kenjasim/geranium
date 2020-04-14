@@ -28,7 +28,8 @@ class DataGen():
                 attack_password, 
                 attack_ip,
                 dataset_path,
-                filter_ip):
+                filter_ip,
+                interface):
 
         """ 
         The function is run when the data generation class is instantiated, If 
@@ -68,6 +69,7 @@ class DataGen():
         self.attack_ip = attack_ip
         self.dataset_path = dataset_path
         self.filter_ip = filter_ip
+        self.interface = interface
         #Check the arguments and run the relevent vms
 
         if self.attack == "normal":
@@ -159,7 +161,7 @@ class DataGen():
                 {{
                 "type"                  : "virtualbox-ovf",
                 "vboxmanage"            : [
-                                            ["modifyvm", "{{{{.Name}}}}", "--bridgeadapter1", "en0"]
+                                            ["modifyvm", "{{{{.Name}}}}", "--bridgeadapter1", "{interface}"]
                                           ],
                 "source_path"           : "{machine}",
                 "vm_name"               : "attack",
@@ -187,7 +189,8 @@ class DataGen():
                                           machine = self.attack_machine_path, 
                                           ip = self.attack_ip,
                                           username = self.attack_username,
-                                          password = self.attack_password)
+                                          password = self.attack_password,
+                                          interface = self.interface)
         (_, out, err) = p.build(template, force=True)
 
         # Print an output after packer exits
@@ -212,7 +215,7 @@ class DataGen():
                 {{
                 "type"                  : "virtualbox-ovf",
                 "vboxmanage"            : [
-                                            ["modifyvm", "{{{{.Name}}}}", "--bridgeadapter1", "en0"]
+                                            ["modifyvm", "{{{{.Name}}}}", "--bridgeadapter1", "{interface}"]
                                           ],
                 "source_path"           : "{machine}",
                 "vm_name"               : "target",
@@ -226,7 +229,9 @@ class DataGen():
         """
 
         # Build the template
-        template = template.format(machine = self.target_machine_path, time = target_time)
+        template = template.format(machine = self.target_machine_path, 
+                                   time = target_time, 
+                                   interface=self.interface)
         (_, out, err) = p.build(template, force=True)
 
         # Print an output after packer exits

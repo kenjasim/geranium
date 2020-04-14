@@ -16,6 +16,8 @@ data-generation:
     attack_ip: "192.168.0.14"
     # IP of target machine to filter from
     filter_ip: "192.168.0.15" 
+    # Interface you are bridging
+    interface: en0
 # Configurations for processing
 data-processing:
     # Location to store data

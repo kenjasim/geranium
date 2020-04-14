@@ -6,12 +6,17 @@ You must have packer installed to run anything in ```generate``` command. This c
 
 Once packer is installed you must have 2 virtualbox ova files. These are preconfigured virtual machines which can be exported from VirtualBox following [these instructions](https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html). You must either create an attack machine (Kali was used in testing) and a target machine (a Windows 7 machine was used in testing). Alternativly the testing machines used can be downloaded 
 
+If you are using Ubuntu linux then you can install virtualbox and Packer by running
+```
+    sudo ./install_linux.sh
+```
+
 pyshark is needed along with pandas for data processing .PCAPNG wireshark data files if you prefer to use that, however only scapy and pandas are used for processing in the ```generate``` phase 
 
 Finally to install depandancies run:
 
 ```
-python3 setup.py install
+sudo python3 setup.py install
 ```
 
 ## Usage
@@ -35,12 +40,13 @@ Next alter the config file:
 - ```attack_password```: Attack machine ssh password
 - ```attack_ip```: Attack machine IP
 - ```filter_ip```: IP of target machine to filter from
+- ```interface```: The interface you are bridging
 - ```dataset_path```: Location of the dataset, found under ```data-processing```
 
 Once an attack has been made and the config file altered correctly then you can use
 
 ```
-./geranium.py generate synflood <path/to/synflood_attack.sh>
+    sudo ./geranium.py generate synflood <path/to/synflood_attack.sh>
 ```
 This will run for the alloted time as defined in the config file and will generate a CSV with features as defined in ``` data_processing/data_parser.py```.
 
@@ -49,7 +55,7 @@ This will run for the alloted time as defined in the config file and will genera
 To generate normal data run:
 
 ```
-./geranium.py generate normal
+    sudo ./geranium.py generate normal
 ```
 
 This used the web-traffic-generator from: https://github.com/ecapuano/web-traffic-generator. You only need to specify the time in the config file for this.
@@ -57,7 +63,7 @@ This used the web-traffic-generator from: https://github.com/ecapuano/web-traffi
 On exit all the relevant folders for the virtual machines should have been removed, but if not you can run:
 
 ```
-./geranium.py clearvms
+    sudo ./geranium.py clearvms
 ```
 
 ### Process
@@ -71,7 +77,7 @@ First alter the config file:
 Then you can process, for the synflood example above:
 
 ```
-./geranium.py process synflood <path/to/synflood_network_data>
+    sudo ./geranium.py process synflood <path/to/synflood_network_data>
 ```
 
 This part requires both pyshark and pandas
@@ -90,7 +96,7 @@ To generate a decision tree from the data, first alter the config file:
 From here a decision tree model can be generated using:
 
 ```
-./geranium.py model <path/to/dataset>
+    sudo ./geranium.py model <path/to/dataset>
 ```
 
 ### IDS
@@ -102,5 +108,5 @@ For a rudementary intrusion detection system you can specify the model in the co
 Then the intrusion detection system can be run with the command
 
 ```
-./geranium.py ids
+    sudo ./geranium.py ids
 ```
