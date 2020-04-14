@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/env python3
 
 import warnings
 warnings.simplefilter(action='ignore', category=FutureWarning)
