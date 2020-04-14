@@ -8,12 +8,12 @@ from sklearn.model_selection import cross_val_score
 from sklearn import preprocessing
 from sklearn.feature_selection import SelectFromModel
 
-from sklearn.tree import export_graphviz
-from sklearn.externals.six import StringIO  
-from IPython.display import Image  
-import pydotplus
-from sklearn.linear_model import Ridge
-from sklearn.model_selection import validation_curve
+# from sklearn.tree import export_graphviz
+# from sklearn.externals.six import StringIO  
+# from IPython.display import Image  
+# import pydotplus
+# from sklearn.linear_model import Ridge
+# from sklearn.model_selection import validation_curve
 from joblib import dump, load
 
 class DataModeling():
