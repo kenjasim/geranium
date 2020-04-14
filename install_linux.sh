@@ -1,5 +1,4 @@
 #!/bin/sh
-apt update  # To get the latest package lists
+apt update  
 apt install virtualbox -y
 apt install packer -y
-#etc.
