@@ -11,7 +11,7 @@ data-generation:
     #Attack machine ssh username
     attack_username: root
     #Attack machine ssh password
-    attack_password: pass
+    attack_password: yeet
     #Attack machine IP
     attack_ip: "192.168.0.14"
     # IP of target machine to filter from
@@ -21,7 +21,7 @@ data-generation:
 # Configurations for processing
 data-processing:
     # Location to store data
-    dataset_path: simple.csv
+    dataset_path: dataset.csv
     # Filter to process to
     filter: 
 # Configurations for modeling
