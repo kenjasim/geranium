@@ -1,0 +1,2182 @@
+
+Call:
+C5.0.default(x = X, y = y, trials = 10)
+
+
+C5.0 [Release 2.07 GPL Edition]  	Tue Nov 12 17:37:00 2019
+-------------------------------
+
+Class specified by attribute `outcome'
+
+Read 4898431 cases (42 attributes) from undefined.data
+
+-----  Trial 0:  -----
+
+Decision tree:
+
+wrong_fragment > 0:
+:...protocol_type = icmp: pod. (259)
+:   protocol_type in {tcp,udp}: teardrop. (979)
+wrong_fragment <= 0:
+:...service = ecr_i:
+    :...src_bytes > 292: smurf. (2807886)
+    :   src_bytes <= 292:
+    :   :...src_bytes > 25: normal. (3455)
+    :       src_bytes <= 25:
+    :       :...src_bytes <= 19: ipsweep. (48/8)
+    :           src_bytes > 19: satan. (12/1)
+    service in {aol,auth,bgp,courier,csnet_ns,ctf,daytime,discard,domain,
+    :           domain_u,echo,eco_i,efs,exec,finger,ftp,ftp_data,gopher,
+    :           harvest,hostnames,http,http_2784,http_443,http_8001,imap4,IRC,
+    :           iso_tsap,klogin,kshell,ldap,link,login,mtp,name,netbios_dgm,
+    :           netbios_ns,netbios_ssn,netstat,nnsp,nntp,ntp_u,other,pm_dump,
+    :           pop_2,pop_3,printer,private,red_i,remote_job,rje,shell,smtp,
+    :           sql_net,ssh,sunrpc,supdup,systat,telnet,tftp_u,tim_i,time,
+    :           urh_i,urp_i,uucp,uucp_path,vmnet,whois,X11,Z39_50}:
+    :...same_srv_rate <= 0.32:
+        :...dst_host_diff_srv_rate <= 0.12:
+        :   :...src_bytes <= 0: neptune. (1062196/209)
+        :   :   src_bytes > 0:
+        :   :   :...src_bytes <= 6:
+        :   :       :...dst_host_count <= 84: normal. (3)
+        :   :       :   dst_host_count > 84: satan. (142/1)
+        :   :       src_bytes > 6:
+        :   :       :...rerror_rate <= 0.14: normal. (1635/5)
+        :   :           rerror_rate > 0.14:
+        :   :           :...logged_in <= 0: satan. (6/1)
+        :   :               logged_in > 0: normal. (7/1)
+        :   dst_host_diff_srv_rate > 0.12:
+        :   :...src_bytes > 8:
+        :       :...service in {aol,auth,bgp,courier,csnet_ns,ctf,daytime,
+        :       :   :           discard,domain,domain_u,echo,efs,exec,finger,
+        :       :   :           ftp,ftp_data,gopher,harvest,hostnames,http,
+        :       :   :           http_2784,http_443,http_8001,imap4,IRC,
+        :       :   :           iso_tsap,klogin,kshell,ldap,link,login,mtp,
+        :       :   :           name,netbios_dgm,netbios_ns,netbios_ssn,
+        :       :   :           netstat,nnsp,nntp,ntp_u,other,pop_2,pop_3,
+        :       :   :           printer,private,red_i,remote_job,rje,shell,
+        :       :   :           smtp,sql_net,ssh,sunrpc,supdup,systat,tftp_u,
+        :       :   :           tim_i,time,urh_i,urp_i,uucp,uucp_path,vmnet,
+        :       :   :           whois,X11,Z39_50}: normal. (2529)
+        :       :   service in {eco_i,pm_dump,telnet}: satan. (9/2)
+        :       src_bytes <= 8:
+        :       :...dst_host_count <= 104: neptune. (283/1)
+        :           dst_host_count > 104:
+        :           :...rerror_rate > 0.99:
+        :               :...diff_srv_rate <= 0.78: portsweep. (606)
+        :               :   diff_srv_rate > 0.78: satan. (214)
+        :               rerror_rate <= 0.99:
+        :               :...serror_rate > 0.53: portsweep. (160)
+        :                   serror_rate <= 0.53:
+        :                   :...dst_host_same_src_port_rate <= 0.5: satan. (14060/1)
+        :                       dst_host_same_src_port_rate > 0.5:
+        :                       :...protocol_type = tcp: portsweep. (44/1)
+        :                           protocol_type in {icmp,
+        :                                             udp}: satan. (551)
+        same_srv_rate > 0.32:
+        :...dst_host_srv_serror_rate > 0.88:
+            :...flag in {OTH,RSTO,RSTOS0,RSTR}: neptune. (0)
+            :   flag = REJ: portsweep. (1)
+            :   flag in {S1,S2,SF}: normal. (69)
+            :   flag = S3: guess_passwd. (2/1)
+            :   flag = SH: nmap. (1032/2)
+            :   flag = S0:
+            :   :...dst_host_serror_rate <= 0.22:
+            :       :...land <= 0: portsweep. (25/1)
+            :       :   land > 0: land. (2)
+            :       dst_host_serror_rate > 0.22:
+            :       :...dst_host_same_src_port_rate <= 0.11: neptune. (9454)
+            :           dst_host_same_src_port_rate > 0.11:
+            :           :...land <= 0: neptune. (15)
+            :               land > 0: land. (12/5)
+            dst_host_srv_serror_rate <= 0.88:
+            :...flag in {OTH,RSTOS0,RSTR,SH}:
+                :...dst_bytes <= 0:
+                :   :...dst_host_same_srv_rate <= 0.23: portsweep. (7377/3)
+                :   :   dst_host_same_srv_rate > 0.23:
+                :   :   :...srv_count > 68: imap. (2)
+                :   :       srv_count <= 68:
+                :   :       :...dst_host_same_srv_rate > 0.89: normal. (11/2)
+                :   :           dst_host_same_srv_rate <= 0.89:
+                :   :           :...rerror_rate <= 0.5: normal. (2)
+                :   :               rerror_rate > 0.5: portsweep. (12/1)
+                :   dst_bytes > 0:
+                :   :...src_bytes > 12892: back. (91/1)
+                :       src_bytes <= 12892:
+                :       :...dst_bytes > 1.173059e+07: portsweep. (3)
+                :           dst_bytes <= 1.173059e+07:
+                :           :...num_failed_logins <= 0: normal. (327)
+                :               num_failed_logins > 0:
+                :               :...duration <= 2964: guess_passwd. (4)
+                :                   duration > 2964: normal. (2)
+                flag in {REJ,RSTO,S0,S1,S2,S3,SF}:
+                :...dst_host_srv_diff_host_rate > 0.49:
+                    :...service in {aol,bgp,courier,csnet_ns,daytime,discard,
+                    :   :           echo,efs,exec,harvest,hostnames,http_2784,
+                    :   :           http_443,http_8001,imap4,IRC,iso_tsap,
+                    :   :           klogin,kshell,ldap,login,netbios_dgm,
+                    :   :           netbios_ns,netbios_ssn,netstat,nnsp,nntp,
+                    :   :           other,pm_dump,pop_2,printer,red_i,shell,
+                    :   :           sql_net,sunrpc,supdup,systat,tftp_u,tim_i,
+                    :   :           urh_i,uucp,uucp_path,vmnet,X11,
+                    :   :           Z39_50}: ipsweep. (0)
+                    :   service in {ctf,domain,eco_i,ftp,gopher,link,mtp,name,
+                    :   :           private,remote_job,rje,ssh,time,whois}:
+                    :   :...dst_host_count <= 69: ipsweep. (11308/8)
+                    :   :   dst_host_count > 69:
+                    :   :   :...src_bytes > 19: normal. (5)
+                    :   :       src_bytes <= 19:
+                    :   :       :...dst_host_count <= 164: ipsweep. (22)
+                    :   :           dst_host_count > 164: portsweep. (2)
+                    :   service in {auth,domain_u,finger,ftp_data,http,ntp_u,
+                    :   :           pop_3,smtp,telnet,urp_i}:
+                    :   :...service = ftp_data:
+                    :       :...dst_bytes > 2507: loadmodule. (2)
+                    :       :   dst_bytes <= 2507: [S1]
+                    :       service in {auth,domain_u,finger,http,ntp_u,pop_3,
+                    :       :           smtp,telnet,urp_i}:
+                    :       :...hot > 1:
+                    :           :...dst_bytes <= 13696: buffer_overflow. (3)
+                    :           :   dst_bytes > 13696: normal. (3)
+                    :           hot <= 1:
+                    :           :...dst_host_diff_srv_rate > 0.92: [S2]
+                    :               dst_host_diff_srv_rate <= 0.92:
+                    :               :...flag in {REJ,RSTO,S1,S2,S3,
+                    :                   :        SF}: normal. (1262/1)
+                    :                   flag = S0: [S3]
+                    dst_host_srv_diff_host_rate <= 0.49:
+                    :...num_compromised > 0:
+                        :...src_bytes > 33996: back. (2101/1)
+                        :   src_bytes <= 33996:
+                        :   :...num_shells > 0:
+                        :       :...dst_host_count > 12: normal. (2)
+                        :       :   dst_host_count <= 12:
+                        :       :   :...duration <= 150: loadmodule. (2)
+                        :       :       duration > 150: multihop. (2)
+                        :       num_shells <= 0:
+                        :       :...dst_bytes <= 35: satan. (4/1)
+                        :           dst_bytes > 35: [S4]
+                        num_compromised <= 0:
+                        :...dst_host_diff_srv_rate > 0.91:
+                            :...dst_host_same_src_port_rate > 0.79:
+                            :   :...protocol_type in {icmp,
+                            :   :   :                 udp}: normal. (5)
+                            :   :   protocol_type = tcp: portsweep. (1550)
+                            :   dst_host_same_src_port_rate <= 0.79:
+                            :   :...src_bytes > 1: normal. (407/3)
+                            :       src_bytes <= 1:
+                            :       :...dst_host_count > 163: satan. (56/1)
+                            :           dst_host_count <= 163: [S5]
+                            dst_host_diff_srv_rate <= 0.91:
+                            :...num_failed_logins > 0: [S6]
+                                num_failed_logins <= 0:
+                                :...hot > 25:
+                                    :...dst_bytes <= 3299: warezclient. (274)
+                                    :   dst_bytes > 3299: normal. (281)
+                                    hot <= 25:
+                                    :...srv_serror_rate > 0.57:
+                                        :...land > 0: land. (7/1)
+                                        :   land <= 0:
+                                        :   :...count > 2: [S7]
+                                        :       count <= 2: [S8]
+                                        srv_serror_rate <= 0.57: [S9]
+
+SubTree [S1]
+
+dst_host_same_srv_rate <= 0.55: normal. (3)
+dst_host_same_srv_rate > 0.55: warezclient. (13/1)
+
+SubTree [S2]
+
+dst_host_rerror_rate <= 0.25: normal. (24)
+dst_host_rerror_rate > 0.25: ipsweep. (23)
+
+SubTree [S3]
+
+service = http: normal. (1)
+service = telnet: neptune. (3)
+service in {auth,domain_u,finger,ntp_u,pop_3,smtp,urp_i}: land. (6/1)
+
+SubTree [S4]
+
+dst_host_same_src_port_rate <= 0.09: normal. (587/3)
+dst_host_same_src_port_rate > 0.09:
+:...src_bytes <= 1339: normal. (37/3)
+    src_bytes > 1339:
+    :...duration <= 6327: buffer_overflow. (14)
+        duration > 6327: normal. (3)
+
+SubTree [S5]
+
+dst_host_rerror_rate <= 0.58: normal. (5/1)
+dst_host_rerror_rate > 0.58: ipsweep. (228)
+
+SubTree [S6]
+
+dst_host_same_srv_rate <= 0.72: normal. (52/2)
+dst_host_same_srv_rate > 0.72: guess_passwd. (46)
+
+SubTree [S7]
+
+flag in {REJ,RSTO,S1,S2,S3}: neptune. (0)
+flag = SF: imap. (4)
+flag = S0:
+:...dst_host_srv_count <= 204: neptune. (172)
+    dst_host_srv_count > 204: normal. (2)
+
+SubTree [S8]
+
+flag in {REJ,RSTO,S1,S2,S3,SF}: normal. (293/2)
+flag = S0:
+:...service = http: normal. (31)
+    service = imap4: imap. (1)
+    service in {aol,auth,bgp,courier,csnet_ns,ctf,daytime,discard,domain,
+    :           domain_u,echo,eco_i,efs,exec,finger,ftp,ftp_data,gopher,
+    :           harvest,hostnames,http_2784,http_443,http_8001,IRC,iso_tsap,
+    :           klogin,kshell,ldap,link,login,mtp,name,netbios_dgm,netbios_ns,
+    :           netbios_ssn,netstat,nnsp,nntp,ntp_u,other,pm_dump,pop_2,pop_3,
+    :           printer,private,red_i,remote_job,rje,shell,smtp,sql_net,ssh,
+    :           sunrpc,supdup,systat,tftp_u,tim_i,time,urh_i,urp_i,uucp,
+    :           uucp_path,vmnet,whois,X11,Z39_50}: neptune. (10)
+    service = telnet:
+    :...dst_host_same_srv_rate <= 0.59: normal. (5)
+        dst_host_same_srv_rate > 0.59: neptune. (2)
+
+SubTree [S9]
+
+service in {aol,courier,csnet_ns,daytime,echo,efs,harvest,http_2784,http_443,
+:           http_8001,klogin,link,login,mtp,name,netbios_ns,nnsp,printer,
+:           remote_job,sql_net,systat,tftp_u,vmnet,
+:           Z39_50}: normal. (0)
+service in {bgp,ctf,discard,eco_i,exec,gopher,hostnames,imap4,iso_tsap,kshell,
+:           ldap,netbios_dgm,netbios_ssn,netstat,nntp,pop_2,rje,sunrpc,supdup,
+:           tim_i,uucp,uucp_path,whois}:
+:...src_bytes > 25: normal. (3609/6)
+:   src_bytes <= 25:
+:   :...dst_host_count > 40:
+:       :...dst_host_same_src_port_rate <= 0.07: satan. (30/1)
+:       :   dst_host_same_src_port_rate > 0.07: portsweep. (25)
+:       dst_host_count <= 40:
+:       :...src_bytes > 13: ipsweep. (820)
+:           src_bytes <= 13:
+:           :...dst_host_srv_count <= 2: ipsweep. (39/7)
+:               dst_host_srv_count > 2: nmap. (1016)
+service in {auth,domain,domain_u,finger,ftp,ftp_data,http,IRC,ntp_u,other,
+:           pm_dump,pop_3,private,red_i,shell,smtp,ssh,telnet,time,urh_i,urp_i,
+:           X11}:
+:...root_shell > 0:
+    :...num_access_files > 0: phf. (4)
+    :   num_access_files <= 0:
+    :   :...num_shells <= 0: normal. (200/4)
+    :       num_shells > 0: perl. (3)
+    root_shell <= 0:
+    :...same_srv_rate <= 0.94:
+        :...rerror_rate > 0.58:
+        :   :...dst_host_rerror_rate > 0.95: neptune. (75)
+        :   :   dst_host_rerror_rate <= 0.95:
+        :   :   :...srv_count > 1: normal. (6)
+        :   :       srv_count <= 1:
+        :   :       :...dst_host_same_src_port_rate > 0.01: portsweep. (377)
+        :   :           dst_host_same_src_port_rate <= 0.01:
+        :   :           :...dst_host_serror_rate <= 0.25: satan. (5/1)
+        :   :               dst_host_serror_rate > 0.25: portsweep. (2)
+        :   rerror_rate <= 0.58:
+        :   :...src_bytes > 6: normal. (21786/11)
+        :       src_bytes <= 6:
+        :       :...service in {auth,domain,domain_u,ftp,ntp_u,other,pm_dump,
+        :           :           pop_3,private,red_i,shell,ssh,time,urh_i,
+        :           :           urp_i}: satan. (541/2)
+        :           service in {finger,ftp_data,http,IRC,smtp,telnet,X11}:
+        :           :...dst_host_count <= 249: normal. (37/1)
+        :               dst_host_count > 249:
+        :               :...dst_host_rerror_rate > 0.05: satan. (4)
+        :                   dst_host_rerror_rate <= 0.05:
+        :                   :...dst_host_diff_srv_rate <= 0.02: satan. (5/1)
+        :                       dst_host_diff_srv_rate > 0.02: normal. (6)
+        same_srv_rate > 0.94:
+        :...dst_host_serror_rate > 0.11:
+            :...service in {domain,ntp_u,pm_dump,pop_3,red_i,shell,ssh,urh_i,
+            :   :           urp_i}: normal. (0)
+            :   service = ftp: warezclient. (27/1)
+            :   service = private:
+            :   :...protocol_type in {icmp,tcp}: portsweep. (11)
+            :   :   protocol_type = udp: satan. (11)
+            :   service in {auth,domain_u,finger,ftp_data,http,IRC,other,smtp,
+            :   :           telnet,time,X11}:
+            :   :...dst_host_same_src_port_rate <= 0.93: normal. (2043/6)
+            :       dst_host_same_src_port_rate > 0.93:
+            :       :...service in {ftp_data,other}: warezclient. (11)
+            :           service in {auth,domain_u,finger,http,IRC,smtp,telnet,
+            :                       time,X11}: normal. (43)
+            dst_host_serror_rate <= 0.11:
+            :...flag = S2:
+                :...src_bytes <= 33336: normal. (82)
+                :   src_bytes > 33336: back. (4)
+                flag in {REJ,RSTO,S0,S1,S3,SF}:
+                :...service in {auth,domain,domain_u,finger,ftp,http,IRC,ntp_u,
+                    :           other,pm_dump,pop_3,red_i,shell,smtp,ssh,
+                    :           telnet,time,urh_i,urp_i,
+                    :           X11}: normal. (825691/99)
+                    service = private:
+                    :...flag in {RSTO,S0,S1,S3}: normal. (0)
+                    :   flag = REJ:
+                    :   :...dst_host_rerror_rate <= 0.94: portsweep. (46/2)
+                    :   :   dst_host_rerror_rate > 0.94: neptune. (12)
+                    :   flag = SF:
+                    :   :...src_bytes > 156:
+                    :       :...dst_host_count <= 251: nmap. (210)
+                    :       :   dst_host_count > 251: normal. (6)
+                    :       src_bytes <= 156:
+                    :       :...src_bytes > 101: normal. (72240)
+                    :           src_bytes <= 101:
+                    :           :...src_bytes > 50: nmap. (41/1)
+                    :               src_bytes <= 50:
+                    :               :...protocol_type = tcp: normal. (2)
+                    :                   protocol_type in {icmp,
+                    :                                     udp}: satan. (158)
+                    service = ftp_data:
+                    :...flag = REJ: ipsweep. (14/1)
+                        flag in {RSTO,S0,S1,S3}: normal. (58)
+                        flag = SF:
+                        :...dst_host_same_src_port_rate <= 0.98:
+                            :...duration <= 3:
+                            :   :...src_bytes > 353: normal. (27834)
+                            :   :   src_bytes <= 353:
+                            :   :   :...src_bytes <= 326: normal. (7888/2)
+                            :   :       src_bytes > 326: warezclient. (48)
+                            :   duration > 3:
+                            :   :...dst_host_serror_rate <= 0: normal. (26)
+                            :       dst_host_serror_rate > 0:
+                            :       :...dst_host_count <= 211: normal. (2)
+                            :           dst_host_count > 211: warezclient. (8)
+                            dst_host_same_src_port_rate > 0.98:
+                            :...dst_bytes > 1:
+                                :...logged_in <= 0: warezmaster. (21/3)
+                                :   logged_in > 0: [S10]
+                                dst_bytes <= 1:
+                                :...num_root > 0: normal. (31/1)
+                                    num_root <= 0:
+                                    :...logged_in <= 0: normal. (62/1)
+                                        logged_in > 0: [S11]
+
+SubTree [S10]
+
+dst_host_srv_diff_host_rate <= 0.03: buffer_overflow. (7/1)
+dst_host_srv_diff_host_rate > 0.03: normal. (3)
+
+SubTree [S11]
+
+dst_host_srv_diff_host_rate > 0.09: warezclient. (481)
+dst_host_srv_diff_host_rate <= 0.09:
+:...src_bytes <= 358:
+    :...src_bytes <= 223: normal. (37/1)
+    :   src_bytes > 223: warezclient. (122/3)
+    src_bytes > 358:
+    :...duration <= 2: normal. (151)
+        duration > 2: warezclient. (20)
+
+-----  Trial 1:  -----
+
+Decision tree:
+
+srv_count > 322: smurf. (2103414.2/148.5)
+srv_count <= 322:
+:...wrong_fragment > 0: teardrop. (928.5/194.3)
+    wrong_fragment <= 0:
+    :...su_attempted > 0: spy. (2917/81.8)
+        su_attempted <= 0:
+        :...count > 84:
+            :...dst_host_srv_diff_host_rate > 0.14: ipsweep. (2835.2)
+            :   dst_host_srv_diff_host_rate <= 0.14:
+            :   :...num_file_creations > 0: buffer_overflow. (2836/0.8)
+            :       num_file_creations <= 0:
+            :       :...diff_srv_rate <= 0.02: normal. (37799.1/4924.1)
+            :           diff_srv_rate > 0.02:
+            :           :...diff_srv_rate <= 0.23: neptune. (783096/117)
+            :               diff_srv_rate > 0.23: satan. (10914.3/548.3)
+            count <= 84:
+            :...rerror_rate > 0.18:
+                :...num_failed_logins > 0: guess_passwd. (39.8/2.3)
+                :   num_failed_logins <= 0:
+                :   :...dst_host_diff_srv_rate <= 0.01:
+                :       :...service in {aol,auth,bgp,courier,csnet_ns,ctf,
+                :       :   :           daytime,discard,domain,domain_u,echo,
+                :       :   :           eco_i,ecr_i,efs,exec,finger,ftp,gopher,
+                :       :   :           harvest,hostnames,http,http_2784,
+                :       :   :           http_443,http_8001,imap4,IRC,iso_tsap,
+                :       :   :           klogin,kshell,ldap,link,login,mtp,name,
+                :       :   :           netbios_dgm,netbios_ns,netbios_ssn,
+                :       :   :           netstat,nnsp,nntp,ntp_u,other,pm_dump,
+                :       :   :           pop_2,pop_3,printer,private,red_i,
+                :       :   :           remote_job,rje,shell,smtp,sql_net,ssh,
+                :       :   :           sunrpc,supdup,systat,telnet,tftp_u,
+                :       :   :           tim_i,time,urh_i,urp_i,uucp,uucp_path,
+                :       :   :           vmnet,whois,X11,
+                :       :   :           Z39_50}: normal. (45543.9/3017.5)
+                :       :   service = ftp_data: warezclient. (2845/9.8)
+                :       dst_host_diff_srv_rate > 0.01:
+                :       :...hot > 5: warezclient. (2836.7/0.8)
+                :           hot <= 5:
+                :           :...dst_host_same_src_port_rate > 0.01:
+                :               :...dst_host_count <= 66: normal. (3911.5/600.8)
+                :               :   dst_host_count > 66: portsweep. (491889/15.8)
+                :               dst_host_same_src_port_rate <= 0.01:
+                :               :...flag in {OTH,S1,
+                :                   :        SH}: satan. (0)
+                :                   flag in {RSTO,
+                :                   :        RSTR}: normal. (8742/27)
+                :                   flag in {REJ,RSTOS0,S0,S2,S3,SF}:
+                :                   :...srv_count > 1: neptune. (2789.3/168.8)
+                :                       srv_count <= 1: [S1]
+                rerror_rate <= 0.18:
+                :...root_shell > 0: buffer_overflow. (14360/8678.2)
+                    root_shell <= 0:
+                    :...num_file_creations > 0: buffer_overflow. (41405.7/30064)
+                        num_file_creations <= 0:
+                        :...num_compromised > 1: rootkit. (8731.5/3061)
+                            num_compromised <= 1:
+                            :...flag = RSTOS0: normal. (0)
+                                flag = S1: back. (8875.5/3205)
+                                flag in {S2,
+                                :        S3}: warezclient. (5822/151.5)
+                                flag = SH: nmap. (14951.7/5673.5)
+                                flag = S0:
+                                :...service in {aol,auth,bgp,courier,csnet_ns,
+                                :   :           ctf,daytime,discard,domain_u,
+                                :   :           echo,eco_i,ecr_i,efs,exec,ftp,
+                                :   :           ftp_data,gopher,harvest,
+                                :   :           hostnames,http,http_2784,
+                                :   :           http_443,http_8001,imap4,IRC,
+                                :   :           iso_tsap,klogin,kshell,ldap,
+                                :   :           link,login,mtp,name,
+                                :   :           netbios_dgm,netbios_ns,
+                                :   :           netbios_ssn,netstat,nnsp,nntp,
+                                :   :           ntp_u,other,pm_dump,pop_2,
+                                :   :           pop_3,printer,private,red_i,
+                                :   :           remote_job,rje,shell,smtp,
+                                :   :           sql_net,ssh,sunrpc,supdup,
+                                :   :           systat,telnet,tftp_u,tim_i,
+                                :   :           time,urh_i,urp_i,uucp,
+                                :   :           uucp_path,vmnet,whois,X11,
+                                :   :           Z39_50}: neptune. (32071.6/321)
+                                :   service in {domain,
+                                :               finger}: normal. (26127.7/3442)
+                                flag in {OTH,REJ,RSTO,RSTR,SF}:
+                                :...src_bytes > 19:
+                                    :...dst_host_rerror_rate > 0.01:
+                                    :   :...src_bytes > 45260: back. (18360.7/57)
+                                    :   :   src_bytes <= 45260: [S2]
+                                    :   dst_host_rerror_rate <= 0.01: [S3]
+                                    src_bytes <= 19:
+                                    :...protocol_type = icmp: [S4]
+                                        protocol_type in {tcp,udp}: [S5]
+
+SubTree [S1]
+
+dst_host_serror_rate > 0.26: portsweep. (2849.5/12.8)
+dst_host_serror_rate <= 0.26:
+:...dst_host_diff_srv_rate <= 0.04: portsweep. (14753.7/3411.3)
+    dst_host_diff_srv_rate > 0.04: satan. (77069.8/333.8)
+
+SubTree [S2]
+
+dst_host_srv_serror_rate > 0.03: guess_passwd. (2874.2/39)
+dst_host_srv_serror_rate <= 0.03:
+:...dst_host_rerror_rate <= 0.94: satan. (44203.2/18679.3)
+    dst_host_rerror_rate > 0.94: portsweep. (5753.7/83.3)
+
+SubTree [S3]
+
+num_failed_logins > 0: normal. (8539.5/5670.5)
+num_failed_logins <= 0:
+:...service in {domain,domain_u,eco_i,http,IRC,ntp_u,pop_3,private,shell,smtp,
+    :           ssh,urh_i,X11}: normal. (602581.1/366.8)
+    service in {imap4,telnet,urp_i}: satan. (30611.3/19270.4)
+    service = tim_i: pod. (14180.7/4.5)
+    service in {aol,auth,bgp,courier,csnet_ns,ctf,daytime,discard,echo,efs,
+    :           exec,finger,gopher,harvest,hostnames,http_2784,http_443,
+    :           http_8001,iso_tsap,klogin,kshell,ldap,link,login,mtp,name,
+    :           netbios_dgm,netbios_ns,netbios_ssn,netstat,nnsp,nntp,pm_dump,
+    :           pop_2,printer,red_i,remote_job,rje,sql_net,sunrpc,supdup,
+    :           systat,tftp_u,time,uucp,uucp_path,vmnet,whois,
+    :           Z39_50}: ftp_write. (5670.5)
+    service in {ecr_i,ftp,ftp_data,other}:
+    :...dst_host_count <= 1: normal. (14327.7/8584.5)
+        dst_host_count > 1:
+        :...logged_in <= 0:
+            :...dst_host_same_src_port_rate <= 0: rootkit. (2859.2/24)
+            :   dst_host_same_src_port_rate > 0:
+            :   :...dst_host_srv_count <= 254: normal. (50037/71.2)
+            :       dst_host_srv_count > 254: smurf. (606/20.3)
+            logged_in > 0:
+            :...srv_count > 2: normal. (13055/3.8)
+                srv_count <= 2:
+                :...num_root > 0: normal. (3301.6)
+                    num_root <= 0:
+                    :...dst_host_diff_srv_rate <= 0.41: warezclient. (61057.6/12211.3)
+                        dst_host_diff_srv_rate > 0.41: normal. (3076.7/1.5)
+
+SubTree [S4]
+
+dst_host_srv_diff_host_rate > 0.27: ipsweep. (10912.2/28.5)
+dst_host_srv_diff_host_rate <= 0.27:
+:...src_bytes <= 13: nmap. (51806.1/5707.2)
+    src_bytes > 13: ipsweep. (582)
+
+SubTree [S5]
+
+dst_host_same_srv_rate > 0.84: normal. (23389.9/17034.7)
+dst_host_same_srv_rate <= 0.84:
+:...dst_host_srv_rerror_rate > 0.01: ipsweep. (2914.7/69.8)
+    dst_host_srv_rerror_rate <= 0.01:
+    :...flag in {REJ,RSTO,RSTR}: satan. (0)
+        flag = OTH: portsweep. (34.5/1.5)
+        flag = SF:
+        :...dst_host_serror_rate > 0.23: normal. (2884.7)
+            dst_host_serror_rate <= 0.23:
+            :...num_compromised > 0: normal. (2893/2.2)
+                num_compromised <= 0:
+                :...dst_host_diff_srv_rate <= 0.01: normal. (2990.5)
+                    dst_host_diff_srv_rate > 0.01:
+                    :...dst_host_srv_count > 11: normal. (4709.5/378.8)
+                        dst_host_srv_count <= 11:
+                        :...dst_bytes > 201: normal. (4128.3/1.5)
+                            dst_bytes <= 201:
+                            :...dst_host_srv_diff_host_rate <= 0.26: satan. (158881.3/2195.3)
+                                dst_host_srv_diff_host_rate > 0.26: normal. (852/24)
+
+-----  Trial 2:  -----
+
+Decision tree:
+
+service = ecr_i:
+:...wrong_fragment > 0: pod. (5098.5)
+:   wrong_fragment <= 0:
+:   :...src_bytes <= 292: nmap. (24149.3/11248.2)
+:       src_bytes > 292: smurf. (1651273.2)
+service in {aol,auth,bgp,courier,csnet_ns,ctf,daytime,discard,domain,domain_u,
+:           echo,eco_i,efs,exec,finger,ftp,ftp_data,gopher,harvest,hostnames,
+:           http,http_2784,http_443,http_8001,imap4,IRC,iso_tsap,klogin,kshell,
+:           ldap,link,login,mtp,name,netbios_dgm,netbios_ns,netbios_ssn,
+:           netstat,nnsp,nntp,ntp_u,other,pm_dump,pop_2,pop_3,printer,private,
+:           red_i,remote_job,rje,shell,smtp,sql_net,ssh,sunrpc,supdup,systat,
+:           telnet,tftp_u,tim_i,time,urh_i,urp_i,uucp,uucp_path,vmnet,whois,
+:           X11,Z39_50}:
+:...wrong_fragment > 0: teardrop. (556.9)
+    wrong_fragment <= 0:
+    :...same_srv_rate <= 0.49:
+        :...land > 0: land. (2873.9)
+        :   land <= 0:
+        :   :...num_file_creations > 0: buffer_overflow. (4792.5/492.1)
+        :       num_file_creations <= 0:
+        :       :...diff_srv_rate <= 0.35:
+        :           :...service in {aol,harvest,http_2784,http_8001,pm_dump,
+        :           :   :           red_i,urh_i,X11}: neptune. (0)
+        :           :   service in {domain_u,http,IRC,ntp_u,other,telnet,
+        :           :   :           tftp_u,tim_i,
+        :           :   :           urp_i}: normal. (39271.5/2945.1)
+        :           :   service = eco_i: ipsweep. (6489.2/2188.8)
+        :           :   service in {auth,bgp,courier,csnet_ns,ctf,daytime,
+        :           :   :           discard,domain,echo,efs,exec,finger,ftp,
+        :           :   :           ftp_data,gopher,hostnames,http_443,imap4,
+        :           :   :           iso_tsap,klogin,kshell,ldap,link,login,mtp,
+        :           :   :           name,netbios_dgm,netbios_ns,netbios_ssn,
+        :           :   :           netstat,nnsp,nntp,pop_2,pop_3,printer,
+        :           :   :           private,remote_job,rje,shell,smtp,sql_net,
+        :           :   :           ssh,sunrpc,supdup,systat,time,uucp,
+        :           :   :           uucp_path,vmnet,whois,Z39_50}:
+        :           :   :...dst_host_same_src_port_rate > 0.08: satan. (8877.6/3181.9)
+        :           :       dst_host_same_src_port_rate <= 0.08:
+        :           :       :...dst_host_diff_srv_rate <= 0.01: normal. (2358.3)
+        :           :           dst_host_diff_srv_rate > 0.01: neptune. (624925.6/707.4)
+        :           diff_srv_rate > 0.35:
+        :           :...dst_host_same_src_port_rate > 0.01:
+        :               :...flag in {OTH,REJ,RSTO,RSTOS0,RSTR,S0,
+        :               :   :        S3}: portsweep. (380249.2/281.8)
+        :               :   flag in {S1,S2,SF}: normal. (15535.8/228.1)
+        :               :   flag = SH: nmap. (2153)
+        :               dst_host_same_src_port_rate <= 0.01:
+        :               :...dst_host_serror_rate > 0.77: neptune. (1967.4)
+        :                   dst_host_serror_rate <= 0.77:
+        :                   :...dst_host_rerror_rate <= 0: normal. (10430.1/2229.5)
+        :                       dst_host_rerror_rate > 0:
+        :                       :...service in {aol,auth,bgp,courier,csnet_ns,
+        :                           :           ctf,daytime,discard,domain,
+        :                           :           domain_u,echo,eco_i,efs,exec,
+        :                           :           finger,ftp,ftp_data,gopher,
+        :                           :           harvest,hostnames,http,
+        :                           :           http_2784,http_443,http_8001,
+        :                           :           imap4,IRC,iso_tsap,klogin,
+        :                           :           kshell,ldap,link,login,mtp,
+        :                           :           name,netbios_dgm,netbios_ns,
+        :                           :           netbios_ssn,nnsp,nntp,ntp_u,
+        :                           :           other,pm_dump,pop_2,pop_3,
+        :                           :           printer,private,red_i,
+        :                           :           remote_job,rje,shell,smtp,
+        :                           :           sql_net,ssh,sunrpc,supdup,
+        :                           :           systat,telnet,tftp_u,tim_i,
+        :                           :           time,urh_i,urp_i,uucp,
+        :                           :           uucp_path,vmnet,whois,X11,
+        :                           :           Z39_50}: satan. (66919.6/2195.2)
+        :                           service = netstat: portsweep. (2151.9/1.7)
+        same_srv_rate > 0.49:
+        :...dst_host_serror_rate > 0.21:
+            :...is_guest_login > 0: warezmaster. (2854.7/0.6)
+            :   is_guest_login <= 0:
+            :   :...dst_host_srv_rerror_rate > 0.99: portsweep. (2309.2/119.3)
+            :       dst_host_srv_rerror_rate <= 0.99:
+            :       :...hot > 4: warezclient. (2248.6/98.4)
+            :           hot <= 4:
+            :           :...dst_host_serror_rate <= 0.22: spy. (5166.4/162)
+            :               dst_host_serror_rate > 0.22:
+            :               :...service in {aol,harvest,http_2784,http_8001,
+            :                   :           ntp_u,pm_dump,red_i,tftp_u,tim_i,
+            :                   :           urh_i,
+            :                   :           urp_i}: normal. (0)
+            :                   service = imap4: imap. (11555.1/0.6)
+            :                   service in {auth,bgp,courier,csnet_ns,ctf,
+            :                   :           daytime,discard,domain,domain_u,
+            :                   :           echo,eco_i,efs,exec,finger,ftp,
+            :                   :           ftp_data,gopher,hostnames,http,
+            :                   :           http_443,IRC,iso_tsap,klogin,
+            :                   :           kshell,ldap,link,login,mtp,name,
+            :                   :           netbios_dgm,netbios_ns,netbios_ssn,
+            :                   :           netstat,nnsp,nntp,other,pop_2,
+            :                   :           pop_3,printer,private,remote_job,
+            :                   :           rje,shell,smtp,sql_net,ssh,sunrpc,
+            :                   :           supdup,systat,telnet,time,uucp,
+            :                   :           uucp_path,vmnet,whois,X11,Z39_50}:
+            :                   :...dst_host_diff_srv_rate <= 0.7: normal. (42971.6/16024.3)
+            :                       dst_host_diff_srv_rate > 0.7: nmap. (9441.8/2411.6)
+            dst_host_serror_rate <= 0.21:
+            :...src_bytes <= 20:
+                :...root_shell > 0: buffer_overflow. (7174.2/2873.9)
+                :   root_shell <= 0:
+                :   :...num_compromised > 1: rootkit. (2169.9/19.7)
+                :       num_compromised <= 1:
+                :       :...protocol_type = icmp: nmap. (25965.8/7500.1)
+                :           protocol_type = udp:
+                :           :...service in {aol,auth,bgp,courier,csnet_ns,ctf,
+                :           :   :           daytime,discard,domain,echo,eco_i,
+                :           :   :           efs,exec,finger,ftp,ftp_data,
+                :           :   :           gopher,harvest,hostnames,http,
+                :           :   :           http_2784,http_443,http_8001,imap4,
+                :           :   :           IRC,iso_tsap,klogin,kshell,ldap,
+                :           :   :           link,login,mtp,name,netbios_dgm,
+                :           :   :           netbios_ns,netbios_ssn,netstat,
+                :           :   :           nnsp,nntp,ntp_u,pm_dump,pop_2,
+                :           :   :           pop_3,printer,red_i,remote_job,rje,
+                :           :   :           shell,smtp,sql_net,ssh,sunrpc,
+                :           :   :           supdup,systat,telnet,tftp_u,tim_i,
+                :           :   :           time,urh_i,urp_i,uucp,uucp_path,
+                :           :   :           vmnet,whois,X11,
+                :           :   :           Z39_50}: satan. (0)
+                :           :   service = domain_u: normal. (463.7)
+                :           :   service in {other,private}:
+                :           :   :...dst_host_count <= 35: rootkit. (5708.4)
+                :           :       dst_host_count > 35: satan. (91314.2)
+                :           protocol_type = tcp:
+                :           :...dst_host_diff_srv_rate > 0.99: ipsweep. (23175.6/3379.8)
+                :               dst_host_diff_srv_rate <= 0.99: [S1]
+                src_bytes > 20:
+                :...src_bytes > 40495:
+                    :...duration <= 2357: back. (44157.6/14322.7)
+                    :   duration > 2357: warezclient. (8773.7/8.5)
+                    src_bytes <= 40495:
+                    :...flag in {RSTOS0,SH}: normal. (0)
+                        flag = RSTO: warezclient. (2316.3/166.1)
+                        flag = RSTR: back. (797.2/324.7)
+                        flag in {OTH,REJ,S0,S1,S2,S3,SF}:
+                        :...dst_host_srv_count <= 4: [S2]
+                            dst_host_srv_count > 4:
+                            :...duration > 15033: warezclient. (11504.6/753.2)
+                                duration <= 15033:
+                                :...dst_host_diff_srv_rate > 0.37: normal. (43161.8/15091.1)
+                                    dst_host_diff_srv_rate <= 0.37:
+                                    :...num_root > 0: normal. (9828.8/2854.2)
+                                        num_root <= 0: [S3]
+
+SubTree [S1]
+
+dst_host_same_src_port_rate > 0.51: ftp_write. (21251.2/15542.8)
+dst_host_same_src_port_rate <= 0.51:
+:...count > 2: satan. (25242.4/1588.3)
+    count <= 2:
+    :...service in {aol,bgp,courier,domain_u,eco_i,efs,harvest,http_2784,
+        :           http_443,http_8001,imap4,klogin,kshell,login,netbios_ns,
+        :           netbios_ssn,nnsp,ntp_u,pm_dump,printer,red_i,shell,sql_net,
+        :           tftp_u,tim_i,urh_i,urp_i,vmnet,
+        :           Z39_50}: normal. (0)
+        service in {csnet_ns,ctf,daytime,discard,echo,exec,ftp_data,gopher,
+        :           hostnames,iso_tsap,ldap,link,mtp,name,netbios_dgm,netstat,
+        :           nntp,other,private,remote_job,rje,ssh,sunrpc,supdup,systat,
+        :           uucp_path,whois,X11}: satan. (16027.2/7424.2)
+        service in {auth,domain,finger,ftp,http,IRC,pop_2,pop_3,smtp,telnet,
+        :           time,uucp}:
+        :...hot <= 0: normal. (127035.1/6534)
+            hot > 0: satan. (2457.4/287.5)
+
+SubTree [S2]
+
+dst_host_same_src_port_rate <= 0: rootkit. (35452.9/16881.7)
+dst_host_same_src_port_rate > 0:
+:...src_bytes <= 44: satan. (11851.4/1100.6)
+    src_bytes > 44:
+    :...service = tim_i: pod. (10869/118.1)
+        service in {aol,auth,bgp,courier,csnet_ns,ctf,daytime,discard,domain,
+        :           echo,efs,exec,finger,gopher,harvest,hostnames,http_2784,
+        :           http_443,http_8001,imap4,iso_tsap,klogin,kshell,ldap,link,
+        :           login,mtp,name,netbios_dgm,netbios_ns,netbios_ssn,netstat,
+        :           nnsp,nntp,pm_dump,pop_2,printer,remote_job,rje,sql_net,
+        :           sunrpc,supdup,systat,tftp_u,time,urh_i,uucp,uucp_path,
+        :           vmnet,whois,Z39_50}: ftp_write. (4300.3)
+        service in {domain_u,eco_i,ftp,ftp_data,http,IRC,ntp_u,other,pop_3,
+        :           private,red_i,shell,smtp,ssh,telnet,urp_i,X11}:
+        :...num_access_files > 0: ftp_write. (6148.8/440.5)
+            num_access_files <= 0:
+            :...num_file_creations > 0: buffer_overflow. (15666.6/9212.1)
+                num_file_creations <= 0:
+                :...dst_host_same_srv_rate <= 0.63: normal. (51182.2/2293.7)
+                    dst_host_same_srv_rate > 0.63: loadmodule. (19033.9/13325.6)
+
+SubTree [S3]
+
+dst_host_srv_serror_rate > 0.01: normal. (42338.2/13051.6)
+dst_host_srv_serror_rate <= 0.01:
+:...dst_host_serror_rate > 0.1: warezclient. (4164.9/2001.7)
+    dst_host_serror_rate <= 0.1:
+    :...dst_host_diff_srv_rate > 0.32: normal. (5961.1/2150.7)
+        dst_host_diff_srv_rate <= 0.32:
+        :...service in {aol,auth,bgp,courier,csnet_ns,ctf,daytime,discard,
+            :           domain,echo,efs,exec,finger,gopher,harvest,hostnames,
+            :           http_2784,http_443,http_8001,imap4,iso_tsap,klogin,
+            :           kshell,ldap,link,login,mtp,name,netbios_dgm,netbios_ns,
+            :           netbios_ssn,netstat,nnsp,nntp,pm_dump,pop_2,printer,
+            :           remote_job,rje,shell,sql_net,ssh,sunrpc,supdup,systat,
+            :           tftp_u,tim_i,time,uucp,uucp_path,vmnet,whois,
+            :           Z39_50}: normal. (0)
+            service = private:
+            :...dst_host_same_src_port_rate <= 0.16: normal. (44099.9/413.4)
+            :   dst_host_same_src_port_rate > 0.16: nmap. (4361.3/10.8)
+            service in {domain_u,eco_i,ftp,ftp_data,http,IRC,ntp_u,other,pop_3,
+            :           red_i,smtp,telnet,urh_i,urp_i,X11}:
+            :...rerror_rate > 0.45: normal. (315.4/20.3)
+                rerror_rate <= 0.45:
+                :...dst_host_srv_serror_rate <= 0: normal. (1159719.1/2545.9)
+                    dst_host_srv_serror_rate > 0:
+                    :...dst_host_srv_count <= 69: warezclient. (3095.6/940.9)
+                        dst_host_srv_count > 69: normal. (84724/1.1)
+
+-----  Trial 3:  -----
+
+Decision tree:
+
+srv_count > 84:
+:...srv_rerror_rate > 0.01: imap. (4427.9)
+:   srv_rerror_rate <= 0.01:
+:   :...wrong_fragment > 1: teardrop. (60.1)
+:       wrong_fragment <= 1:
+:       :...src_bytes <= 518: normal. (16822.8/1929.9)
+:           src_bytes > 518: smurf. (1252920.1)
+srv_count <= 84:
+:...wrong_fragment > 0: pod. (4237.8/363.1)
+    wrong_fragment <= 0:
+    :...dst_host_serror_rate > 0.9:
+        :...dst_host_same_src_port_rate > 0.7: normal. (23668.3/11766.2)
+        :   dst_host_same_src_port_rate <= 0.7:
+        :   :...flag in {RSTO,RSTR,S1,SF}: normal. (4433.5)
+        :       flag in {OTH,REJ,RSTOS0,S0,S2,S3,SH}: neptune. (584762/299.2)
+        dst_host_serror_rate <= 0.9:
+        :...land > 0: land. (98.7)
+            land <= 0:
+            :...dst_host_srv_diff_host_rate > 0.24:
+                :...num_failed_logins > 3: guess_passwd. (2876.4)
+                :   num_failed_logins <= 3:
+                :   :...root_shell > 0: loadmodule. (3372.8/454.5)
+                :       root_shell <= 0:
+                :       :...service in {aol,bgp,courier,csnet_ns,daytime,
+                :           :           discard,echo,efs,exec,harvest,
+                :           :           hostnames,http_2784,http_443,http_8001,
+                :           :           imap4,IRC,iso_tsap,klogin,kshell,ldap,
+                :           :           login,netbios_dgm,netbios_ns,
+                :           :           netbios_ssn,netstat,nnsp,nntp,other,
+                :           :           pm_dump,pop_2,printer,red_i,shell,
+                :           :           sql_net,sunrpc,supdup,systat,tftp_u,
+                :           :           tim_i,urh_i,uucp,uucp_path,vmnet,X11,
+                :           :           Z39_50}: ipsweep. (0)
+                :           service = ftp_data: ftp_write. (8120/3074.5)
+                :           service in {auth,domain_u,ecr_i,finger,ftp,http,
+                :           :           ntp_u,pop_3,smtp,telnet,urp_i}:
+                :           :...count > 3: satan. (2700/939.8)
+                :           :   count <= 3:
+                :           :   :...flag in {OTH,REJ,RSTOS0,RSTR,S0,S1,S2,S3,
+                :           :       :        SF,SH}: normal. (52228.3/419)
+                :           :       flag = RSTO: ipsweep. (288.8/49.4)
+                :           service in {ctf,domain,eco_i,gopher,link,mtp,name,
+                :           :           private,remote_job,rje,ssh,time,whois}:
+                :           :...src_bytes > 24: normal. (11488)
+                :               src_bytes <= 24:
+                :               :...dst_host_serror_rate > 0.1: nmap. (1680)
+                :                   dst_host_serror_rate <= 0.1:
+                :                   :...count <= 24: ipsweep. (273179.8/1040.3)
+                :                       count > 24: nmap. (3806.4/1634)
+                dst_host_srv_diff_host_rate <= 0.24:
+                :...urgent > 0: ftp_write. (5733.4/2465.3)
+                    urgent <= 0:
+                    :...service in {aol,bgp,courier,csnet_ns,ctf,daytime,
+                        :           discard,echo,efs,exec,finger,gopher,
+                        :           harvest,hostnames,http_2784,http_443,
+                        :           http_8001,iso_tsap,klogin,kshell,ldap,link,
+                        :           login,mtp,name,netbios_dgm,netbios_ns,
+                        :           netbios_ssn,netstat,nnsp,nntp,other,
+                        :           pm_dump,pop_2,printer,private,remote_job,
+                        :           rje,shell,sql_net,ssh,sunrpc,supdup,systat,
+                        :           time,uucp,uucp_path,vmnet,whois,X11,Z39_50}:
+                        :...hot > 1: warezclient. (5118.2/216.1)
+                        :   hot <= 1:
+                        :   :...flag in {OTH,REJ,RSTO,RSTOS0,RSTR,S0}:
+                        :       :...dst_host_same_src_port_rate > 0.01: [S1]
+                        :       :   dst_host_same_src_port_rate <= 0.01:
+                        :       :   :...dst_host_rerror_rate > 0.99: [S2]
+                        :       :       dst_host_rerror_rate <= 0.99:
+                        :       :       :...srv_count > 1: normal. (538.6/118.8)
+                        :       :           srv_count <= 1: [S3]
+                        :       flag in {S1,S2,S3,SF,SH}:
+                        :       :...flag = SH: nmap. (1883.9/83.8)
+                        :           flag in {S1,S2,S3,SF}:
+                        :           :...src_bytes > 45: normal. (75398.1/6693.4)
+                        :               src_bytes <= 45: [S4]
+                        service in {auth,domain,domain_u,eco_i,ecr_i,ftp,
+                        :           ftp_data,http,imap4,IRC,ntp_u,pop_3,red_i,
+                        :           smtp,telnet,tftp_u,tim_i,urh_i,urp_i}:
+                        :...num_shells > 0: spy. (2706.8/1072.7)
+                            num_shells <= 0:
+                            :...root_shell > 0: normal. (10677.2/5830.5)
+                                root_shell <= 0:
+                                :...same_srv_rate <= 0.34: [S5]
+                                    same_srv_rate > 0.34:
+                                    :...dst_host_diff_srv_rate > 0.37:
+                                        :...src_bytes <= 8: nmap. (8629.8/5359.5)
+                                        :   src_bytes > 8: [S6]
+                                        dst_host_diff_srv_rate <= 0.37:
+                                        :...num_compromised > 0: normal. (25896.6/14626.6)
+                                            num_compromised <= 0:
+                                            :...dst_host_srv_count <= 6: [S7]
+                                                dst_host_srv_count > 6: [S8]
+
+SubTree [S1]
+
+dst_host_diff_srv_rate <= 0: normal. (5639.8/205)
+dst_host_diff_srv_rate > 0:
+:...dst_host_count <= 66: ipsweep. (3772.3/1214.1)
+    dst_host_count > 66: portsweep. (481285.3/23.2)
+
+SubTree [S2]
+
+dst_host_diff_srv_rate <= 0.55: neptune. (97908.9)
+dst_host_diff_srv_rate > 0.55: satan. (452.6)
+
+SubTree [S3]
+
+same_srv_rate <= 0.29: satan. (43795.5/0.4)
+same_srv_rate > 0.29: portsweep. (13361.1/5279.7)
+
+SubTree [S4]
+
+dst_host_same_srv_rate > 0.95: rootkit. (5337.3/999.2)
+dst_host_same_srv_rate <= 0.95:
+:...dst_bytes <= 50: satan. (98821/2521.7)
+    dst_bytes > 50: normal. (37497.7/9979.7)
+
+SubTree [S5]
+
+num_file_creations > 0: buffer_overflow. (3477.5/209.5)
+num_file_creations <= 0:
+:...dst_host_rerror_rate > 0.99: neptune. (13039.6/1690.9)
+    dst_host_rerror_rate <= 0.99:
+    :...rerror_rate <= 0.14: normal. (34982.2/4034.2)
+        rerror_rate > 0.14: portsweep. (25162.3/6918.1)
+
+SubTree [S6]
+
+dst_bytes > 486: loadmodule. (17165.4/9243.6)
+dst_bytes <= 486:
+:...dst_host_srv_count <= 123: normal. (43180/7439.7)
+    dst_host_srv_count > 123: satan. (14034.8/1000.6)
+
+SubTree [S7]
+
+num_access_files > 0: ftp_write. (4665.4/327.2)
+num_access_files <= 0:
+:...num_file_creations > 0: multihop. (20077/14324.3)
+    num_file_creations <= 0:
+    :...dst_host_serror_rate > 0.31: imap. (2922.2/738.2)
+        dst_host_serror_rate <= 0.31:
+        :...src_bytes <= 8: nmap. (40838.8/21227.6)
+            src_bytes > 8:
+            :...service = tftp_u: normal. (0)
+                service = tim_i: pod. (8421.6/251.3)
+                service in {auth,domain,domain_u,eco_i,ecr_i,ftp,ftp_data,http,
+                :           imap4,IRC,ntp_u,pop_3,red_i,smtp,telnet,urh_i,
+                :           urp_i}:
+                :...duration <= 59: normal. (96798.2/7319.2)
+                    duration > 59: rootkit. (10257.8/5919.7)
+
+SubTree [S8]
+
+duration > 298: warezclient. (23623.9/10410.5)
+duration <= 298:
+:...hot > 25: warezclient. (10133.7/3844.8)
+    hot <= 25:
+    :...src_bytes > 53887: normal. (45211/13447.2)
+        src_bytes <= 53887:
+        :...service in {domain,imap4,tftp_u,tim_i}: imap. (2169.1)
+            service in {auth,domain_u,eco_i,ecr_i,http,IRC,ntp_u,pop_3,red_i,
+            :           smtp,telnet,urh_i,urp_i}:
+            :...service in {auth,domain_u,eco_i,http,IRC,ntp_u,pop_3,red_i,
+            :   :           smtp,telnet,urh_i,urp_i}: normal. (967086.1/6634.2)
+            :   service = ecr_i:
+            :   :...src_bytes > 292: smurf. (1818.7)
+            :       src_bytes <= 292:
+            :       :...src_bytes <= 24: ipsweep. (296.1)
+            :           src_bytes > 24: normal. (73482.9)
+            service in {ftp,ftp_data}:
+            :...flag = REJ: portsweep. (2591.3/418.9)
+                flag in {RSTOS0,RSTR,S0,S1,SH}: normal. (1126.3/133)
+                flag in {OTH,RSTO,S2,S3,SF}:
+                :...src_bytes <= 4: ftp_write. (3725.4/1556.3)
+                    src_bytes > 4:
+                    :...dst_host_same_src_port_rate <= 0.98: normal. (233183.6/12758.1)
+                        dst_host_same_src_port_rate > 0.98: warezclient. (23334.4/7753.9)
+
+-----  Trial 4:  -----
+
+Decision tree:
+
+wrong_fragment > 0:
+:...protocol_type = icmp: pod. (2950.8)
+:   protocol_type in {tcp,udp}: teardrop. (86402)
+wrong_fragment <= 0:
+:...srv_count > 150:
+    :...srv_serror_rate > 0.29: imap. (3326.5)
+    :   srv_serror_rate <= 0.29:
+    :   :...src_bytes <= 518: normal. (6467.9)
+    :       src_bytes > 518: smurf. (946638.3)
+    srv_count <= 150:
+    :...num_compromised > 0:
+        :...src_bytes <= 12617: normal. (30932.3/14735.8)
+        :   src_bytes > 12617:
+        :   :...dst_host_diff_srv_rate <= 0: back. (224799.3)
+        :       dst_host_diff_srv_rate > 0: normal. (1686.3)
+        num_compromised <= 0:
+        :...dst_host_serror_rate > 0.59:
+            :...land > 0: normal. (13434.7/4723.9)
+            :   land <= 0:
+            :   :...flag in {OTH,RSTOS0}: neptune. (0)
+            :       flag in {REJ,RSTO,RSTR,S1,SF}: normal. (11290.7)
+            :       flag = S2: warezclient. (2365.9/91.1)
+            :       flag = S3: guess_passwd. (167/22.8)
+            :       flag = SH: nmap. (104753.6/11.4)
+            :       flag = S0:
+            :       :...dst_host_srv_rerror_rate > 0.41: normal. (972.8)
+            :           dst_host_srv_rerror_rate <= 0.41:
+            :           :...dst_host_srv_count <= 204: neptune. (463372.6)
+            :               dst_host_srv_count > 204: normal. (1453.6)
+            dst_host_serror_rate <= 0.59:
+            :...land > 0: land. (75.2)
+                land <= 0:
+                :...service = eco_i:
+                    :...src_bytes > 19: normal. (25850.1/3123.7)
+                    :   src_bytes <= 19:
+                    :   :...dst_host_same_srv_rate <= 0.01: portsweep. (594.4/17.3)
+                    :       dst_host_same_srv_rate > 0.01: [S1]
+                    service in {aol,bgp,courier,csnet_ns,ctf,daytime,discard,
+                    :           echo,efs,exec,gopher,harvest,hostnames,
+                    :           http_2784,http_443,http_8001,iso_tsap,klogin,
+                    :           kshell,ldap,link,mtp,name,netbios_dgm,
+                    :           netbios_ns,netbios_ssn,netstat,nnsp,nntp,other,
+                    :           pm_dump,pop_2,printer,private,remote_job,rje,
+                    :           sql_net,ssh,sunrpc,supdup,systat,uucp,
+                    :           uucp_path,vmnet,whois,Z39_50}:
+                    :...dst_host_srv_diff_host_rate > 0.5: ipsweep. (7144.3)
+                    :   dst_host_srv_diff_host_rate <= 0.5:
+                    :   :...flag in {OTH,REJ,RSTO,RSTOS0,RSTR,S0}:
+                    :       :...srv_count > 3: neptune. (66622.6)
+                    :       :   srv_count <= 3:
+                    :       :   :...dst_host_same_src_port_rate <= 0.01: [S2]
+                    :       :       dst_host_same_src_port_rate > 0.01: [S3]
+                    :       flag in {S1,S2,S3,SF,SH}:
+                    :       :...src_bytes <= 45:
+                    :           :...serror_rate > 0.35: nmap. (1281.7)
+                    :           :   serror_rate <= 0.35: [S4]
+                    :           src_bytes > 45:
+                    :           :...hot > 1: warezclient. (4085.2/352)
+                    :               hot <= 1:
+                    :               :...dst_host_count <= 250: nmap. (40184.4/10070.2)
+                    :                   dst_host_count > 250: normal. (42997.8)
+                    service in {auth,domain,domain_u,ecr_i,finger,ftp,ftp_data,
+                    :           http,imap4,IRC,login,ntp_u,pop_3,red_i,shell,
+                    :           smtp,telnet,tftp_u,tim_i,time,urh_i,urp_i,X11}:
+                    :...su_attempted > 0: spy. (1610.1/365.7)
+                        su_attempted <= 0:
+                        :...num_failed_logins > 0: guess_passwd. (15905.1/7457.3)
+                            num_failed_logins <= 0:
+                            :...root_shell > 0: buffer_overflow. (11362.9/7890.1)
+                                root_shell <= 0:
+                                :...urgent > 0: ftp_write. (1384.5/140.1)
+                                    urgent <= 0:
+                                    :...same_srv_rate <= 0.34: [S5]
+                                        same_srv_rate > 0.34:
+                                        :...num_file_creations > 0: [S6]
+                                            num_file_creations <= 0: [S7]
+
+SubTree [S1]
+
+dst_host_srv_diff_host_rate > 0.45: ipsweep. (186157.6)
+dst_host_srv_diff_host_rate <= 0.45:
+:...src_bytes <= 13: nmap. (121145.2/4616.4)
+    src_bytes > 13: ipsweep. (19098.7)
+
+SubTree [S2]
+
+dst_host_rerror_rate <= 0.99: satan. (41773/8202.9)
+dst_host_rerror_rate > 0.99: neptune. (14676.4/344.7)
+
+SubTree [S3]
+
+dst_host_same_srv_rate <= 0.02: portsweep. (364360.1/786.1)
+dst_host_same_srv_rate > 0.02: normal. (6753.8/3644.2)
+
+SubTree [S4]
+
+dst_host_same_srv_rate <= 0.91: satan. (86825.3/3052.2)
+dst_host_same_srv_rate > 0.91: rootkit. (3554/250.3)
+
+SubTree [S5]
+
+num_file_creations > 0: buffer_overflow. (3065.9/577.1)
+num_file_creations <= 0:
+:...dst_host_rerror_rate > 0.99: neptune. (10903.9/1998)
+    dst_host_rerror_rate <= 0.99:
+    :...diff_srv_rate > 0.9: satan. (14671.2/475.1)
+        diff_srv_rate <= 0.9:
+        :...dst_host_same_src_port_rate <= 0.04: normal. (29132.9/4187.8)
+            dst_host_same_src_port_rate > 0.04: portsweep. (24639.4/5722.1)
+
+SubTree [S6]
+
+is_guest_login <= 0: normal. (46263.4/10125.3)
+is_guest_login > 0: warezmaster. (12934.9/7684.7)
+
+SubTree [S7]
+
+service = tftp_u: normal. (0)
+service in {imap4,tim_i}: pod. (11344.8/5122.8)
+service in {domain,ecr_i,login,shell}:
+:...src_bytes <= 19: nmap. (20739.3/13272.9)
+:   src_bytes > 19:
+:   :...src_bytes <= 301: normal. (63787.3/1586.9)
+:       src_bytes > 301: smurf. (10320.1/125.1)
+service in {domain_u,http,IRC,ntp_u,red_i,time,urh_i}:
+:...src_bytes > 11178: back. (24128/367.7)
+:   src_bytes <= 11178:
+:   :...dst_host_srv_serror_rate > 0.75: neptune. (250.3)
+:       dst_host_srv_serror_rate <= 0.75:
+:       :...dst_host_diff_srv_rate <= 0.88: normal. (847685.6/989.6)
+:           dst_host_diff_srv_rate > 0.88: ipsweep. (3859.5/1999.8)
+service = telnet:
+:...is_guest_login > 0: guess_passwd. (2274.7)
+:   is_guest_login <= 0:
+:   :...dst_host_serror_rate > 0.21: spy. (4095/1823.5)
+:       dst_host_serror_rate <= 0.21:
+:       :...flag in {REJ,S2,S3,SH}: normal. (0)
+:           flag in {OTH,RSTOS0,RSTR}: portsweep. (898.8/22.8)
+:           flag in {RSTO,S0,S1,SF}:
+:           :...dst_host_diff_srv_rate <= 0.98: normal. (47187.9/5575.1)
+:               dst_host_diff_srv_rate > 0.98: ipsweep. (1388/647.9)
+service in {auth,finger,pop_3,smtp,urp_i,X11}:
+:...dst_host_rerror_rate > 0.08:
+:   :...dst_host_rerror_rate <= 0.32: satan. (20809.6/4001.8)
+:   :   dst_host_rerror_rate > 0.32: normal. (33789/14041.8)
+:   dst_host_rerror_rate <= 0.08:
+:   :...src_bytes > 37: normal. (201832.2)
+:       src_bytes <= 37:
+:       :...srv_count > 2: satan. (16351.9/695.1)
+:           srv_count <= 2:
+:           :...src_bytes > 36: satan. (3600.4/127.6)
+:               src_bytes <= 36:
+:               :...dst_host_diff_srv_rate <= 0.66: normal. (50609.4/2292.4)
+:                   dst_host_diff_srv_rate > 0.66: satan. (4000.4/1725.6)
+service in {ftp,ftp_data}:
+:...rerror_rate > 0.75: portsweep. (10216/6312.2)
+    rerror_rate <= 0.75:
+    :...duration > 2951: warezclient. (8617.5/117.3)
+        duration <= 2951:
+        :...dst_host_count > 6:
+            :...dst_host_srv_serror_rate <= 0.04: normal. (318544.6/21933.3)
+            :   dst_host_srv_serror_rate > 0.04: warezclient. (10539.8/3340.1)
+            dst_host_count <= 6:
+            :...logged_in <= 0: multihop. (16996/8059.7)
+                logged_in > 0:
+                :...dst_host_srv_count <= 62: warezclient. (48160.9/19153.4)
+                    dst_host_srv_count > 62: normal. (10335.3/5063.4)
+
+-----  Trial 5:  -----
+
+Decision tree:
+
+wrong_fragment > 0:
+:...src_bytes <= 754: teardrop. (65812.7)
+:   src_bytes > 754: pod. (2247.6)
+wrong_fragment <= 0:
+:...srv_count > 150:
+    :...srv_serror_rate > 0.29: imap. (2533.8)
+    :   srv_serror_rate <= 0.29:
+    :   :...src_bytes <= 518: normal. (4926.6)
+    :       src_bytes > 518: smurf. (721058)
+    srv_count <= 150:
+    :...dst_host_serror_rate > 0.59:
+        :...dst_host_diff_srv_rate > 0.68:
+        :   :...dst_host_same_src_port_rate <= 0.55: normal. (3476.5/79.3)
+        :   :   dst_host_same_src_port_rate > 0.55: nmap. (79782.5)
+        :   dst_host_diff_srv_rate <= 0.68:
+        :   :...land > 0: land. (13485.6/6635.1)
+        :       land <= 0:
+        :       :...flag in {OTH,RSTOS0}: neptune. (0)
+        :           flag in {REJ,RSTO,RSTR,S1,S2,S3,SF,
+        :           :        SH}: normal. (10191.5/1972.1)
+        :           flag = S0:
+        :           :...dst_host_srv_rerror_rate > 0.41: normal. (741)
+        :               dst_host_srv_rerror_rate <= 0.41:
+        :               :...dst_host_srv_count <= 204: neptune. (352873.4)
+        :                   dst_host_srv_count > 204: normal. (1107.2)
+        dst_host_serror_rate <= 0.59:
+        :...land > 0: land. (57.3)
+            land <= 0:
+            :...src_bytes <= 20:
+                :...root_shell > 0: buffer_overflow. (5104/2458.7)
+                :   root_shell <= 0:
+                :   :...protocol_type = icmp:
+                :       :...dst_host_same_srv_rate <= 0.07: satan. (7478.9/588.2)
+                :       :   dst_host_same_srv_rate > 0.07: [S1]
+                :       protocol_type in {tcp,udp}:
+                :       :...dst_host_count <= 100:
+                :           :...protocol_type = udp: rootkit. (2951.2/434.8)
+                :           :   protocol_type = tcp:
+                :           :   :...dst_bytes > 813: warezmaster. (15368.3/10645)
+                :           :       dst_bytes <= 813: [S2]
+                :           dst_host_count > 100:
+                :           :...dst_host_same_src_port_rate > 0.01:
+                :               :...flag in {OTH,REJ,RSTO,RSTOS0,RSTR,S0,S1,S2,
+                :               :   :        SH}: portsweep. (308796.6/858)
+                :               :   flag in {S3,SF}:
+                :               :   :...src_bytes <= 6: satan. (59727.1)
+                :               :       src_bytes > 6: normal. (9829)
+                :               dst_host_same_src_port_rate <= 0.01:
+                :               :...diff_srv_rate <= 0.55: [S3]
+                :                   diff_srv_rate > 0.55:
+                :                   :...same_srv_rate > 0.29: portsweep. (14206.1/7532)
+                :                       same_srv_rate <= 0.29:
+                :                       :...rerror_rate <= 0.12: normal. (1568/524.8)
+                :                           rerror_rate > 0.12: satan. (156257.4)
+                src_bytes > 20:
+                :...num_failed_logins > 0: normal. (20786.7/11301.6)
+                    num_failed_logins <= 0:
+                    :...num_file_creations > 0:
+                        :...is_guest_login > 0: multihop. (12180.7/7563.4)
+                        :   is_guest_login <= 0:
+                        :   :...src_bytes <= 296: rootkit. (15334.6/10555.4)
+                        :       src_bytes > 296: normal. (42413.9/8979.5)
+                        num_file_creations <= 0:
+                        :...service in {aol,auth,bgp,courier,csnet_ns,ctf,
+                            :           daytime,echo,efs,exec,gopher,harvest,
+                            :           hostnames,http_2784,http_443,http_8001,
+                            :           iso_tsap,klogin,kshell,ldap,link,login,
+                            :           mtp,name,netbios_dgm,netbios_ns,
+                            :           netbios_ssn,netstat,nnsp,nntp,pop_2,
+                            :           printer,remote_job,rje,sql_net,sunrpc,
+                            :           supdup,systat,tftp_u,time,uucp,
+                            :           uucp_path,vmnet,whois,
+                            :           Z39_50}: ftp_write. (2310.4)
+                            service in {discard,ecr_i,finger,imap4,pm_dump,
+                            :           telnet,tim_i}:
+                            :...is_guest_login > 0: guess_passwd. (1732.7)
+                            :   is_guest_login <= 0:
+                            :   :...diff_srv_rate > 0.55: satan. (4979.7/1076.7)
+                            :       diff_srv_rate <= 0.55:
+                            :       :...service = tim_i: pod. (6443.3/1704)
+                            :           service in {discard,finger,imap4,
+                            :           :           pm_dump}: imap. (7772.3/1135.4)
+                            :           service in {ecr_i,telnet}:
+                            :           :...count <= 8: normal. (97821.6/12624.5)
+                            :               count > 8: smurf. (6714.3/17.4)
+                            service in {ftp,ftp_data}:
+                            :...duration > 1649: warezclient. (9530.5/330.8)
+                            :   duration <= 1649: [S4]
+                            service in {domain,domain_u,eco_i,http,IRC,ntp_u,
+                            :           other,pop_3,private,red_i,shell,smtp,
+                            :           ssh,urh_i,urp_i,X11}:
+                            :...src_bytes > 18432: back. (203930.6/15138)
+                                src_bytes <= 18432:
+                                :...hot > 1: normal. (4026.8/1496.5)
+                                    hot <= 1:
+                                    :...dst_host_rerror_rate > 0.3: [S5]
+                                        dst_host_rerror_rate <= 0.3:
+                                        :...src_bytes <= 40: [S6]
+                                            src_bytes > 40:
+                                            :...dst_bytes > 0: normal. (983140.6/178.8)
+                                                dst_bytes <= 0: [S7]
+
+SubTree [S1]
+
+dst_host_srv_diff_host_rate > 0.45: ipsweep. (141783.8)
+dst_host_srv_diff_host_rate <= 0.45:
+:...src_bytes <= 13: nmap. (112974.7/18527.1)
+    src_bytes > 13: ipsweep. (22325.5/3097)
+
+SubTree [S2]
+
+service in {aol,auth,bgp,courier,csnet_ns,domain_u,eco_i,ecr_i,efs,exec,finger,
+:           ftp_data,harvest,hostnames,http,http_2784,http_443,http_8001,IRC,
+:           iso_tsap,klogin,kshell,ldap,login,netbios_dgm,netbios_ns,
+:           netbios_ssn,nnsp,nntp,ntp_u,other,pm_dump,pop_2,pop_3,printer,
+:           red_i,shell,sql_net,sunrpc,supdup,telnet,tftp_u,tim_i,time,urh_i,
+:           urp_i,uucp,uucp_path,vmnet,X11,Z39_50}: normal. (265322.7/16842.8)
+service in {ctf,daytime,discard,domain,echo,ftp,gopher,imap4,link,mtp,name,
+:           netstat,private,remote_job,rje,smtp,ssh,systat,whois}:
+:...same_srv_rate <= 0.75: neptune. (11271.5/999.8)
+    same_srv_rate > 0.75: ipsweep. (46976.3/6314.2)
+
+SubTree [S3]
+
+dst_host_rerror_rate > 0.99: neptune. (62550.1/129.1)
+dst_host_rerror_rate <= 0.99:
+:...service in {aol,auth,bgp,courier,csnet_ns,ctf,daytime,discard,domain,
+    :           domain_u,echo,eco_i,ecr_i,efs,exec,ftp,ftp_data,harvest,
+    :           hostnames,http,http_2784,http_443,http_8001,imap4,IRC,iso_tsap,
+    :           klogin,kshell,ldap,link,login,mtp,name,netbios_dgm,netbios_ns,
+    :           netbios_ssn,netstat,nnsp,nntp,ntp_u,pm_dump,pop_3,printer,
+    :           red_i,remote_job,rje,shell,sql_net,ssh,sunrpc,supdup,systat,
+    :           telnet,tftp_u,tim_i,time,urh_i,urp_i,uucp,uucp_path,vmnet,
+    :           whois,Z39_50}: normal. (41787.6/1370)
+    service in {finger,gopher,other,pop_2,private,smtp,
+                X11}: satan. (43434.2/20036)
+
+SubTree [S4]
+
+dst_host_srv_diff_host_rate > 0.1: warezclient. (47441.6/16059.4)
+dst_host_srv_diff_host_rate <= 0.1:
+:...srv_diff_host_rate > 0.86: normal. (8881.5/3096.9)
+    srv_diff_host_rate <= 0.86:
+    :...dst_host_same_src_port_rate <= 0: warezclient. (45015.7/14064.7)
+        dst_host_same_src_port_rate > 0: normal. (339565.8/44427.8)
+
+SubTree [S5]
+
+dst_host_same_srv_rate <= 0.04: portsweep. (6705/1919.2)
+dst_host_same_srv_rate > 0.04:
+:...dst_host_rerror_rate <= 0.32: satan. (14401.7/4986.4)
+    dst_host_rerror_rate > 0.32: normal. (51701.5/89.4)
+
+SubTree [S6]
+
+service in {domain,domain_u,eco_i,http,IRC,ntp_u,pop_3,private,red_i,shell,
+:           smtp,ssh,urh_i,X11}: normal. (52215.6)
+service in {other,urp_i}: satan. (9152.5/4158.4)
+
+SubTree [S7]
+
+dst_host_count <= 5: normal. (6770.1/2921.8)
+dst_host_count > 5:
+:...service in {domain,domain_u,eco_i,http,IRC,ntp_u,other,pop_3,red_i,shell,
+    :           smtp,ssh,urh_i,urp_i,X11}: normal. (222495)
+    service = private:
+    :...dst_host_same_src_port_rate > 0.11: nmap. (23397.2/1606.3)
+        dst_host_same_src_port_rate <= 0.11:
+        :...src_bytes <= 102: nmap. (439.5)
+            src_bytes > 102: normal. (63122.6)
+
+-----  Trial 6:  -----
+
+Decision tree:
+
+wrong_fragment > 0:
+:...protocol_type = icmp: pod. (1717.8)
+:   protocol_type in {tcp,udp}: teardrop. (50298.6)
+wrong_fragment <= 0:
+:...num_compromised > 0:
+    :...src_bytes <= 12617: normal. (34177.8/21859.1)
+    :   src_bytes > 12617:
+    :   :...dst_host_same_srv_rate <= 0.97: normal. (1434.3)
+    :       dst_host_same_srv_rate > 0.97: back. (131749.3)
+    num_compromised <= 0:
+    :...dst_host_serror_rate > 0.29:
+        :...is_guest_login > 0: warezmaster. (1885.7)
+        :   is_guest_login <= 0:
+        :   :...flag = OTH: neptune. (0)
+        :       flag in {REJ,RSTO,RSTOS0,RSTR,S1,S2,S3,
+        :       :        SF}: normal. (29443.4/9459.3)
+        :       flag = SH:
+        :       :...dst_host_same_srv_rate <= 0.55: nmap. (63338.4)
+        :       :   dst_host_same_srv_rate > 0.55: imap. (2493.5)
+        :       flag = S0:
+        :       :...dst_host_rerror_rate > 0.07: portsweep. (542.8/58.7)
+        :           dst_host_rerror_rate <= 0.07:
+        :           :...land > 0: normal. (12978.4/5254.2)
+        :               land <= 0:
+        :               :...dst_host_srv_count > 192: normal. (1244.1)
+        :                   dst_host_srv_count <= 192:
+        :                   :...service = imap4: imap. (446.7/161.5)
+        :                       service in {aol,bgp,csnet_ns,ctf,discard,
+        :                       :           domain_u,eco_i,ecr_i,ftp,gopher,
+        :                       :           harvest,hostnames,http_2784,
+        :                       :           http_8001,IRC,kshell,link,name,
+        :                       :           netbios_dgm,netbios_ssn,ntp_u,
+        :                       :           pm_dump,pop_3,red_i,remote_job,
+        :                       :           supdup,systat,tftp_u,tim_i,urh_i,
+        :                       :           urp_i,
+        :                       :           X11}: neptune. (2571.8)
+        :                       service in {auth,courier,daytime,domain,echo,
+        :                       :           efs,exec,finger,ftp_data,http,
+        :                       :           http_443,iso_tsap,klogin,ldap,
+        :                       :           login,mtp,netbios_ns,netstat,nnsp,
+        :                       :           nntp,other,pop_2,printer,private,
+        :                       :           rje,shell,smtp,sql_net,ssh,sunrpc,
+        :                       :           telnet,time,uucp,uucp_path,vmnet,
+        :                       :           whois,Z39_50}: [S1]
+        dst_host_serror_rate <= 0.29:
+        :...land > 0: land. (25.2)
+            land <= 0:
+            :...num_failed_logins > 0: guess_passwd. (24679.4/10811.6)
+                num_failed_logins <= 0:
+                :...protocol_type = icmp:
+                    :...src_bytes <= 19:
+                    :   :...dst_host_srv_diff_host_rate > 0.45:
+                    :   :   :...dst_host_count <= 164: ipsweep. (108820.7)
+                    :   :   :   dst_host_count > 164: portsweep. (530.9)
+                    :   :   dst_host_srv_diff_host_rate <= 0.45:
+                    :   :   :...src_bytes > 13: ipsweep. (14695.7)
+                    :   :       src_bytes <= 13:
+                    :   :       :...dst_host_srv_count <= 5: ipsweep. (35775/16129.1)
+                    :   :           dst_host_srv_count > 5: nmap. (61824.4)
+                    :   src_bytes > 19:
+                    :   :...src_bytes > 351: smurf. (576117.8/6185.8)
+                    :       src_bytes <= 351:
+                    :       :...src_bytes <= 25: satan. (9608/1415.7)
+                    :           src_bytes > 25:
+                    :           :...dst_host_diff_srv_rate <= 0.49: normal. (121863.4)
+                    :               dst_host_diff_srv_rate > 0.49: satan. (4221.4/1188.8)
+                    protocol_type in {tcp,udp}:
+                    :...dst_host_diff_srv_rate > 0.99:
+                        :...dst_host_count > 163: [S2]
+                        :   dst_host_count <= 163:
+                        :   :...urgent > 0: ftp_write. (724.4)
+                        :       urgent <= 0:
+                        :       :...src_bytes <= 1: ipsweep. (44831.6/622.8)
+                        :           src_bytes > 1: normal. (25403.7)
+                        dst_host_diff_srv_rate <= 0.99:
+                        :...dst_host_srv_serror_rate > 0.3:
+                            :...hot > 3: warezclient. (1103.5)
+                            :   hot <= 3:
+                            :   :...service in {aol,auth,bgp,courier,csnet_ns,
+                            :       :           daytime,discard,domain,
+                            :       :           domain_u,echo,eco_i,ecr_i,efs,
+                            :       :           exec,ftp,ftp_data,harvest,
+                            :       :           hostnames,http_2784,http_443,
+                            :       :           http_8001,imap4,IRC,iso_tsap,
+                            :       :           klogin,kshell,ldap,login,mtp,
+                            :       :           name,netbios_dgm,netbios_ns,
+                            :       :           netbios_ssn,netstat,nnsp,nntp,
+                            :       :           ntp_u,other,pm_dump,pop_2,
+                            :       :           pop_3,printer,red_i,shell,smtp,
+                            :       :           sql_net,ssh,sunrpc,systat,
+                            :       :           telnet,tftp_u,tim_i,time,urh_i,
+                            :       :           urp_i,uucp,uucp_path,vmnet,
+                            :       :           whois,X11,
+                            :       :           Z39_50}: normal. (14147.9/3049.6)
+                            :       service in {ctf,finger,gopher,http,link,
+                            :       :           private,remote_job,rje,supdup}: [S3]
+                            dst_host_srv_serror_rate <= 0.3:
+                            :...num_access_files > 0: normal. (13089.4/5523.1)
+                                num_access_files <= 0:
+                                :...dst_host_srv_rerror_rate > 0.99:
+                                    :...dst_host_same_srv_rate <= 0.02: [S4]
+                                    :   dst_host_same_srv_rate > 0.02:
+                                    :   :...src_bytes > 8848: back. (518.2)
+                                    :       src_bytes <= 8848: [S5]
+                                    dst_host_srv_rerror_rate <= 0.99:
+                                    :...num_file_creations > 0: normal. (45009.9/22015.6)
+                                        num_file_creations <= 0:
+                                        :...hot > 25: [S6]
+                                            hot <= 25: [S7]
+
+SubTree [S1]
+
+dst_host_srv_rerror_rate <= 0.41: neptune. (271097/13.2)
+dst_host_srv_rerror_rate > 0.41: normal. (559.7)
+
+SubTree [S2]
+
+dst_host_same_src_port_rate <= 0.5: satan. (98604.9)
+dst_host_same_src_port_rate > 0.5: portsweep. (54374.6)
+
+SubTree [S3]
+
+dst_host_same_srv_rate <= 0.02: portsweep. (56773.4/10)
+dst_host_same_srv_rate > 0.02: normal. (1408.8/831.2)
+
+SubTree [S4]
+
+dst_host_same_src_port_rate <= 0.01: satan. (51426.2/26618)
+dst_host_same_src_port_rate > 0.01: portsweep. (128012.1/83)
+
+SubTree [S5]
+
+dst_host_serror_rate > 0.07: satan. (724.8/6.6)
+dst_host_serror_rate <= 0.07:
+:...srv_count > 4: neptune. (35065.4/546.1)
+    srv_count <= 4:
+    :...service in {auth,ftp,http,IRC,other,telnet,time,
+        :           X11}: normal. (167193.4/412.1)
+        service in {aol,bgp,courier,csnet_ns,ctf,daytime,discard,domain,
+                    domain_u,echo,eco_i,ecr_i,efs,exec,finger,ftp_data,gopher,
+                    harvest,hostnames,http_2784,http_443,http_8001,imap4,
+                    iso_tsap,klogin,kshell,ldap,link,login,mtp,name,
+                    netbios_dgm,netbios_ns,netbios_ssn,netstat,nnsp,nntp,ntp_u,
+                    pm_dump,pop_2,pop_3,printer,private,red_i,remote_job,rje,
+                    shell,smtp,sql_net,ssh,sunrpc,supdup,systat,tftp_u,tim_i,
+                    urh_i,urp_i,uucp,uucp_path,vmnet,whois,
+                    Z39_50}: neptune. (3389.7/836)
+
+SubTree [S6]
+
+dst_bytes <= 3299: warezclient. (40954.5)
+dst_bytes > 3299: normal. (29802.5)
+
+SubTree [S7]
+
+dst_host_same_src_port_rate > 0.99:
+:...dst_host_count > 202: satan. (24318.1/5847.6)
+:   dst_host_count <= 202:
+:   :...dst_bytes > 668: normal. (26301.1/18834)
+:       dst_bytes <= 668:
+:       :...logged_in <= 0:
+:           :...dst_host_srv_diff_host_rate > 0.39: ftp_write. (4850.7/460.9)
+:           :   dst_host_srv_diff_host_rate <= 0.39:
+:           :   :...service in {aol,auth,bgp,courier,csnet_ns,ctf,daytime,
+:           :       :           discard,domain,domain_u,echo,eco_i,ecr_i,efs,
+:           :       :           exec,finger,ftp,ftp_data,gopher,harvest,
+:           :       :           hostnames,http,http_2784,http_443,http_8001,
+:           :       :           imap4,IRC,iso_tsap,klogin,kshell,ldap,link,
+:           :       :           login,mtp,name,netbios_dgm,netbios_ns,
+:           :       :           netbios_ssn,netstat,nnsp,nntp,ntp_u,other,
+:           :       :           pm_dump,pop_2,pop_3,printer,red_i,remote_job,
+:           :       :           rje,shell,smtp,sql_net,ssh,sunrpc,supdup,
+:           :       :           systat,telnet,tftp_u,tim_i,time,urh_i,urp_i,
+:           :       :           uucp,uucp_path,vmnet,whois,X11,
+:           :       :           Z39_50}: normal. (93499.1/7984.1)
+:           :       service = private: nmap. (4847.7/1833.3)
+:           logged_in > 0:
+:           :...dst_host_srv_count > 66: normal. (11516.2/5178.1)
+:               dst_host_srv_count <= 66:
+:               :...count > 2: normal. (5170.5)
+:                   count <= 2:
+:                   :...num_root > 0: normal. (2745.8)
+:                       num_root <= 0:
+:                       :...service in {auth,http,pop_3,smtp,
+:                           :           telnet}: normal. (1472.6)
+:                           service in {aol,bgp,courier,csnet_ns,ctf,daytime,
+:                                       discard,domain,domain_u,echo,eco_i,
+:                                       ecr_i,efs,exec,finger,ftp,ftp_data,
+:                                       gopher,harvest,hostnames,http_2784,
+:                                       http_443,http_8001,imap4,IRC,iso_tsap,
+:                                       klogin,kshell,ldap,link,login,mtp,name,
+:                                       netbios_dgm,netbios_ns,netbios_ssn,
+:                                       netstat,nnsp,nntp,ntp_u,other,pm_dump,
+:                                       pop_2,printer,private,red_i,remote_job,
+:                                       rje,shell,sql_net,ssh,sunrpc,supdup,
+:                                       systat,tftp_u,tim_i,time,urh_i,urp_i,
+:                                       uucp,uucp_path,vmnet,whois,X11,
+:                                       Z39_50}: warezclient. (72993.9/8459)
+dst_host_same_src_port_rate <= 0.99:
+:...dst_host_count <= 254:
+    :...flag in {OTH,RSTOS0}: portsweep. (3504.4/1232.2)
+    :   flag in {REJ,RSTO,RSTR,S2}:
+    :   :...count > 33: portsweep. (1748.6/299.8)
+    :   :   count <= 33:
+    :   :   :...service in {auth,ftp_data}: portsweep. (2926/516.5)
+    :   :       service in {aol,bgp,courier,csnet_ns,ctf,daytime,discard,
+    :   :                   domain,domain_u,echo,eco_i,ecr_i,efs,exec,finger,
+    :   :                   ftp,gopher,harvest,hostnames,http,http_2784,
+    :   :                   http_443,http_8001,imap4,IRC,iso_tsap,klogin,
+    :   :                   kshell,ldap,link,login,mtp,name,netbios_dgm,
+    :   :                   netbios_ns,netbios_ssn,netstat,nnsp,nntp,ntp_u,
+    :   :                   other,pm_dump,pop_2,pop_3,printer,private,red_i,
+    :   :                   remote_job,rje,shell,smtp,sql_net,ssh,sunrpc,
+    :   :                   supdup,systat,telnet,tftp_u,tim_i,time,urh_i,urp_i,
+    :   :                   uucp,uucp_path,vmnet,whois,X11,
+    :   :                   Z39_50}: normal. (77256.2/2046.1)
+    :   flag in {S0,S1,S3,SF,SH}:
+    :   :...service in {ftp_data,telnet}: normal. (264350.8/12399.9)
+    :       service in {aol,bgp,courier,csnet_ns,ctf,daytime,discard,echo,
+    :       :           eco_i,ecr_i,efs,exec,gopher,harvest,hostnames,
+    :       :           http_2784,http_443,http_8001,imap4,iso_tsap,klogin,
+    :       :           kshell,ldap,link,login,mtp,name,netbios_dgm,netbios_ns,
+    :       :           netbios_ssn,netstat,nnsp,nntp,pop_2,printer,red_i,
+    :       :           remote_job,rje,shell,sql_net,sunrpc,supdup,systat,
+    :       :           tim_i,urh_i,urp_i,uucp,uucp_path,vmnet,whois,
+    :       :           Z39_50}: satan. (1)
+    :       service = private:
+    :       :...src_bytes > 156: nmap. (12977.9/506.4)
+    :       :   src_bytes <= 156:
+    :       :   :...src_bytes <= 101: satan. (9906.5/4404.2)
+    :       :       src_bytes > 101: normal. (225461.7)
+    :       service in {auth,domain,domain_u,finger,ftp,http,IRC,ntp_u,other,
+    :       :           pm_dump,pop_3,smtp,ssh,tftp_u,time,X11}:
+    :       :...dst_host_diff_srv_rate <= 0.05: normal. (831762.8/961.6)
+    :           dst_host_diff_srv_rate > 0.05:
+    :           :...dst_host_same_src_port_rate > 0.01:
+    :               :...service in {auth,domain,domain_u,finger,ftp,http,IRC,
+    :               :   :           ntp_u,other,pop_3,smtp,ssh,tftp_u,time,
+    :               :   :           X11}: normal. (338423.4/3177.7)
+    :               :   service = pm_dump: satan. (1010.8)
+    :               dst_host_same_src_port_rate <= 0.01:
+    :               :...count > 2: satan. (10222.4/1673.1)
+    :                   count <= 2:
+    :                   :...dst_host_srv_count > 123: satan. (9013.6/3235.1)
+    :                       dst_host_srv_count <= 123:
+    :                       :...service in {auth,domain_u,finger,ftp,http,
+    :                           :           pop_3,smtp,X11}: normal. (71754.4)
+    :                           service in {domain,IRC,ntp_u,other,pm_dump,ssh,
+    :                                       tftp_u,time}: satan. (1015.5)
+    dst_host_count > 254:
+    :...service in {aol,bgp,courier,csnet_ns,ctf,daytime,discard,echo,eco_i,
+        :           ecr_i,efs,exec,gopher,harvest,hostnames,http_2784,http_443,
+        :           http_8001,IRC,iso_tsap,klogin,kshell,ldap,link,login,mtp,
+        :           name,netbios_dgm,netbios_ns,netbios_ssn,netstat,nnsp,nntp,
+        :           other,pm_dump,pop_2,printer,private,red_i,remote_job,rje,
+        :           sql_net,sunrpc,supdup,systat,tftp_u,tim_i,time,urh_i,urp_i,
+        :           uucp,uucp_path,vmnet,whois,
+        :           Z39_50}: satan. (53346/24856.8)
+        service in {auth,domain,domain_u,finger,ftp,ftp_data,http,imap4,ntp_u,
+        :           pop_3,shell,smtp,ssh,telnet,X11}:
+        :...src_bytes > 10689: back. (22786.8/10525.8)
+            src_bytes <= 10689:
+            :...duration > 9727: warezclient. (5293.2/216.7)
+                duration <= 9727:
+                :...srv_serror_rate > 0.58: portsweep. (2530.4/357.2)
+                    srv_serror_rate <= 0.58:
+                    :...dst_host_srv_serror_rate > 0: warezclient. (26294.9/9514.2)
+                        dst_host_srv_serror_rate <= 0:
+                        :...rerror_rate > 0.99: portsweep. (5955.9/1754.3)
+                            rerror_rate <= 0.99:
+                            :...service in {smtp,
+                                :           telnet}: normal. (21013/8984.1)
+                                service in {auth,domain,domain_u,finger,ftp,
+                                :           ftp_data,http,imap4,ntp_u,pop_3,
+                                :           shell,ssh,X11}:
+                                :...count <= 1: normal. (148562.9/2217.1)
+                                    count > 1:
+                                    :...service = finger: normal. (14461.4/6621.3)
+                                        service in {imap4,shell,
+                                        :           ssh}: satan. (0.6)
+                                        service in {auth,domain,domain_u,ftp,
+                                        :           ftp_data,http,ntp_u,pop_3,
+                                        :           X11}:
+                                        :...src_bytes <= 7: satan. (3051.5/568.4)
+                                            src_bytes > 7: normal. (109382.6/797.8)
+
+-----  Trial 7:  -----
+
+Decision tree:
+
+wrong_fragment > 0: teardrop. (39889/1317.3)
+wrong_fragment <= 0:
+:...num_compromised > 0:
+    :...src_bytes <= 12617: normal. (30701.3/21254.7)
+    :   src_bytes > 12617:
+    :   :...dst_host_same_srv_rate <= 0.97: normal. (1099.9)
+    :       dst_host_same_srv_rate > 0.97: back. (101032.7)
+    num_compromised <= 0:
+    :...count > 46:
+        :...land > 0: land. (1838.2)
+        :   land <= 0:
+        :   :...num_file_creations > 0: buffer_overflow. (2379.4/153.8)
+        :       num_file_creations <= 0:
+        :       :...diff_srv_rate > 0.12:
+        :           :...dst_host_same_src_port_rate <= 0.11: satan. (82986.8/19.7)
+        :           :   dst_host_same_src_port_rate > 0.11: portsweep. (30730.2/15.9)
+        :           diff_srv_rate <= 0.12:
+        :           :...diff_srv_rate <= 0.04: smurf. (457185.2/30791.2)
+        :               diff_srv_rate > 0.04:
+        :               :...dst_host_srv_diff_host_rate > 0.15: ipsweep. (775.3/0.1)
+        :                   dst_host_srv_diff_host_rate <= 0.15:
+        :                   :...protocol_type = udp: satan. (1488)
+        :                       protocol_type in {icmp,tcp}:
+        :                       :...srv_diff_host_rate <= 0.58: neptune. (543477.1/313.3)
+        :                           srv_diff_host_rate > 0.58: normal. (972.9/105.7)
+        count <= 46:
+        :...dst_host_serror_rate > 0.21:
+            :...is_guest_login > 0: warezmaster. (1502/55.9)
+            :   is_guest_login <= 0:
+            :   :...flag in {OTH,RSTOS0}: neptune. (0)
+            :       flag = SH:
+            :       :...dst_host_same_srv_rate <= 0.55: nmap. (47403.4)
+            :       :   dst_host_same_srv_rate > 0.55: imap. (1912.1)
+            :       flag in {REJ,RSTO,RSTR,S0,S1,S2,S3,SF}:
+            :       :...flag in {REJ,RSTO,RSTR,S1,S2,S3,
+            :           :        SF}: normal. (30427.4/13570.8)
+            :           flag = S0:
+            :           :...dst_host_same_src_port_rate > 0.41: normal. (10223.4/3640.6)
+            :               dst_host_same_src_port_rate <= 0.41:
+            :               :...dst_host_srv_rerror_rate > 0.46: normal. (366.7)
+            :                   dst_host_srv_rerror_rate <= 0.46:
+            :                   :...dst_host_srv_count <= 204: neptune. (53632.3/242.7)
+            :                       dst_host_srv_count > 204: normal. (471.4)
+            dst_host_serror_rate <= 0.21:
+            :...num_failed_logins > 0: guess_passwd. (21567.8/11125.6)
+                num_failed_logins <= 0:
+                :...service in {aol,harvest,http_2784,
+                    :           http_8001}: normal. (0)
+                    service = eco_i:
+                    :...src_bytes > 19: normal. (13460.4/3293.8)
+                    :   src_bytes <= 19:
+                    :   :...dst_host_srv_diff_host_rate > 0.45:
+                    :       :...dst_host_count <= 164: ipsweep. (83449.8)
+                    :       :   dst_host_count > 164: portsweep. (407.2)
+                    :       dst_host_srv_diff_host_rate <= 0.45:
+                    :       :...src_bytes > 13: ipsweep. (7750.9)
+                    :           src_bytes <= 13:
+                    :           :...dst_host_srv_count <= 2: ipsweep. (16116.6/5859.3)
+                    :               dst_host_srv_count > 2: nmap. (47119.3)
+                    service in {auth,bgp,courier,csnet_ns,ctf,daytime,discard,
+                    :           domain,domain_u,echo,ecr_i,efs,exec,finger,ftp,
+                    :           ftp_data,gopher,hostnames,http,http_443,imap4,
+                    :           IRC,iso_tsap,klogin,kshell,ldap,link,login,mtp,
+                    :           name,netbios_dgm,netbios_ns,netbios_ssn,
+                    :           netstat,nnsp,nntp,ntp_u,other,pm_dump,pop_2,
+                    :           pop_3,printer,private,red_i,remote_job,rje,
+                    :           shell,smtp,sql_net,ssh,sunrpc,supdup,systat,
+                    :           telnet,tftp_u,tim_i,time,urh_i,urp_i,uucp,
+                    :           uucp_path,vmnet,whois,X11,Z39_50}:
+                    :...dst_host_diff_srv_rate > 0.99:
+                        :...dst_host_count > 163: portsweep. (42073.8/419.1)
+                        :   dst_host_count <= 163:
+                        :   :...urgent > 0: ftp_write. (555.5)
+                        :       urgent <= 0:
+                        :       :...src_bytes <= 1: ipsweep. (34543/641.2)
+                        :           src_bytes > 1: normal. (19773.9)
+                        dst_host_diff_srv_rate <= 0.99:
+                        :...num_file_creations > 0: normal. (42096.6/23819.8)
+                            num_file_creations <= 0:
+                            :...dst_host_srv_serror_rate > 0.49: portsweep. (29974/6540)
+                                dst_host_srv_serror_rate <= 0.49:
+                                :...dst_host_srv_rerror_rate > 0.99:
+                                    :...dst_host_same_srv_rate <= 0.02:
+                                    :   :...dst_bytes > 6: normal. (1511.6/23.2)
+                                    :   :   dst_bytes <= 6: [S1]
+                                    :   dst_host_same_srv_rate > 0.02:
+                                    :   :...src_bytes > 8848: back. (397.4)
+                                    :       src_bytes <= 8848: [S2]
+                                    dst_host_srv_rerror_rate <= 0.99:
+                                    :...hot > 25:
+                                        :...dst_bytes <= 3299: warezclient. (31406.2)
+                                        :   dst_bytes > 3299: normal. (22854.2)
+                                        hot <= 25: [S3]
+
+SubTree [S1]
+
+dst_host_same_src_port_rate <= 0.01: satan. (28371.7/9864.2)
+dst_host_same_src_port_rate > 0.01: portsweep. (90147.2)
+
+SubTree [S2]
+
+service in {auth,bgp,courier,csnet_ns,ctf,daytime,discard,domain,domain_u,echo,
+:           ecr_i,efs,exec,finger,ftp,gopher,hostnames,http,http_443,imap4,IRC,
+:           iso_tsap,klogin,kshell,ldap,link,login,mtp,name,netbios_dgm,
+:           netbios_ns,netbios_ssn,netstat,nnsp,nntp,ntp_u,other,pm_dump,pop_2,
+:           pop_3,printer,red_i,remote_job,rje,shell,smtp,sql_net,ssh,sunrpc,
+:           supdup,systat,telnet,tftp_u,tim_i,time,urh_i,urp_i,uucp,uucp_path,
+:           vmnet,whois,X11,Z39_50}: normal. (124468.8/405.7)
+service in {ftp_data,private}: ipsweep. (1036.2/186.4)
+
+SubTree [S3]
+
+service in {bgp,courier,csnet_ns,ctf,daytime,discard,echo,efs,exec,hostnames,
+:           http_443,iso_tsap,klogin,kshell,ldap,link,login,mtp,name,
+:           netbios_dgm,netbios_ns,netbios_ssn,netstat,nnsp,printer,remote_job,
+:           rje,supdup,systat,uucp,vmnet,whois,
+:           Z39_50}: satan. (0.3)
+service in {ecr_i,gopher,nntp,pm_dump,pop_2,telnet,tim_i}:
+:...is_guest_login > 0: guess_passwd. (1334.4)
+:   is_guest_login <= 0:
+:   :...src_bytes > 518: smurf. (19304.8/8486.6)
+:       src_bytes <= 518:
+:       :...src_bytes <= 19: ipsweep. (16315.2/8763.7)
+:           src_bytes > 19:
+:           :...count <= 2: normal. (54032/9274.6)
+:               count > 2: satan. (2805.6/338.6)
+service in {auth,domain,domain_u,finger,ftp,http,imap4,IRC,ntp_u,other,pop_3,
+:           private,red_i,shell,smtp,sql_net,ssh,sunrpc,tftp_u,time,urh_i,
+:           urp_i,uucp_path,X11}:
+:...flag in {OTH,RSTO,RSTOS0,RSTR,S1,S2}: normal. (58762.8/12449.7)
+:   flag in {REJ,S0,S3,SF,SH}:
+:   :...src_bytes <= 6:
+:       :...service in {auth,domain,imap4,ntp_u,red_i,shell,sql_net,ssh,sunrpc,
+:       :   :           urh_i,urp_i,uucp_path,X11}: normal. (0)
+:       :   service in {domain_u,ftp,other,pop_3,
+:       :   :           private}: satan. (36755.2/2909.4)
+:       :   service in {finger,http,IRC,smtp,tftp_u,time}:
+:       :   :...logged_in <= 0: normal. (147236.1/2396.8)
+:       :       logged_in > 0: satan. (2766.8/237.2)
+:       src_bytes > 6:
+:       :...dst_host_rerror_rate > 0.02:
+:           :...dst_host_rerror_rate > 0.94: portsweep. (5617.1/1935.6)
+:           :   dst_host_rerror_rate <= 0.94:
+:           :   :...same_srv_rate <= 0.41: satan. (1092/5.1)
+:           :       same_srv_rate > 0.41:
+:           :       :...src_bytes <= 38284: normal. (170825/7998.4)
+:           :           src_bytes > 38284: back. (7423.4/2772.3)
+:           dst_host_rerror_rate <= 0.02:
+:           :...dst_bytes > 28:
+:               :...srv_count <= 2: normal. (1402804.1/6455.4)
+:               :   srv_count > 2:
+:               :   :...service in {auth,domain,domain_u,ftp,http,imap4,IRC,
+:               :       :           ntp_u,other,pop_3,private,red_i,shell,smtp,
+:               :       :           sql_net,ssh,sunrpc,tftp_u,time,urh_i,urp_i,
+:               :       :           uucp_path,X11}: normal. (174012.1/251.2)
+:               :       service = finger: satan. (4422.2/496.3)
+:               dst_bytes <= 28:
+:               :...hot > 0: warezclient. (2928.5/969.6)
+:                   hot <= 0:
+:                   :...src_bytes <= 205: normal. (315838/10621.1)
+:                       src_bytes > 205:
+:                       :...service in {auth,domain,domain_u,finger,ftp,http,
+:                           :           imap4,IRC,ntp_u,other,pop_3,red_i,
+:                           :           shell,smtp,sql_net,ssh,sunrpc,tftp_u,
+:                           :           time,urh_i,urp_i,uucp_path,
+:                           :           X11}: normal. (38481/1954.3)
+:                           service = private: nmap. (12561.7/874)
+service = ftp_data:
+:...dst_host_rerror_rate > 0.96: ipsweep. (4673.8)
+    dst_host_rerror_rate <= 0.96:
+    :...root_shell > 0: loadmodule. (4752.5/2274.1)
+        root_shell <= 0:
+        :...srv_rerror_rate > 0.5: portsweep. (2559.7/798.7)
+            srv_rerror_rate <= 0.5:
+            :...dst_bytes > 3: multihop. (19991.7/15114.6)
+                dst_bytes <= 3:
+                :...dst_host_srv_diff_host_rate > 0.43: ftp_write. (3656.1/1766.4)
+                    dst_host_srv_diff_host_rate <= 0.43:
+                    :...duration > 3: warezclient. (8967.4/736.3)
+                        duration <= 3:
+                        :...src_bytes > 353: normal. (159692)
+                            src_bytes <= 353:
+                            :...src_bytes > 326: warezclient. (53813.6/1364.9)
+                                src_bytes <= 326:
+                                :...dst_host_count <= 254: normal. (58059.6/2986.4)
+                                    dst_host_count > 254: warezclient. (7356.4/2412.5)
+
+-----  Trial 8:  -----
+
+Decision tree:
+
+wrong_fragment > 0: teardrop. (42064/12482.6)
+wrong_fragment <= 0:
+:...num_compromised > 0:
+    :...dst_host_same_srv_rate <= 0.97: normal. (11710.5/4015.4)
+    :   dst_host_same_srv_rate > 0.97:
+    :   :...src_bytes <= 10925: buffer_overflow. (9963.5/4246.4)
+    :       src_bytes > 10925: back. (77483.8)
+    num_compromised <= 0:
+    :...same_srv_rate <= 0.32:
+        :...land > 0: land. (1409.7)
+        :   land <= 0:
+        :   :...diff_srv_rate <= 0.13:
+        :       :...num_file_creations > 0: buffer_overflow. (1904.9/198.1)
+        :       :   num_file_creations <= 0:
+        :       :   :...flag in {OTH,RSTOS0,S1,S2,
+        :       :       :        S3}: neptune. (0)
+        :       :       flag in {RSTR,SF,SH}: normal. (18206.9/6234.7)
+        :       :       flag in {REJ,RSTO,S0}:
+        :       :       :...diff_srv_rate <= 0.01: normal. (6863)
+        :       :           diff_srv_rate > 0.01: neptune. (816570.4/609.2)
+        :       diff_srv_rate > 0.13:
+        :       :...dst_host_rerror_rate <= 0:
+        :           :...serror_rate <= 0.59: normal. (55015.9/1862.7)
+        :           :   serror_rate > 0.59: neptune. (3687.6/1075)
+        :           dst_host_rerror_rate > 0:
+        :           :...dst_host_same_src_port_rate <= 0.01:
+        :               :...duration > 1089: normal. (173)
+        :               :   duration <= 1089:
+        :               :   :...diff_srv_rate <= 0.46: neptune. (438.5)
+        :               :       diff_srv_rate > 0.46: satan. (76550.9/127.5)
+        :               dst_host_same_src_port_rate > 0.01:
+        :               :...dst_host_count <= 155: normal. (1312.6)
+        :                   dst_host_count > 155:
+        :                   :...protocol_type in {icmp,
+        :                       :                 tcp}: portsweep. (76284.2)
+        :                       protocol_type = udp: satan. (2172.6)
+        same_srv_rate > 0.32:
+        :...dst_host_srv_serror_rate > 0.3:
+            :...num_failed_logins > 0: guess_passwd. (1110/188.4)
+            :   num_failed_logins <= 0:
+            :   :...hot > 1: warezclient. (1341.3/445.4)
+            :       hot <= 1:
+            :       :...flag in {REJ,RSTO,RSTOS0,RSTR,S1,S2,S3,
+            :           :        SF}: normal. (19319/6990.6)
+            :           flag = S0: neptune. (41591.6/5941.8)
+            :           flag in {OTH,SH}: nmap. (36796.8/1466.5)
+            dst_host_srv_serror_rate <= 0.3:
+            :...protocol_type = icmp:
+                :...src_bytes > 19:
+                :   :...src_bytes > 351: smurf. (339563.5/3961.4)
+                :   :   src_bytes <= 351:
+                :   :   :...src_bytes <= 25: satan. (8395.3/1093.8)
+                :   :       src_bytes > 25:
+                :   :       :...dst_host_diff_srv_rate <= 0.49: normal. (58978.1)
+                :   :           dst_host_diff_srv_rate > 0.49: satan. (3394.6/921.6)
+                :   src_bytes <= 19:
+                :   :...dst_host_rerror_rate > 0: portsweep. (1239.5/293.3)
+                :       dst_host_rerror_rate <= 0:
+                :       :...dst_host_srv_diff_host_rate > 0.45: ipsweep. (63302.6)
+                :           dst_host_srv_diff_host_rate <= 0.45:
+                :           :...src_bytes > 13: ipsweep. (8025.5)
+                :               src_bytes <= 13:
+                :               :...dst_host_srv_count <= 5: ipsweep. (21918.5/10364.5)
+                :                   dst_host_srv_count > 5: nmap. (36904)
+                protocol_type in {tcp,udp}:
+                :...dst_host_diff_srv_rate > 0.99:
+                    :...urgent > 0: ftp_write. (426)
+                    :   urgent <= 0:
+                    :   :...dst_host_count <= 163: ipsweep. (41943.4/15943.5)
+                    :       dst_host_count > 163: portsweep. (32337.9/754.2)
+                    dst_host_diff_srv_rate <= 0.99:
+                    :...num_failed_logins > 0: guess_passwd. (21703.2/13457.9)
+                        num_failed_logins <= 0:
+                        :...num_file_creations > 0: normal. (29425.2/16473.2)
+                            num_file_creations <= 0:
+                            :...src_bytes <= 6:
+                                :...protocol_type = udp: satan. (35266.8/2329.8)
+                                :   protocol_type = tcp:
+                                :   :...flag in {OTH,RSTOS0,
+                                :       :        RSTR}: portsweep. (41556.9/1145.2)
+                                :       flag in {REJ,RSTO,S0,S1,S2,S3,SF,SH}: [S1]
+                                src_bytes > 6:
+                                :...hot > 25: warezclient. (41609.4/17523.4)
+                                    hot <= 25: [S2]
+
+SubTree [S1]
+
+root_shell > 0: buffer_overflow. (4321.8/2180)
+root_shell <= 0:
+:...service in {aol,auth,csnet_ns,daytime,domain,domain_u,echo,eco_i,ecr_i,efs,
+    :           finger,ftp,ftp_data,harvest,http,http_2784,http_443,http_8001,
+    :           IRC,klogin,link,login,mtp,name,netbios_ns,nnsp,ntp_u,other,
+    :           pm_dump,pop_3,printer,red_i,remote_job,shell,smtp,sql_net,ssh,
+    :           systat,telnet,tftp_u,tim_i,time,urh_i,urp_i,vmnet,X11,
+    :           Z39_50}: normal. (264393.2/29933.5)
+    service in {bgp,courier,ctf,discard,exec,gopher,hostnames,imap4,iso_tsap,
+                kshell,ldap,netbios_dgm,netbios_ssn,netstat,nntp,pop_2,private,
+                rje,sunrpc,supdup,uucp,uucp_path,
+                whois}: portsweep. (19015.8/6987.8)
+
+SubTree [S2]
+
+service in {aol,bgp,courier,csnet_ns,ctf,daytime,discard,echo,eco_i,ecr_i,efs,
+:           exec,gopher,harvest,hostnames,http_2784,http_443,http_8001,
+:           iso_tsap,klogin,kshell,ldap,link,login,mtp,name,netbios_dgm,
+:           netbios_ns,netbios_ssn,netstat,nnsp,nntp,pop_2,printer,red_i,
+:           remote_job,rje,sql_net,sunrpc,supdup,systat,tftp_u,tim_i,time,
+:           urh_i,urp_i,uucp,uucp_path,vmnet,whois,
+:           Z39_50}: portsweep. (99.3)
+service = ftp_data:
+:...duration > 3: warezclient. (9407.7/2078.9)
+:   duration <= 3:
+:   :...src_bytes > 353: normal. (123989.6/1449.3)
+:       src_bytes <= 353:
+:       :...src_bytes <= 326: normal. (83767.2/6853)
+:           src_bytes > 326: warezclient. (43988/1418.7)
+service in {auth,domain,domain_u,finger,ftp,http,imap4,IRC,ntp_u,other,pm_dump,
+:           pop_3,private,shell,smtp,ssh,telnet,X11}:
+:...dst_host_serror_rate > 0.03: normal. (21675.8/2987.7)
+    dst_host_serror_rate <= 0.03:
+    :...dst_bytes <= 0:
+        :...hot > 0: warezclient. (2514/1011.7)
+        :   hot <= 0:
+        :   :...dst_host_srv_diff_host_rate > 0.19: normal. (2973/1205.9)
+        :       dst_host_srv_diff_host_rate <= 0.19:
+        :       :...src_bytes <= 206: normal. (186873.4/7064.3)
+        :           src_bytes > 206: nmap. (17681.1/8717.6)
+        dst_bytes > 0:
+        :...src_bytes > 1179:
+            :...dst_host_srv_count <= 251: normal. (112071.3/10685.2)
+            :   dst_host_srv_count > 251: back. (9551.6/323)
+            src_bytes <= 1179:
+            :...service in {auth,domain,domain_u,ftp,http,imap4,IRC,ntp_u,
+                :           other,pop_3,private,shell,smtp,ssh,telnet,
+                :           X11}: normal. (1674209.5/5890.1)
+                service = pm_dump: satan. (824.3)
+                service = finger:
+                :...srv_count <= 2: normal. (225470.5)
+                    srv_count > 2: satan. (7585.8/629.3)
+
+-----  Trial 9:  -----
+
+Decision tree:
+
+wrong_fragment > 0:
+:...protocol_type in {icmp,tcp}: pod. (144304.4)
+:   protocol_type = udp: teardrop. (22715.6)
+wrong_fragment <= 0:
+:...src_bytes <= 5:
+    :...num_compromised > 1: rootkit. (2694.7/81.2)
+    :   num_compromised <= 1:
+    :   :...protocol_type = icmp: neptune. (0)
+    :       protocol_type = udp:
+    :       :...dst_host_same_srv_rate <= 0.91: satan. (299063/277.1)
+    :       :   dst_host_same_srv_rate > 0.91: rootkit. (3082.1)
+    :       protocol_type = tcp:
+    :       :...dst_host_same_srv_rate > 0.49:
+    :           :...diff_srv_rate > 0.02: loadmodule. (9015.8/4615.1)
+    :           :   diff_srv_rate <= 0.02:
+    :           :   :...service in {finger,http,IRC,other,private,smtp,
+    :           :       :           time}: normal. (151672.9/1022.6)
+    :           :       service = imap4: imap. (7118.2)
+    :           :       service = telnet: neptune. (1439/150.1)
+    :           :       service in {aol,auth,bgp,courier,csnet_ns,ctf,daytime,
+    :           :                   discard,domain,domain_u,echo,eco_i,ecr_i,
+    :           :                   efs,exec,ftp,ftp_data,gopher,harvest,
+    :           :                   hostnames,http_2784,http_443,http_8001,
+    :           :                   iso_tsap,klogin,kshell,ldap,link,login,mtp,
+    :           :                   name,netbios_dgm,netbios_ns,netbios_ssn,
+    :           :                   netstat,nnsp,nntp,ntp_u,pm_dump,pop_2,
+    :           :                   pop_3,printer,red_i,remote_job,rje,shell,
+    :           :                   sql_net,ssh,sunrpc,supdup,systat,tftp_u,
+    :           :                   tim_i,urh_i,urp_i,uucp,uucp_path,vmnet,
+    :           :                   whois,X11,
+    :           :                   Z39_50}: ipsweep. (29609.7/17988.9)
+    :           dst_host_same_srv_rate <= 0.49:
+    :           :...land > 0: land. (1700.1)
+    :               land <= 0:
+    :               :...dst_host_same_src_port_rate > 0.06:
+    :                   :...dst_host_rerror_rate <= 0.01: nmap. (33517.3/2205.6)
+    :                   :   dst_host_rerror_rate > 0.01:
+    :                   :   :...dst_host_count <= 33: ipsweep. (5273.4/666.4)
+    :                   :       dst_host_count > 33: portsweep. (124995.9)
+    :                   dst_host_same_src_port_rate <= 0.06:
+    :                   :...dst_host_diff_srv_rate > 0.3:
+    :                       :...dst_host_count <= 91: ipsweep. (14633.9/3.2)
+    :                       :   dst_host_count > 91:
+    :                       :   :...dst_host_rerror_rate <= 0.05: normal. (2054.6)
+    :                       :       dst_host_rerror_rate > 0.05: [S1]
+    :                       dst_host_diff_srv_rate <= 0.3:
+    :                       :...dst_bytes > 6: normal. (13526.1)
+    :                           dst_bytes <= 6:
+    :                           :...diff_srv_rate > 0.43: portsweep. (32632.3/17256.1)
+    :                               diff_srv_rate <= 0.43:
+    :                               :...src_bytes > 0: satan. (659.8/18.2)
+    :                                   src_bytes <= 0:
+    :                                   :...duration > 0: portsweep. (2007.6/424.4)
+    :                                       duration <= 0:
+    :                                       :...count <= 3: normal. (33234.8/19225.8)
+    :                                           count > 3: neptune. (713157.8/194.6)
+    src_bytes > 5:
+    :...service in {aol,bgp,courier,csnet_ns,ctf,echo,efs,exec,harvest,
+        :           hostnames,http_2784,http_443,http_8001,iso_tsap,klogin,
+        :           kshell,ldap,link,mtp,name,netbios_dgm,netbios_ns,
+        :           netbios_ssn,netstat,nnsp,remote_job,rje,sql_net,sunrpc,
+        :           supdup,systat,tftp_u,uucp,uucp_path,vmnet,whois,
+        :           Z39_50}: satan. (1)
+        service in {daytime,discard,eco_i,ecr_i,gopher,imap4,login,nntp,
+        :           pm_dump,pop_2,printer,tim_i,time}:
+        :...urgent > 0: ftp_write. (1949.8)
+        :   urgent <= 0:
+        :   :...dst_host_srv_serror_rate > 0.2: imap. (3885.5/3.3)
+        :       dst_host_srv_serror_rate <= 0.2:
+        :       :...src_bytes > 19:
+        :           :...srv_rerror_rate > 0.5: portsweep. (76.2)
+        :           :   srv_rerror_rate <= 0.5:
+        :           :   :...src_bytes <= 305: normal. (33605.6/6143.1)
+        :           :       src_bytes > 305: smurf. (264458.4/6749.4)
+        :           src_bytes <= 19:
+        :           :...dst_host_count > 107: satan. (5020.9/726.7)
+        :               dst_host_count <= 107:
+        :               :...dst_host_srv_diff_host_rate > 0.45: ipsweep. (50839.7)
+        :                   dst_host_srv_diff_host_rate <= 0.45:
+        :                   :...src_bytes <= 13: nmap. (55443.2/2831.6)
+        :                       src_bytes > 13: ipsweep. (8820.7)
+        service in {auth,domain,domain_u,finger,ftp,ftp_data,http,IRC,ntp_u,
+        :           other,pop_3,private,red_i,shell,smtp,ssh,telnet,urh_i,
+        :           urp_i,X11}:
+        :...src_bytes > 26093:
+            :...service in {auth,domain,domain_u,ntp_u,pop_3,red_i,ssh,urh_i,
+            :   :           urp_i}: back. (0)
+            :   service = http:
+            :   :...dst_host_same_srv_rate <= 0.97: normal. (639.4)
+            :   :   dst_host_same_srv_rate > 0.97: back. (74040.3)
+            :   service in {finger,ftp,ftp_data,IRC,other,private,shell,smtp,
+            :   :           telnet,X11}:
+            :   :...hot > 1: warezclient. (2327.7)
+            :       hot <= 1:
+            :       :...duration > 10123: portsweep. (4095.9)
+            :           duration <= 10123:
+            :           :...count <= 41: normal. (53431.4/728)
+            :               count > 41: portsweep. (498.3)
+            src_bytes <= 26093:
+            :...dst_host_serror_rate > 0.03:
+                :...dst_host_rerror_rate > 0.65: guess_passwd. (7708.4/425.2)
+                :   dst_host_rerror_rate <= 0.65:
+                :   :...hot <= 2: normal. (39260.8/6225.5)
+                :       hot > 2: warezclient. (17372.2/1717.5)
+                dst_host_serror_rate <= 0.03:
+                :...num_failed_logins > 4: guess_passwd. (823.8)
+                    num_failed_logins <= 4:
+                    :...service in {auth,domain,domain_u,finger,http,IRC,ntp_u,
+                        :           other,pop_3,private,red_i,shell,smtp,ssh,
+                        :           telnet,urh_i,urp_i,X11}:
+                        :...rerror_rate > 0.99: normal. (18669.5/2056.4)
+                        :   rerror_rate <= 0.99:
+                        :   :...dst_host_rerror_rate > 0.1:
+                        :       :...dst_host_rerror_rate > 0.99: portsweep. (2124.8/188.8)
+                        :       :   dst_host_rerror_rate <= 0.99:
+                        :       :   :...dst_host_count <= 175: normal. (69032.6/833.8)
+                        :       :       dst_host_count > 175: satan. (26036.1/12771.9)
+                        :       dst_host_rerror_rate <= 0.1:
+                        :       :...dst_bytes > 32: normal. (1568080.6/14740.1)
+                        :           dst_bytes <= 32:
+                        :           :...service in {auth,domain,domain_u,http,
+                        :               :           IRC,ntp_u,other,pop_3,
+                        :               :           red_i,shell,smtp,ssh,
+                        :               :           telnet,urh_i,urp_i,
+                        :               :           X11}: normal. (251017.4/4431.5)
+                        :               service = finger: satan. (10918.1/3166.8)
+                        :               service = private: [S2]
+                        service in {ftp,ftp_data}:
+                        :...dst_host_same_src_port_rate <= 0.84:
+                            :...duration > 11190: warezclient. (6956.7)
+                            :   duration <= 11190:
+                            :   :...duration > 13: normal. (253113.9)
+                            :       duration <= 13:
+                            :       :...hot > 25: warezclient. (17572.1)
+                            :           hot <= 25:
+                            :           :...duration <= 9: normal. (182242.2/11059.3)
+                            :               duration > 9: warezclient. (1760.1/557.2)
+                            dst_host_same_src_port_rate > 0.84:
+                            :...logged_in <= 0: normal. (4975.6/1974)
+                                logged_in > 0:
+                                :...count > 2: normal. (3735.6)
+                                    count <= 2:
+                                    :...is_guest_login > 0: ftp_write. (7213.3/2159.3)
+                                        is_guest_login <= 0:
+                                        :...num_root > 0: normal. (1538.6)
+                                            num_root <= 0: [S3]
+
+SubTree [S1]
+
+dst_host_srv_diff_host_rate <= 0.01: satan. (54105.3/0.1)
+dst_host_srv_diff_host_rate > 0.01: normal. (910.6/38.6)
+
+SubTree [S2]
+
+dst_host_same_src_port_rate <= 0.16: normal. (75641)
+dst_host_same_src_port_rate > 0.16: nmap. (20224.9/4559)
+
+SubTree [S3]
+
+dst_host_srv_count <= 53: warezclient. (48352.3/4033.3)
+dst_host_srv_count > 53: normal. (1628.4/111.2)
+
+
+Evaluation on training data (4898431 cases):
+
+Trial	    Decision Tree   
+-----	  ----------------  
+	  Size      Errors  
+
+   0	   139  432( 0.0%)
+   1	    57 60481( 1.2%)
+   2	    61 50924( 1.0%)
+   3	    65 10906( 0.2%)
+   4	    72 9438( 0.2%)
+   5	    61 7021( 0.1%)
+   6	    85 202506( 4.1%)
+   7	    73 26100( 0.5%)
+   8	    58 2368( 0.0%)
+   9	    64 4587( 0.1%)
+boost	        319( 0.0%)   <<
+
+
+	  Class               Cases    False    False
+	                                 Pos      Neg
+	  -----               -----    -----    -----
+	  back.                2203        0       12
+	  buffer_overflow.       30        3       26
+	  ftp_write.              8        0        3
+	  guess_passwd.          53        0        1
+	  imap.                  12        0        1
+	  ipsweep.            12481        3       59
+	  land.                  21        0       17
+	  loadmodule.             9        0        7
+	  multihop.               7        0        7
+	  neptune.          1072017        1        1
+	  nmap.                2316       54       27
+	  normal.            972781      229       26
+	  perl.                   3        0        3
+	  phf.                    4        0        4
+	  pod.                  264        6        0
+	  portsweep.          10413        1       15
+	  rootkit.               10        0        7
+	  satan.              15892       20       37
+	  smurf.            2807886        0        0
+	  spy.                    2        0        2
+	  teardrop.             979        0        0
+	  warezclient.         1020        2       45
+	  warezmaster.           20        0       19
+
+
+	Attribute usage:
+
+	100.00%	service
+	100.00%	src_bytes
+	100.00%	wrong_fragment
+	100.00%	srv_count
+	 99.97%	num_compromised
+	 99.97%	same_srv_rate
+	 99.97%	dst_host_serror_rate
+	 99.97%	land
+	 99.97%	count
+	 99.94%	protocol_type
+	 99.86%	num_file_creations
+	 82.44%	num_failed_logins
+	 82.19%	dst_host_srv_serror_rate
+	 82.13%	urgent
+	 81.36%	diff_srv_rate
+	 77.03%	srv_serror_rate
+	 58.52%	srv_rerror_rate
+	 42.72%	su_attempted
+	 42.67%	flag
+	 42.45%	dst_host_diff_srv_rate
+	 42.34%	dst_host_srv_diff_host_rate
+	 42.09%	dst_host_same_src_port_rate
+	 41.87%	dst_host_srv_rerror_rate
+	 41.74%	dst_bytes
+	 41.56%	dst_host_rerror_rate
+	 40.64%	duration
+	 37.49%	dst_host_srv_count
+	 25.55%	root_shell
+	 25.22%	dst_host_same_srv_rate
+	 24.85%	hot
+	 24.65%	dst_host_count
+	 23.95%	num_access_files
+	 22.15%	srv_diff_host_rate
+	 21.43%	rerror_rate
+	 18.00%	is_guest_login
+	 17.12%	num_root
+	 16.80%	num_shells
+	  2.69%	logged_in
+	  0.52%	serror_rate
+
+
+Time: 1443.6 secs
+

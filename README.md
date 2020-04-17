@@ -4,7 +4,7 @@ Python scripts to allow the generation of network data from virtual machines, th
 ## Prerequisites
 You must have packer installed to run anything in ```generate``` command. This can be downloaded [from here](https://packer.io/downloads.html).
 
-Once packer is installed you must have 2 virtualbox ova files. These are preconfigured virtual machines which can be exported from VirtualBox following [these instructions](https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html). You must either create an attack machine (Kali was used in testing) and a target machine (a Windows 7 machine was used in testing). Alternativly the testing machines used can be downloaded 
+Once packer is installed you must have 2 virtualbox ova files. These are preconfigured virtual machines which can be exported from VirtualBox following [these instructions](https://docs.oracle.com/cd/E26217_01/E26796/html/qs-import-vm.html). You must either create an attack machine (Kali was used in testing) and a target machine (a Windows 7 machine was used in testing). Alternativly the testing machines used can be downloaded from https://www.icloud.com/iclouddrive/0ECcrVk-NVLSsMuSBXuWJajtQ#virtual-machines
 
 If you are using Ubuntu linux then you can install virtualbox and Packer by running
 ```
@@ -17,6 +17,12 @@ Finally to install depandancies run:
 
 ```
 sudo python3 setup.py install
+```
+
+If you are using Linux then the system must be able to read network data without using sudo, this can be achieved by running these two commands
+```
+    setcap cap_net_raw=eip /usr/bin/pythonX.X (python version)
+    setcap cap_net_raw=eip /usr/bin/tcpdump
 ```
 
 ## Usage
@@ -46,7 +52,7 @@ Next alter the config file:
 Once an attack has been made and the config file altered correctly then you can use
 
 ```
-    sudo ./geranium.py generate synflood <path/to/synflood_attack.sh>
+    ./geranium.py generate synflood <path/to/synflood_attack.sh>
 ```
 This will run for the alloted time as defined in the config file and will generate a CSV with features as defined in ``` data_processing/data_parser.py```.
 
@@ -77,7 +83,7 @@ First alter the config file:
 Then you can process, for the synflood example above:
 
 ```
-    sudo ./geranium.py process synflood <path/to/synflood_network_data>
+    ./geranium.py process synflood <path/to/synflood_network_data>
 ```
 
 This part requires both pyshark and pandas
@@ -96,7 +102,7 @@ To generate a decision tree from the data, first alter the config file:
 From here a decision tree model can be generated using:
 
 ```
-    sudo ./geranium.py model <path/to/dataset>
+    ./geranium.py model <path/to/dataset>
 ```
 
 ### IDS
