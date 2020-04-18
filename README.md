@@ -25,7 +25,7 @@ Once packer is installed you must have 2 virtualbox ova files. These are pre-con
 
 #### Testing Machines
 
-The testing virtual machines can be found at https://www.icloud.com/iclouddrive/0mBc558CSjw7Cc2HFCMCjnbQw#virtual-machines. If the gateway ip to your network is not 192.168.0.1 then you may need to change the IP addresses of the virtual machines.
+The testing virtual machines can be found at https://www.icloud.com/iclouddrive/0mBc558CSjw7Cc2HFCMCjnbQw#virtual-machines. If the gateway IP to your network is not 192.168.0.1 then you may need to change the IP addresses of the virtual machines.
 
 __Attack__ - For Kali Linux the static IP can be changed from the command line. First the file ```/etc/network/interfaces``` needs to be altered. Inside that file these lines were added
 ```
@@ -34,7 +34,7 @@ __Attack__ - For Kali Linux the static IP can be changed from the command line. 
     address 192.168.0.14/24
     gateway 192.168.0.1
 ```
-This alters the ip address of the ```eth0``` interface to 192.168.0.14, the ip address which will identify the attack machine. Once this alteration has been made the networking service must be restarted.
+This alters the IP address of the ```eth0``` interface to 192.168.0.14, the IP address which will identify the attack machine. Once this alteration has been made the networking service must be restarted.
 ```
     sudo systemctl restart networking.service
 ```
