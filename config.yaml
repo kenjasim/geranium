@@ -3,7 +3,7 @@ data-generation:
     #Packer executable path
     executable_path: /usr/local/bin/packer 
     #Time in seconds to run the generation
-    time: 600 
+    time: 600
     #Location of attack machine
     attack_machine_path: data_generation/virtual-machines/attack.ova 
     #Location of target machine
@@ -11,7 +11,7 @@ data-generation:
     #Attack machine ssh username
     attack_username: root
     #Attack machine ssh password
-    attack_password: yeet
+    attack_password: pass
     #Attack machine IP
     attack_ip: "192.168.0.14"
     # IP of target machine to filter from
