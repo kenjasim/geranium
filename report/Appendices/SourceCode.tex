@@ -1,0 +1,98 @@
+\chapter{Source Code}
+\localtableofcontents
+\newpage
+\section{Directory Tree}
+\dirtree{%
+.1 geranium.
+.2 data\_generation.
+.3 attacks.
+.4 synflood.sh.
+.4 udpflood.sh.
+.4 finflood.sh.
+.4 pshackflood.sh.
+.3 traffic-gen.
+.3 virtual-machines.
+.3 datagen.py.
+.3 \_\_init\_\_.py.
+.2 data\_processing.
+.3 data\_parser.py.
+.3 data\_processor.py.
+.3 \_\_init\_\_.py.
+.2 data\_modeling.
+.3 data\_modeling.py.
+.3 \_\_init\_\_.py.
+.2 intrusion\_detection.
+.3 ids.py.
+.3 \_\_init\_\_.py.
+.2 geranium.py.
+.2 config.yaml.
+.2 setup.py.
+.2 install\_linux.sh.
+.2 requirements.txt.
+.2 README.md.
+.2 test.py
+}
+\newpage
+\chapter*{Originality Avowal}
+I verify that I am the sole author of the programs contained in this folder, except where explicitly stated to the contrary.
+            \begin{flushright}
+        		      \normalsize{Kenan-Ali Jasim}\\*
+		      \normalsize{\today}\\*
+		      %\normalsize{Word count: \@wordCount}
+  		\end{flushright}
+\newpage
+\section{Geranium}
+\subsection{gerainum.py}
+\lstinputlisting[language=Python]{Code/geranium.py}
+\subsection{setup.py}
+\lstinputlisting[language=Python]{Code/setup.py}
+\subsection{config.yaml}\label{app:conf}
+\lstinputlisting{Code/config.yaml}
+\subsection{test.py}
+\lstinputlisting[language=Python]{Code/test.py}
+\subsection{install\_linux.sh}
+\lstinputlisting[language=Python]{Code/installlinux.sh}
+\section{Data Generation}
+\subsection{datagen.py}
+\lstinputlisting[language=Python]{Code/datagen.py}
+\subsection{\_\_init\_\_.py}
+\lstinputlisting[language=Python]{Code/datageninit.py}
+\subsection{attacks/synflood.sh}
+\lstinputlisting[language=Shell]{Code/synflood.sh}
+\subsection{attacks/synflood\_one.sh}
+\lstinputlisting[language=Shell]{Code/synfloodone.sh}
+\subsection{attacks/udpflood.sh}
+\lstinputlisting[language=Shell]{Code/udpflood.sh}
+\subsection{attacks/pshackflood.sh}
+\lstinputlisting[language=Shell]{Code/pshackflood.sh}
+\subsection{attacks/finflood.sh}
+\lstinputlisting[language=Shell]{Code/finflood.sh}
+\subsection{traffic-gen}
+All code contained in the traffic-gen belongs to Github user ecapuano at \url{https://github.com/ecapuano/web-traffic-generator} and has been used according to the licence supplied which states:
+
+"Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:"
+
+\section{Data Processing}
+\subsection{data\_parser.py}
+\lstinputlisting[language=Python]{Code/dataparser.py}
+\subsection{data\_processor.py}
+\lstinputlisting[language=Python]{Code/dataprocessor.py}
+\subsection{\_\_init\_\_.py}
+\lstinputlisting[language=Python]{Code/dataprocinit.py}
+
+\section{Data Modeling}
+\subsection{data\_modeling.py}
+\lstinputlisting[language=Python]{Code/datamodeling.py}
+\subsection{\_\_init\_\_.py}
+\lstinputlisting[language=Python]{Code/modinit.py}
+
+\section{Intrusion Detection}
+\subsection{ids.py}
+\lstinputlisting[language=Python]{Code/ids.py}
+\subsection{\_\_init\_\_.py}
+\lstinputlisting[language=Python]{Code/idsinit.py}

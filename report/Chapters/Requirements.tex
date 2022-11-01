@@ -1,0 +1,88 @@
+\chapter{Requirements and Specifications}\label{chp:req}
+Requirements define certain items relating to sections of the project which are required to ensure a functioning project. The specifications define what approach the project will take to implement the requirements in the project. 
+
+Each requirement is given an importance level ranging from essential to desirable. Essential requirements must be implemented in the project for the success of the project. Important requirements will ideally be implemented in the project but will not cause the failure of the project if not implemented. Desirable requirements are nice to have but are not required for the success of the project. These requirements will be used later on to test the system to ensure that it functions in the intended way.
+
+\section{System Requirements}
+These requirements define specific sections of the project: namely data generation, data processing and data modelling. The requirements are coded. OS define requirements which relate to the overall system, DG define requirements which relate to the data generation section of the project, DP define requirements related to data processing and DM define requirements related to data modelling. 
+
+\begin{tabularx}{\textwidth}{|c|X|X|c|}
+ \caption{System Specifications}
+ \label{table:req}\\
+ \hline
+ \textbf{Code}& \textbf{Requirement Details}&\textbf{Specification} &\textbf{Importance}\\
+ \hline
+ OS.1 & The system should automatically generate a virtualised network and simulate an attack & The project will use packer will be used in conjunction with a user defined virtual machine image to automatically generate the virtual machines & Essential\\
+ \hline
+ OS.2 & The system should collect the data from the simulated attack, the program should extract the relevant features and process the data into a dataset & This will be done by collecting the network packets with wireshark automatically when the virtual machines launch to collect the network data from the attacks & Essential\\
+ \hline
+ OS.3 & The system should train a decision tree model to differentiate between different DoS attacks & This will be implemented by using the scikit learn library CART classifier & Essential\\
+ \hline
+ OS.4 & The system should allow users to write their own attacks and to run them in the virtual network & This will be done by changing the packer scripts to use the attack the user wrote. & Essential \\
+ \hline
+ OS.5 & The system should allow the user to implement their own versions of each section to meet their requirements & This can be implemented by supplying the source code and writing the code in swappable modules can allow the user to alter the program as required & Important\\ 
+ \hline
+ DG.1 & The program must be able to automatically import 2 or more virtual machines from images, power on the virtual machines and run programs on each virtual machine. & This can be implemented by running 2 packer build commands simultaneously, via threads, to launch an attack machine and a target machine & Essential\\
+ \hline
+ DG.2 & The virtual machines must connect to the same network and be accessible to both the host computer and each other & This can be achieved by bridging the network connections as seen in Figure \ref{fig:vnd} & Essential\\
+ \hline
+ DG.3 & The virtual machines must power off after it finishes the data collection and they must delete themselves and their files. & This should be achieved by Packer, however a command running on exit can clear out the virtual machines & Important\\
+ \hline
+ DG.4 & The virtual machines must have the same IP address, they can be later identified from these IP address & This can be done via the OS of each virtual machine & Essential\\
+ \hline
+ DG.5 & The program must collect the network data which moves between the virtual machines & This will be done via Wireshark & Essential \\
+ \hline
+ DG.6 & The capture should run only when the attack starts and must stop when the attack finishes & This can be done by starting the network capture when the attack machine is up. This can be ascertained by pinging the static IP address & Essential \\
+ \hline
+ DG.7 & The program must also simulate normal network data and collect this data & This will be done by using the web-traffic-generator & Essential\\
+ \hline
+ DG.8 & The network packets must be saved to a file with a readable name & This will be done by specifying an output file name in wireshark & Essential \\
+ \hline
+ DP.1 & The network packets need to be read from section \ref{sec:datagen}. & This will be done using pyshark & Essential \\
+ \hline
+ DP.2 & The initial features, as in Table \ref{table:features_init} need to be extracted from the network data. & This will be done by looping through the capture object defined by pyshark as in Listing \ref{code:pyshrk} & Essential \\
+ \hline
+ DP.3 & The packets need to be collated per second and the features, as in Table \ref{table:features}, need to be extracted & The project will do this by first converting the packets to a pandas dataframe. Then the dataframes will be split into one second dataframes and collated using pandas & Essential\\
+ \hline
+ DP.4 & The packets need to be saved to a comma separated value (CSV) which will contain all the threats. & This can be done by writing the lines generated by the dataframes to a CSV using pythons native file writer & Essential\\
+ \hline
+ DM.1 & A model must be trained by data which was generated from the virtual machines & This will be done with scikit-learn & Essential\\
+ \hline
+ DM.2 & The model should be able to predict attacks with a >90\% accuracy. This is due to the KD99 dataset generating >90\% accuracy models \cite{SANGKATSANEE20112227} \cite{Peddabachigari} \cite{bouzida}. & This should be done with a large amount of well processed data from the virtual machines & Important\\
+ \hline
+ DM.3 & The model should have a high amount of true positives and a small amount of false positives, a common issue in anomaly intrusion detection is a high level of false positives. & This can again be done by generating a large amount of data and by processing the data well & Important\\
+ \hline
+ \end{tabularx}
+\section{Other Requirements}
+Other requirements refer to less direct requirements of the project, these include: reliability, usability, programming practice and performance targets. 
+\begin{tabularx}{\textwidth}{|c|X|X|c|}
+\caption{Other Specifications}
+\label{table:othreq}\\
+\hline
+\textbf{Code}& \textbf{Requirement Details}&\textbf{Specification} &\textbf{Importance}\\
+\hline
+ RE.1 & The project should run without error & This can be done by following good programming practice and by testing the code & Essential\\ 
+ \hline
+ RE.2 & Each section of the project should run without error independently & This can be achieved through RE.1 but also by testing each component independently & Important\\
+ \hline
+ PP.1 & The project should follow good programming practice & The code must be readable, simple, have a consistent indentation and have consistent naming conventions. This will be done as I write the code \cite{pp} & Desirable\\
+ \hline
+ PP.2 & The project should be well commented/documented & This can be achieved by commenting the code as it is written and by using the google documentation style & Desirable \\
+ \hline
+ PP.3 & The project should contain modular code so that each section of the code may be used/altered to the user & This can be achieved by ensuring each section is written independently but can be interconnected together & Important \\ 
+ \hline
+ PP.4 & The project must be of the highest professional and ethical standards as set out by the British Computer Society code of conduct \cite{bcs} & The project will aim to follow the British Computer Society code of conduct \cite{bcs} & Important\\
+ \hline
+ UP.1 & The program should be straightforward to use & This will be done by creating simple terminal commands to run the project as is & Desirable \\
+ \hline
+ UP.2 & The user should be able to use the system for their own uses with no need to understand how the code was implemented & This can be done by ensuring well modulated code and good documentation & Desirable \\
+ \hline
+ UP.3 & The project should not require special hardware to run, however may require a base spec to run sufficiently well. & This should be achieved with the current design as both packer and Virtualbox can run on most specifications but may need a minimum of 4GB of RAM to run appropriately & Important\\
+ \hline
+ UP.4 & The process of data generation should be automated and should not require the user’s input & This will be achieved by coding the actions to automate the running of the project & Important\\
+ \hline
+ UP.5 & The project should run at a reasonable speed and not cause the system to crash & This can be achieved by keeping the code simple & Important\\
+ \hline
+ UP.6 & The project should run on Windows, Mac and Unix Systems & The software used is open source and can run on all these systems & Desirable\\
+ \hline
+\end{tabularx}

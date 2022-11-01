@@ -1,0 +1,36 @@
+\chapter{Introduction}
+Security has always been of utmost concern since the Internet first became widely adopted in 1991 \cite{www}. Bob Thomas wrote the first ‘cybersecuirty’ threat in 1971 \cite{compvir}. The creeper worm was a virus designed to replicate itself on mainframe computers over the Internet. Since then, cybersecurity threats have become more sophisticated with governments waging wars over the Internet. Because of this, cybersecurity is now essential for safeguarding sensitive computer systems.
+
+With the greater sophistication of network security threats, there needs to be more sophisticated tools at hand to counteract these threats. For a long time, a firewall was the only tool available for networks to remain secure, this however does not protect networks from threats entering open ports. 
+
+Intrusion detection systems are pieces of software that run on a network and monitor activity. It focuses on two types of detection: Signature Based Detection and Anomaly Based Detection. Signature-based IDS refers to the detection of attacks by looking for specific patterns, such as byte sequences in network traffic. Threats which are unique can evade signature based detection.
+
+The problem with this is that they are poor at identifying and classifying novel attacks, they can either tell you if you are being attacked and if the attack is known. “An attack need not be advanced or highly sophisticated to bypass most enterprise security defences. It just needs to be unique” \cite{avetco}.
+
+A novel approach to IDS involves anomaly-based detection, leveraging recent advancements in Data Mining and Machine Learning to profile normal behaviour and then detect anomalies/indicators of compromise. Typically, this is implemented using algorithms such as k-nearest neighbour or fuzzy logic). 
+
+A very large problem in the cybersecurity world is the unavailability of reliable and recent data, data mining techniques can only be as successful as the data which it has to work with. The best and most reliable data set, which is widely available, is the KDD99 data set \cite{kd99ds}, which is based on the DARP98 dataset and comprises processed and labelled network data. The issue with this dataset is that it is over 20 years old, making it a poor representation of the cybersecurity threats are of the highest concern now. 
+
+For this reason, it is necessary to create a dataset to train the intrusion detection system. Attacking a target virtual machine generates network data that is collected and processed to form a dataset. Scripts are therefore needed to generate the virtual machines, attack the target machine, collect network data, and process said data.
+
+The background will outline the project, its aims and motivations along with the research contributions made. The requirements and design will develop more specific requirements for the project to abide by and will design a system around it. The implementation chapter will detail the development of the project along with any issues experienced during implementation. The testing and evaluation sections will review the project and the conclusion section will suggest future work.
+
+\section{Aims}
+The project aims to develop a program able to automatically generate a virtualised network. A user should be able to write attack scripts to run on this virtualised network to generate attack data, which shall be used to build a personalised dataset. This personalised dataset will train a classifier which can be used in anomaly based intrusion detection.
+
+The project will aim to package the program into a simple command based interface to be utilised by the user, they will not require high-level technical knowledge to generate a model. The system will utilise a pre-configured virtualised network for testing.
+
+\section{Scope}
+The cybersecurity and machine learning domains are broad fields which contain a sizeable amount of overlapping sections. To ensure that the project has the best chance of success the scope must be clearly defined, this ensures that the project will stay on track and not roam into areas which are not related. 
+
+The project will focus on automating virtual networks and creating network data from this network. The project will not aim to develop novel attacks to utilise on this network. The sole aim of the project is to create the framework to be able to generate network data not to generate novel network attacks. Instead the utilisation of third-party software such as Metasploit will form the attack suite for this project.
+
+The project will also test the generated dataset from a machine learning model. This will involve the utilisation of third-party machine learning algorithms and the generated dataset to create a model. The project will not aim to redevelop a machine learning module as the modules available are sufficient for the application.
+
+\section{Own Research Contributions}
+
+This project aim is to utilise virtual networks to provide an automated way of creating reliable datasets to train the model. This involves automating the creation of a virtual network, attacking the network with the required suite of threats and collecting the network data. Network administrators can generate sizeable amounts of data on a particular threat and use this data to strengthen their intrusion detection system. The project utilizes Packer, an open source tool created to automate the creation of virtual machine images. The virtualised network allows devices to communicate between each other. 
+
+User written attack scripts are then run on the virtualised network through Packer, which allows the user to specify the attacks which they require in network data generation. The program also includes the ability to generate normal data as any anomaly based intrusion detection system must involve first modelling normal network behaviour.
+
+Decision trees work by categorising data by moving down a tree and applying tests to the data to determine which branch is appropriate. Then the tree is split, recursively, until either there are no features to split by, no more data left or it can make a classification. It will return a class in all cases. The current state of both data sets and IDS in the cybersecurity world are miles behind the constant evolution of threats, creating a system where generated data for threats contribute to building a stronger intrusion detection system can allow a quicker response by cybersecurity tools. The sklearn library trains a decision tree classifier using the dataset generated from the virtualised network. Decision trees would be new for intrusion detection systems, with most signature detection implemented by scanning network data and matching signatures with data to classify threats, most anomaly detection implemented by K-nearest-neighbour or a neural network, and most of the research on decision trees lacking new data to model. 
